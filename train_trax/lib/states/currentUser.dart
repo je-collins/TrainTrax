@@ -29,4 +29,18 @@ class CurrentUser extends ChangeNotifier {
 
     return retVal;
   }
+      
+  Future<String> signUpUser(String email, String password) async {
+    String retVal = "Error";
+
+    try {
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      retVal = "Success!";
+    } catch (e) {
+      retVal = e.toString();
+    }
+
+    return retVal;
+  }
 }
