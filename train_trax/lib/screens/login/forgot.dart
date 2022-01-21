@@ -1,7 +1,7 @@
-import 'package:train_trax/screens/login/local_widgets/loginForm.dart';
+import 'package:train_trax/screens/login/local_widgets/forgotForm.dart';
 import 'package:flutter/material.dart';
 
-class OurLogin extends StatelessWidget {
+class OurForgot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +23,7 @@ class OurLogin extends StatelessWidget {
                 SizedBox(
                   height: 20.0,
                 ),
-                OurLoginForm(),
+                OurForgotForm(),
               ],
             ),
           )

@@ -6,7 +6,7 @@ enum LoginType {
   google,
 }
 
-class OurLoginForm extends StatelessWidget {
+class OurForgotForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShadowContainer(
@@ -15,7 +15,7 @@ class OurLoginForm extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
             child: Text(
-              "Log In",
+              "Forgot Password",
               style: TextStyle(
                 color: Theme.of(context).secondaryHeaderColor,
                 fontSize: 25.0,
@@ -27,21 +27,14 @@ class OurLoginForm extends StatelessWidget {
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.alternate_email), hintText: "Email"),
           ),
-          SizedBox(
-            height: 20.0,
-          ),
-          TextFormField(
-            decoration: InputDecoration(
-                prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
-          ),
-          SizedBox(
-            height: 20.0,
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 5.0),
           ),
           RaisedButton(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 100),
               child: Text(
-                "Login In",
+                "Send Reset Link",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -51,16 +44,6 @@ class OurLoginForm extends StatelessWidget {
             ),
             onPressed: () {},
           ),
-          FlatButton(
-            child: Text("Don't have an account? Sign up here"),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            onPressed: () {},
-          ),
-          FlatButton(
-            child: Text("Forgot Password"),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            onPressed: () {},
-          )
         ],
       ),
     );

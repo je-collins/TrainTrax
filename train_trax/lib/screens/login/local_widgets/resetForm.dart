@@ -6,7 +6,7 @@ enum LoginType {
   google,
 }
 
-class OurLoginForm extends StatelessWidget {
+class OurResetPasswordForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShadowContainer(
@@ -15,7 +15,7 @@ class OurLoginForm extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
             child: Text(
-              "Log In",
+              "Reset Password",
               style: TextStyle(
                 color: Theme.of(context).secondaryHeaderColor,
                 fontSize: 25.0,
@@ -32,7 +32,15 @@ class OurLoginForm extends StatelessWidget {
           ),
           TextFormField(
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
+                prefixIcon: Icon(Icons.lock_outline), hintText: "New Password"),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+                prefixIcon: Icon(Icons.lock_outline),
+                hintText: "Confirm New Password"),
           ),
           SizedBox(
             height: 20.0,
@@ -41,7 +49,7 @@ class OurLoginForm extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 100),
               child: Text(
-                "Login In",
+                "Reset",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -51,16 +59,6 @@ class OurLoginForm extends StatelessWidget {
             ),
             onPressed: () {},
           ),
-          FlatButton(
-            child: Text("Don't have an account? Sign up here"),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            onPressed: () {},
-          ),
-          FlatButton(
-            child: Text("Forgot Password"),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            onPressed: () {},
-          )
         ],
       ),
     );
