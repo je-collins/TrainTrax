@@ -1,4 +1,7 @@
 import 'package:train_trax/widgets/shadowContainer.dart';
+import 'package:train_trax/screens/login/forgot.dart';
+import 'package:train_trax/screens/login/register.dart';
+import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:flutter/material.dart';
 
 enum LoginType {
@@ -49,17 +52,35 @@ class OurLoginForm extends StatelessWidget {
                 ),
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context)=>OurHome(),
+                ),
+              );
+            },
           ),
           FlatButton(
             child: Text("Don't have an account? Sign up here"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context)=>OurRegister(),
+                ),
+              );
+            },
           ),
           FlatButton(
             child: Text("Forgot Password"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context)=>OurForgot(),
+                ),
+              );
+            },
           )
         ],
       ),

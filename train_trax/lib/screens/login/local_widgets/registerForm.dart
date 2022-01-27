@@ -7,7 +7,7 @@ enum LoginType {
   google,
 }
 
-class OurResetPasswordForm extends StatelessWidget {
+class OurRegisterForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ShadowContainer(
@@ -16,13 +16,27 @@ class OurResetPasswordForm extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
             child: Text(
-              "Reset Password",
+              "Regesiter",
               style: TextStyle(
                 color: Theme.of(context).secondaryHeaderColor,
                 fontSize: 25.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+                prefixIcon: Icon(Icons.person), hintText: "Name"),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+                prefixIcon: Icon(Icons.call), hintText: "Phone Number"),
+          ),
+          SizedBox(
+            height: 20.0,
           ),
           TextFormField(
             decoration: InputDecoration(
@@ -33,7 +47,7 @@ class OurResetPasswordForm extends StatelessWidget {
           ),
           TextFormField(
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.lock_outline), hintText: "New Password"),
+                prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
           ),
           SizedBox(
             height: 20.0,
@@ -41,7 +55,7 @@ class OurResetPasswordForm extends StatelessWidget {
           TextFormField(
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.lock_outline),
-                hintText: "Confirm New Password"),
+                hintText: "Confirm Password"),
           ),
           SizedBox(
             height: 20.0,
@@ -50,7 +64,7 @@ class OurResetPasswordForm extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 100),
               child: Text(
-                "Reset",
+                "Register",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
