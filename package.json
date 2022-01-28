@@ -11,7 +11,7 @@
 		"name": "Train Trax Team"
 	},
 	"scripts": {
-		"start": "node server.js",
+		"start": "node train_trax/server/server.js",
 		"heroku-postbuild": "npm install && npm run build"
 	},
 	"dependencies": {
