@@ -41,4 +41,4 @@ app.listen(port, function() {
 	console.log(`Server listening on port ${port}`)
 });
 
-app.get('/login', login);
+app.post('/login', login);

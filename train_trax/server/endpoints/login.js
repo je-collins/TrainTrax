@@ -1,7 +1,7 @@
 import server from '../server.js';
 
 const endpoint = (request, response) => {
-	const { email, password } = request.query;
+	const { email, password } = request.body;
 
 	if (email === undefined || password === undefined) {
 		response.status(200).json({
