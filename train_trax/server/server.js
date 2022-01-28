@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({
 
 // Connect to the database
 const pool = new pg.Client({
-	connectionString: process.env.DB_URI,
+	connectionString: process.env.DATABASE_URL,
 	ssl: {
 		rejectUnauthorized: false
 	}
