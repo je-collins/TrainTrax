@@ -1,0 +1,22 @@
+{
+	"name": "traintrax",
+	"version": "0.1",
+	"description": "TrainTrax server application",
+	"keywords": [],
+	"homepage": "https://github.com/je-collins/TrainTrax",
+	"main": "server.js",
+	"license": "GNU-3.0",
+	"type": "module",
+	"author": {
+		"name": "Train Trax Team"
+	},
+	"scripts": {
+		"start": "node server.js",
+		"heroku-postbuild": "npm install && npm run build"
+	},
+	"dependencies": {
+		"dotenv": "^14.3.2",
+		"express": "^4.17.2",
+		"pg": "^8.7.1"
+	}
+}
