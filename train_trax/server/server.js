@@ -34,4 +34,4 @@ app.listen(port, function() {
 });
 
 // POST endpoints
-app.post('/login', login);
+app.post('/api/login', login);
