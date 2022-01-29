@@ -1,20 +1,11 @@
 // Requires
 import bodyParser from 'body-parser';
-import dotenv from 'dotenv';
+import 'dotenv/config';
 import express from 'express';
 import pg from 'pg';
-// import path from 'path';
-// import router from './routes/index';
+
+// Endpoints
 import login from './endpoints/login.js';
-// import endpoints from './endpoints';
-
-dotenv.config({
-	path: './private/private.env'
-});
-
-// const {
-// 	schema
-// } = require('./models/users');
 
 // Create the app
 const app = express();
@@ -37,8 +28,10 @@ const pool = new pg.Client({
 pool.connect();
 export default pool;
 
+// Have app listen on given port
 app.listen(port, function() {
 	console.log(`Server listening on port ${port}`)
 });
 
+// POST endpoints
 app.post('/login', login);
