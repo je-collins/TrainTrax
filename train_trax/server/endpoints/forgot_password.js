@@ -31,6 +31,11 @@ const endpoint = (request, response) => {
 
         const firstName = res.rows[0].name;
 
+        // TODO: Insert validation code into database
+		server.query('INSERT INTO ________(user_id, ________, expire_time) values($1, $2, $3) ON CONFLICT (user_id) DO UPDATE SET ________ = $2, expire_time = $3;', [data.user_id, randomCode, new Date().toISOString()], (error, res) => {
+			if(error) throw error;
+		});
+
 		// If a user does exist, send the code email
 		var transporter = nodeMailer.createTransport({
             service: 'gmail',
@@ -44,7 +49,7 @@ const endpoint = (request, response) => {
             from: 'traintraxexperience@gmail.com',
             to: email,
             subject: 'Password Reset for Train Trax',
-            text: 'Hello ' + firstName + ', \nPlease enter the following code to reset your password. \nThis is your code : ' 
+            text: 'Hello ' + firstName + ', \nPlease enter the following code into the web page to reset your password. \nThis is your code : ' 
                 + randomCode + ' \n If you did not wish to reset your password for TriviaCrevice you should reset your password from within your account.'
         }
         transporter.sendMail(mailOPtions, function (err, info) {
@@ -61,7 +66,6 @@ const endpoint = (request, response) => {
 			'message': 'Success.'
 		});
 	});
-    
 };
 
 export default endpoint;
