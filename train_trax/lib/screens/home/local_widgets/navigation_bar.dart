@@ -10,25 +10,25 @@ class OurHomepage extends StatelessWidget {
         children: <Widget>[
           FlatButton(
             textColor: Colors.white,
-            child: Text("HOME"),
+            child: const Text("HOME"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {},
           ),
           FlatButton(
             textColor: Colors.white,
-            child: Text("LIBRARY"),
+            child: const Text("LIBRARY"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {},
           ),
           FlatButton(
             textColor: Colors.white,
-            child: Text("SELF-DIRECTED"),
+            child: const Text("SELF-DIRECTED"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {},
           ),
           FlatButton(
             textColor: Colors.white,
-            child: Text("CERTIFICATIONS"),
+            child: const Text("CERTIFICATIONS"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {},
           )
