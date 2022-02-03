@@ -1,10 +1,10 @@
-import 'package:train_trax/screens/home/local_widgets/NavigationBar.dart';
+import 'package:train_trax/screens/home/local_widgets/navigation_bar.dart';
 import 'package:train_trax/screens/login/register.dart';
 import 'package:train_trax/utils/ourTheme.dart';
 import 'package:train_trax/screens/login/login.dart';
 import 'package:train_trax/screens/login/forgot.dart';
 import 'package:train_trax/screens/login/resetPassword.dart';
-import 'package:train_trax/screens/home/Homepage.dart';
+import 'package:train_trax/screens/home/homepage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,8 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Flutter Demo', theme: OurTheme().buildTheme(), home: OurLogin(),
-        );
+      title: 'Flutter Demo',
+      theme: OurTheme().buildTheme(),
+      home: OurLogin(),
+    );
   }
 }
 
