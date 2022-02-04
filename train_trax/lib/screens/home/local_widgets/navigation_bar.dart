@@ -18,7 +18,7 @@ class OurHomepage extends StatelessWidget {
           ),
           FlatButton(
             textColor: Colors.white,
-            child: Text("LIBRARY"),
+            child: const Text("LIBRARY"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {
               Navigator.of(context).push(
@@ -30,7 +30,7 @@ class OurHomepage extends StatelessWidget {
           ),
           FlatButton(
             textColor: Colors.white,
-            child: Text("SELF-DIRECTED"),
+            child: const Text("SELF-DIRECTED"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {
               Navigator.of(context).push(
@@ -42,7 +42,7 @@ class OurHomepage extends StatelessWidget {
           ),
           FlatButton(
             textColor: Colors.white,
-            child: Text("CERTIFICATIONS"),
+            child: const Text("CERTIFICATIONS"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {},
           )
