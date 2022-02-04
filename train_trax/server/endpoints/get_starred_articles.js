@@ -32,7 +32,7 @@ const endpoint = (request, response) => {
 
         if(is_library)
         {
-            server.query('SELECT * FROM starred_articles WHERE is_domain = FALSE;', [user_data.user_id], (error, res) => {
+            server.query('SELECT * FROM starred_articles WHERE is_domain = FALSE;', (error, res) => {
                 if(error) throw error;
             });
 
