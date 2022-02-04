@@ -49,6 +49,7 @@ const endpoint = (request, response) => {
 
 		
         return response.status(200).json({
+            'starred_articles': article_data,
             'error': '',
             'message': 'Success.'
         });
