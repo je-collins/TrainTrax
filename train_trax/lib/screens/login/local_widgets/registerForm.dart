@@ -16,7 +16,7 @@ class OurRegisterForm extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
             child: Text(
-              "Regesiter",
+              "Register",
               style: TextStyle(
                 color: Theme.of(context).secondaryHeaderColor,
                 fontSize: 25.0,

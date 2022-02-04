@@ -1,9 +1,9 @@
-import 'package:train_trax/widgets/Navigation.dart';
-import 'package:train_trax/screens/library/library.dart';
+import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:train_trax/screens/self-directed/self-directed.dart';
+import 'package:train_trax/widgets/Navigation.dart';
 import 'package:flutter/material.dart';
 
-class OurHomepage extends StatelessWidget {
+class OurLibrarypage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Navigation(
@@ -11,22 +11,22 @@ class OurHomepage extends StatelessWidget {
         alignment: WrapAlignment.center,
         children: <Widget>[
           FlatButton(
-            textColor: Colors.yellow,
-            child: Text("HOME"),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            onPressed: () {},
-          ),
-          FlatButton(
             textColor: Colors.white,
-            child: Text("LIBRARY"),
+            child: Text("HOME"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context)=>OurLibrary(),
+                  builder: (context)=>OurHome(),
                 ),
               );
             },
+          ),
+          FlatButton(
+            textColor: Colors.yellow,
+            child: Text("LIBRARY"),
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            onPressed: () {},
           ),
           FlatButton(
             textColor: Colors.white,

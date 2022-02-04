@@ -26,7 +26,7 @@ class OurResetPasswordForm extends StatelessWidget {
           ),
           TextFormField(
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.alternate_email), hintText: "Email"),
+                prefixIcon: Icon(Icons.star), hintText: "Verification code"),
           ),
           SizedBox(
             height: 20.0,

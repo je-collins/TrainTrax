@@ -18,7 +18,7 @@ class OurLoginForm extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
             child: Text(
-              "Log In",
+              "Login",
               style: TextStyle(
                 color: Theme.of(context).secondaryHeaderColor,
                 fontSize: 25.0,
@@ -44,7 +44,7 @@ class OurLoginForm extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 100),
               child: Text(
-                "Login In",
+                "Log in",
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
