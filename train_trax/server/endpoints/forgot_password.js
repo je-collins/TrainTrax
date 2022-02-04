@@ -1,5 +1,6 @@
 import server from '../server.js';
 import md5 from 'md5';
+import nodeMailer from 'nodemailer'
 
 const endpoint = (request, response) => {
     // Unpacking the request body object
@@ -29,10 +30,10 @@ const endpoint = (request, response) => {
 			'message': 'A user with the given email already exists'
 		});
 
-        const firstName = res.rows[0].name;
+        const data = res.rows[0];
 
         // TODO: Insert validation code into database
-		server.query('INSERT INTO ________(user_id, ________, expire_time) values($1, $2, $3) ON CONFLICT (user_id) DO UPDATE SET ________ = $2, expire_time = $3;', [data.user_id, randomCode, new Date().toISOString()], (error, res) => {
+		server.query('UPDATE users SET validation_token = $2, validation_expire_time = $3 WHERE user_id = $1;', [data.user_id, randomCode, new Date().toISOString()], (error, res) => {
 			if(error) throw error;
 		});
 
@@ -49,7 +50,7 @@ const endpoint = (request, response) => {
             from: 'traintraxexperience@gmail.com',
             to: email,
             subject: 'Password Reset for Train Trax',
-            text: 'Hello ' + firstName + ', \nPlease enter the following code into the web page to reset your password. \nThis is your code : ' 
+            text: 'Hello ' + data.name + ', \nPlease enter the following code into the web page to reset your password. \nThis is your code : ' 
                 + randomCode + ' \n If you did not wish to reset your password for TriviaCrevice you should reset your password from within your account.'
         }
         transporter.sendMail(mailOPtions, function (err, info) {
@@ -59,12 +60,11 @@ const endpoint = (request, response) => {
                     'message': 'The email was not sent.'
                 });
             }
+            return response.status(200).json({
+                'error': '',
+                'message': 'Success.'
+            });
         });
-	
-		return response.status(200).json({
-			'error': '',
-			'message': 'Success.'
-		});
 	});
 };
 

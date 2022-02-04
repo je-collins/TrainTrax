@@ -7,6 +7,7 @@ import pg from 'pg';
 // Endpoints
 import login from './endpoints/login.js';
 import register from './endpoints/register.js';
+import forgot_password from './endpoints/forgot_password.js';
 
 // Create the app
 const app = express();
@@ -37,3 +38,4 @@ app.listen(port, function() {
 // POST endpoints
 app.post('/api/login', login);
 app.post('/api/register', register);
+app.post('/api/forgot_password', forgot_password);
