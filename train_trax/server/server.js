@@ -7,6 +7,7 @@ import pg from 'pg';
 // Endpoints
 import login from './endpoints/login.js';
 import register from './endpoints/register.js';
+import get_favorites from './endpoints/get_favorites.js';
 
 // Create the app
 const app = express();
@@ -36,4 +37,5 @@ app.listen(port, function() {
 
 // POST endpoints
 app.post('/api/login', login);
-app.post('/api/register', register);
+app.post('/api/register', register)
+app.post('/api/get_favorites', get_favorites);
