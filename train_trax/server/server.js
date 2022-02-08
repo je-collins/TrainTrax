@@ -2,11 +2,14 @@
 import bodyParser from 'body-parser';
 import 'dotenv/config';
 import express from 'express';
-import pg from 'pg';
 
 // Endpoints
 import login from './endpoints/login.js';
 import register from './endpoints/register.js';
+import forgot_password from './endpoints/forgot_password.js';
+import reset_password from './endpoints/reset_password.js';
+import get_starred from './endpoints/get_starred.js';
+import get_favorites from './endpoints/get_favorites.js';
 
 // Create the app
 const app = express();
@@ -19,16 +22,6 @@ app.use(bodyParser.urlencoded({
 	extended: true
 }));
 
-// Connect to the database
-const pool = new pg.Client({
-	connectionString: process.env.DATABASE_URL,
-	ssl: {
-		rejectUnauthorized: false
-	}
-});
-pool.connect();
-export default pool;
-
 // Have app listen on given port
 app.listen(port, function() {
 	console.log(`Server listening on port ${port}`)
@@ -37,3 +30,8 @@ app.listen(port, function() {
 // POST endpoints
 app.post('/api/login', login);
 app.post('/api/register', register);
+app.post('/api/forgot_password', forgot_password);
+app.post('/api/reset_password', reset_password);
+app.post('/api/get_starred_articles', get_starred(false));
+app.post('/api/get_starred_domains', get_starred(true));
+app.post('/api/get_favorites', get_favorites);
