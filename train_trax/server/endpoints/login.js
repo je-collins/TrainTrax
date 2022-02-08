@@ -1,9 +1,17 @@
-import server from '../server.js';
+import User from '../objects/User.js';
 import md5 from 'md5';
 
-const endpoint = (request, response) => {
+export default async (request, response) => {
+	// Destructure request body into relevant variables
 	const { email, password } = request.body;
-	
+
+	// Create return JSON structure
+	const json = {
+		'token': '',
+		'error': '',
+		'message': ''
+	};
+
 	// Check if one or more fields is not declared
 	const undef = [];
 	if (email === undefined) undef.push('email');
@@ -11,34 +19,24 @@ const endpoint = (request, response) => {
 
 	// If undeclared field, return error
 	if (undef.length > 0) {
-		return response.status(200).json({
-			'error': 'Invalid payload',
-			'message': 'Missing the following field(s): ' + undef.join(', ')
-		});
+		json.error = 'Invalid payload';
+		json.message = `Missing the following field${undef.length === 1 ? '' : 's'}: ${undef.join(', ')}.`;
+		return response.status(400).json(json);
 	}
 
-	// Retrieve information from user with given email and password
-	server.query('SELECT * FROM users WHERE email = $1 and password = $2;', [email, md5(password)], (error, res) => {
-		if (error) throw error;
-		if (res.rows.length === 0) return response.status(200).json({
-			'error': 'Incorrect credentials',
-			'message': 'No user exists with the given email or password.'
-		});
+	// Retrieve user data
+	const user = await User.fromLogin(email, password);
 
-		const data = res.rows[0];
+	// If user does not exist, return invalid credentials
+	if (user === null) {
+		json.error = 'Invalid credentials';
+		json.message = 'No user exists with the given email and password.';
+		return response.status(401).json(json);
+	}
 
-		// Generate random token and insert into database
-		const token = md5(new Date().getTime().toString());
-		server.query('INSERT INTO user_tokens(user_id, token, expire_time) values($1, $2, $3) ON CONFLICT (user_id) DO UPDATE SET token = $2, expire_time = $3;', [data.user_id, token, new Date().toISOString()], (error, res) => {
-			if(error) throw error;
-		});
-
-		return response.status(200).json({
-			'token': token,
-			'error': '',
-			'message': ''
-		});
-	});
+	// Create token and update user information, return token
+	const token = md5(`token of ${user.user_id} at time ${new Date().getTime().toString()}`);
+	await User.setLoginToken(user.user_id, token);
+	json.token = token;
+	return response.status(200).json(json);
 };
-
-export default endpoint;
