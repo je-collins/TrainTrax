@@ -9,7 +9,7 @@ export default class User {
 	}
 
 	static async fromToken(token) {
-		const res = await DB.query('SELECT * FROM users WHERE (user_token = $1 AND token_expire_time < $2) OR (validation_token = $1 AND validation_expire_time < $2);', [token, new Date().toISOString()]);
+		const res = await DB.query('SELECT * FROM users WHERE (user_token = $1 AND token_expire_time > $2) OR (validation_token = $1 AND validation_expire_time > $2);', [token, new Date().toISOString()]);
 		return res.length === 0 ? null : res[0];
 	}
 
