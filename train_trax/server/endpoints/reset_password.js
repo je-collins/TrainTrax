@@ -1,10 +1,9 @@
-import Mailer from '../objects/Mailer.js';
 import User from '../objects/User.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
-	const { email, password, name, phone_number } = request.body;
-	
+	const { validation_token, password } = request.body;
+
 	// Create return JSON structure
 	const json = {
 		'error': '',
@@ -13,10 +12,8 @@ export default async (request, response) => {
 
 	// Check if one or more fields is not declared
 	const undef = [];
-	if (email === undefined) undef.push('email');
+	if (validation_token === undefined) undef.push('validation_token');
 	if (password === undefined) undef.push('password');
-	if (name === undefined) undef.push('name');
-	if (phone_number === undefined) undef.push('phone_number');
 
 	// If undeclared field, return error
 	if (undef.length > 0) {
@@ -25,15 +22,18 @@ export default async (request, response) => {
 		return response.status(400).json(json);
 	}
 
-	// If email exists, return duplicate email
-	if (await User.fromEmail(email) !== null) {
-		json.error = 'Duplicate email',
-		json.message = 'A user with the given email already exists.';
+	// Retrieve user data
+	const user = await User.fromToken(validation_token);
+
+	// If user does not exist, return invalid credentials
+	if (user === null) {
+		json.error = 'Invalid credentials';
+		json.message = 'The token provided is either invalid or expired.';
 		return response.status(401).json(json);
 	}
 
-	// If user does not exist, add them and send an email
-	await User.create(email, password, name, phone_number);
-	await Mailer.sendEmail(email, 'Welcome to Train Trax!', `Welcome ${name} to Train Trax!`);
+	// Update the user's password
+	await User.setPassword(user.user_id, password);
+	await User.setValidationToken(user.user_id, null, null);
 	return response.status(200).json(json);
 };

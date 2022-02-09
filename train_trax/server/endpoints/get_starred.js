@@ -1,21 +1,20 @@
 import User from '../objects/User.js';
-import md5 from 'md5';
+import DB from '../objects/DB.js';
 
-export default async (request, response) => {
+export default (isDomain) => async (request, response) => {
 	// Destructure request body into relevant variables
-	const { email, password } = request.body;
+	const { token } = request.body;
 
 	// Create return JSON structure
 	const json = {
-		'token': '',
+		'results': [],
 		'error': '',
 		'message': ''
 	};
 
 	// Check if one or more fields is not declared
 	const undef = [];
-	if (email === undefined) undef.push('email');
-	if (password === undefined) undef.push('password');
+	if (token === undefined) undef.push('token');
 
 	// If undeclared field, return error
 	if (undef.length > 0) {
@@ -25,18 +24,17 @@ export default async (request, response) => {
 	}
 
 	// Retrieve user data
-	const user = await User.fromLogin(email, password);
+	const user = await User.fromToken(token);
 
 	// If user does not exist, return invalid credentials
 	if (user === null) {
 		json.error = 'Invalid credentials';
-		json.message = 'No user exists with the given email and password.';
+		json.message = 'The token provided is either invalid or expired.';
 		return response.status(401).json(json);
 	}
 
-	// Create token and update user information, return token
-	const token = md5(`token of ${user.user_id} at time ${new Date().getTime().toString()}`);
-	await User.setLoginToken(user.user_id, token);
-	json.token = token;
+	// Query database for starred articles/domains and return
+	const rows = await DB.query('SELECT * FROM starred_articles WHERE is_domain = $1;', [isDomain]);
+	for (const row of rows) json.results.push(row.article);
 	return response.status(200).json(json);
 };
