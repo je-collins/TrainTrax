@@ -39,14 +39,14 @@ export default async (request, response) => {
     const member = await Teams.fromId(team_id, member_id);
 
     // If user exists in the team, return invalid credentials
-	if (member != null) {
+	if (member === null) {
         json.error = 'Bad request';
-		json.message = 'The user already exists in the team.';
+		json.message = 'The user does not exists in the team.';
 		return response.status(401).json(json);
 	}
     
 	// Update team information
-	await Teams.addMember(user.user_id, team_id);
+	await Teams.deleteMember(user.user_id, team_id);
 	json.token = token;
 	return response.status(200).json(json);
 };
