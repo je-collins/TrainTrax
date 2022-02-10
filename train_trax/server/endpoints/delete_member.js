@@ -1,5 +1,5 @@
 import User from '../objects/User.js';
-import Teams from '../objects/Teams.js';
+import Team from '../objects/Teams.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -7,7 +7,6 @@ export default async (request, response) => {
 
 	// Create return JSON structure
 	const json = {
-		'token': '',
 		'error': '',
 		'message': ''
 	};
@@ -28,7 +27,7 @@ export default async (request, response) => {
 	// Retrieve user data
 	const user = await User.fromToken(token);
     
-	// If user does not exist, return invalid credentials
+	// If user token is not valid, return bad request
 	if (user === null) {
         json.error = 'Bad request';
 		json.message = 'The user session has expired.';
@@ -36,7 +35,7 @@ export default async (request, response) => {
 	}
 
     // Check if the user exists in the team
-    const member = await Teams.fromId(team_id, member_id);
+    const member = await Team.fromId(team_id, member_id);
 
     // If user exists in the team, return invalid credentials
 	if (member === null) {
@@ -46,7 +45,6 @@ export default async (request, response) => {
 	}
     
 	// Update team information
-	await Teams.deleteMember(user.user_id, team_id);
-	json.token = token;
+	await Team.deleteMember(member_id, team_id);
 	return response.status(200).json(json);
 };

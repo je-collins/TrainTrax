@@ -12,6 +12,11 @@ export default class Article {
 		return res.length === 0 ? null : res[0];
 	}
 
+	static async getAll() {
+		const res = await DB.query('SELECT DISTINCT article, FROM articles;');
+		return res.length === 0 ? null : res[0];
+	}
+
     static async getStarredArticleFromId(user_id) {
 		const res = await DB.query('SELECT * FROM starred_articles WHERE user_id = $1 AND is_domain = FALSE;', [user_id]);
 		return res.length === 0 ? null : res[0];

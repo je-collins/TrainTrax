@@ -1,12 +1,13 @@
 import User from '../objects/User.js';
-import Team from '../objects/Teams.js';
+import Article from '../objects/Article';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
-	const { token , team_id , member_id} = request.body;
+	const { token } = request.body;
 
 	// Create return JSON structure
 	const json = {
+		'articles': [],
 		'error': '',
 		'message': ''
 	};
@@ -15,7 +16,6 @@ export default async (request, response) => {
 	const undef = [];
 	if (token === undefined) undef.push('token');
 	if (team_id === undefined) undef.push('team_id');
-    if (member_id === undefined) undef.push('member_id');
 
 	// If undeclared field, return error
 	if (undef.length > 0) {
@@ -34,17 +34,13 @@ export default async (request, response) => {
 		return response.status(400).json(json);
 	}
 
-    // Check if the user exists in the team
-    const member = await Team.fromId(team_id, member_id);
+    // Get all articles in the articles table
+	const articles = await Article.getAll();
 
-    // If user exists in the team, return invalid credentials
-	if (member != null) {
-        json.error = 'Bad request';
-		json.message = 'The user already exists in the team.';
-		return response.status(401).json(json);
+	// If articles is not null return the articles
+	if(articles != null) {
+		for (const row in articles) json.articles.push(row.article)
 	}
-    
-	// Update team information
-	await Team.addMember(member_id, team_id);
+	
 	return response.status(200).json(json);
 };
