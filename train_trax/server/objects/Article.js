@@ -2,13 +2,33 @@ import DB from './DB.js';
 
 export default class Article {
     
-    static async fromToken(token) {
-        const res = await DB.query('SELECT * FROM users WHERE (user_token = $1 AND token_expire_time > $2) OR (validation_token = $1 AND validation_expire_time > $2);', [token, new Date().toISOString()]);
-        return res.length === 0 ? null : res[0];
-    }
-
-	static async fromId(user_id) {
+    static async fromId(user_id) {
 		const res = await DB.query('SELECT * FROM articles WHERE user_id = $1;', [user_id]);
+		return res.length === 0 ? null : res[0];
+	}
+
+    static async getFavoriteFromId(user_id) {
+		const res = await DB.query('SELECT * FROM articles WHERE user_id = $1 & is_favorite = TRUE;', [user_id]);
+		return res.length === 0 ? null : res[0];
+	}
+
+    static async getStarredArticleFromId(user_id) {
+		const res = await DB.query('SELECT * FROM starred_articles WHERE user_id = $1 AND is_domain = FALSE;', [user_id]);
+		return res.length === 0 ? null : res[0];
+	}
+
+    static async getStarredArticle() {
+		const res = await DB.query('SELECT DISTINCT article, starred_article_id, user_id FROM starred_articles WHERE is_domain = FALSE;');
+		return res.length === 0 ? null : res[0];
+	}
+
+    static async getStarredDomainFromId(user_id) {
+		const res = await DB.query('SELECT * FROM starred_articles WHERE user_id = $1 AND is_domain = TRUE;', [user_id]);
+		return res.length === 0 ? null : res[0];
+	}
+
+    static async getDomainArticle() {
+		const res = await DB.query('SELECT DISTINCT article, starred_article_id, user_id FROM starred_articles WHERE is_domain = TRUE;');
 		return res.length === 0 ? null : res[0];
 	}
 
@@ -25,6 +45,16 @@ export default class Article {
     }
 
     static async setEnd(article_id, end_time) {
-        return await DB.query('UPDATE articles SET end_time = $1 WHERE article_id = $2;', [end_time, article_id]);
+        return await DB.query('UPDATE articles SET complete_time = $1 WHERE article_id = $2;', [end_time, article_id]);
     }
+
+    static async getStarted(user_id) {
+		const res = await DB.query('SELECT * FROM articles WHERE user_id = $1 AND complete_time IS NULL;', [user_id]);
+		return res.length === 0 ? null : res[0];
+	}
+
+    static async getCompleted(user_id) {
+		const res = await DB.query('SELECT * FROM articles WHERE user_id = $1 AND complete_time IS NOT NULL;', [user_id]);
+		return res.length === 0 ? null : res[0];
+	}
 }
