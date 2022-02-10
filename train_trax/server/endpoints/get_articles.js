@@ -1,5 +1,5 @@
 import User from '../objects/User.js';
-import Article from '../objects/Article';
+import Article from '../objects/Article.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -15,7 +15,6 @@ export default async (request, response) => {
 	// Check if one or more fields is not declared
 	const undef = [];
 	if (token === undefined) undef.push('token');
-	if (team_id === undefined) undef.push('team_id');
 
 	// If undeclared field, return error
 	if (undef.length > 0) {
@@ -38,9 +37,7 @@ export default async (request, response) => {
 	const articles = await Article.getAll();
 
 	// If articles is not null return the articles
-	if(articles != null) {
-		for (const row in articles) json.articles.push(row.article)
-	}
+	for (const row in articles) json.articles.push(row.article)
 	
 	return response.status(200).json(json);
 };
