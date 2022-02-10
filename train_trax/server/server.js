@@ -12,6 +12,7 @@ import get_starred from './endpoints/get_starred.js';
 import get_favorites from './endpoints/get_favorites.js';
 import add_member from './endpoints/add_members.js';
 import delete_member from './endpoints/delete_member.js';
+import get_articles from './endpoints/get_articles.js';
 
 // Create the app
 const app = express();
@@ -39,3 +40,4 @@ app.post('/api/get_starred_domains', get_starred(true));
 app.post('/api/get_favorites', get_favorites);
 app.post('/api/add_member', add_member);
 app.post('/api/delete_member', delete_member);
+app.post('/api/delete_member', get_articles);
