@@ -2,39 +2,39 @@ import DB from './DB.js';
 
 export default class Article {
     
-    static async fromId(user_id) {
+    static async getArticlesFromUser(user_id) {
 		const res = await DB.query('SELECT * FROM articles WHERE user_id = $1;', [user_id]);
-		return res.length === 0 ? null : res[0];
+		return res.length === 0 ? [] : res;
 	}
 
     static async getFavoriteFromId(user_id) {
-		const res = await DB.query('SELECT * FROM articles WHERE user_id = $1 & is_favorite = TRUE;', [user_id]);
-		return res.length === 0 ? null : res[0];
+		const res = await DB.query('SELECT * FROM articles WHERE user_id = $1 AND is_favorite = TRUE;', [user_id]);
+		return res.length === 0 ? [] : res;
 	}
 
-	static async getAll() {
-		const res = await DB.query('SELECT DISTINCT article, FROM articles;');
-		return res.length === 0 ? null : res[0];
+	static async getArticles() {
+		const res = await DB.query('SELECT DISTINCT article FROM articles;');
+		return res.length === 0 ? [] : res;
 	}
 
-    static async getStarredArticleFromId(user_id) {
+    static async getStarredArticlesFromUser(user_id) {
 		const res = await DB.query('SELECT * FROM starred_articles WHERE user_id = $1 AND is_domain = FALSE;', [user_id]);
-		return res.length === 0 ? null : res[0];
+		return res.length === 0 ? [] : res;
 	}
 
-    static async getStarredArticle() {
+    static async getStarredArticles() {
 		const res = await DB.query('SELECT DISTINCT article, starred_article_id, user_id FROM starred_articles WHERE is_domain = FALSE;');
-		return res.length === 0 ? null : res[0];
+		return res.length === 0 ? [] : res;
 	}
 
-    static async getStarredDomainFromId(user_id) {
+    static async getStarredDomainsFromUser(user_id) {
 		const res = await DB.query('SELECT * FROM starred_articles WHERE user_id = $1 AND is_domain = TRUE;', [user_id]);
-		return res.length === 0 ? null : res[0];
+		return res.length === 0 ? [] : res;
 	}
 
-    static async getDomainArticle() {
+    static async getStarredDomains() {
 		const res = await DB.query('SELECT DISTINCT article, starred_article_id, user_id FROM starred_articles WHERE is_domain = TRUE;');
-		return res.length === 0 ? null : res[0];
+		return res.length === 0 ? [] : res;
 	}
 
 	static async setFavorite(user_id, article_id, favorite) {
@@ -55,11 +55,11 @@ export default class Article {
 
     static async getStarted(user_id) {
 		const res = await DB.query('SELECT * FROM articles WHERE user_id = $1 AND complete_time IS NULL;', [user_id]);
-		return res.length === 0 ? null : res[0];
+		return res.length === 0 ? [] : res;
 	}
 
     static async getCompleted(user_id) {
 		const res = await DB.query('SELECT * FROM articles WHERE user_id = $1 AND complete_time IS NOT NULL;', [user_id]);
-		return res.length === 0 ? null : res[0];
+		return res.length === 0 ? [] : res;
 	}
 }
