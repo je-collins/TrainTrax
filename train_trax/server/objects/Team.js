@@ -3,7 +3,7 @@ import DB from './DB.js';
 export default class Team {
 	
 	// team exists
-	static async fromId(team_id, user_id) {
+	static async getTeamUserFromId(team_id, user_id) {
 		const res = await DB.query('SELECT * FROM team_users WHERE team_id = $1 AND user_id = $2;', [team_id, user_id]);
 		return res.length === 0 ? null : res[0];
 	}
@@ -25,12 +25,13 @@ export default class Team {
 
 	// delete team
 	static async deleteTeam(team_id) {
+        await DB.query('DELETE FROM team_users WHERE team_id = $1;', [team_id]);
 		return await DB.query('DELETE FROM teams WHERE team_id = $1;', [team_id]);
     }
 
 	// get team info
 	static async getMembers(team_id) {
 		const res = await DB.query('SELECT user_id FROM team_users WHERE team_id = $1;', [team_id]);
-		return res.length === 0 ? null : res[0];
+		return res.length === 0 ? [] : res;;
     }
 }
