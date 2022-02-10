@@ -2,6 +2,12 @@ import DB from './DB.js';
 
 export default class Team {
 	
+	// team exists
+	static async fromId(team_id, user_id) {
+		const res = await DB.query('SELECT * FROM team_users WHERE team_id = $1 AND user_id = $2;', [team_id, user_id]);
+		return res.length === 0 ? null : res[0];
+	}
+
 	// create team
 	static async createTeam(user_id, name) {
 		return await DB.query('INSERT INTO teams(administrator, team_name) VALUES($1, $2);', [user_id, name]);
