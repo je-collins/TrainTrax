@@ -15,7 +15,7 @@ export default async (request, response) => {
 	const undef = [];
 	if (token === undefined) undef.push('token');
 	if (team_id === undefined) undef.push('team_id');
-    if (member_id === undefined) undef.push('member_id');
+	if (member_id === undefined) undef.push('member_id');
 
 	// If undeclared field, return error
 	if (undef.length > 0) {

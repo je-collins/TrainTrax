@@ -1,5 +1,5 @@
 import User from '../objects/User.js';
-import Team from '../objects/Teams.js';
+import Team from '../objects/Team.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -15,7 +15,7 @@ export default async (request, response) => {
 	const undef = [];
 	if (token === undefined) undef.push('token');
 	if (team_id === undefined) undef.push('team_id');
-    if (member_id === undefined) undef.push('member_id');
+	if (member_id === undefined) undef.push('member_id');
 
 	// If undeclared field, return error
 	if (undef.length > 0) {
@@ -31,6 +31,13 @@ export default async (request, response) => {
 	if (user === null) {
         json.error = 'Bad request';
 		json.message = 'The user session has expired.';
+		return response.status(400).json(json);
+	}
+
+	// If user is not an admin, return bad request
+	if (user.administrator) {
+        json.error = 'Bad request';
+		json.message = 'The user is not an admin and connot edit teams.';
 		return response.status(400).json(json);
 	}
 
