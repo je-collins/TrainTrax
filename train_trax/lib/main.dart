@@ -5,6 +5,7 @@ import 'package:train_trax/screens/login/login.dart';
 import 'package:train_trax/screens/login/forgot.dart';
 import 'package:train_trax/screens/login/resetPassword.dart';
 import 'package:train_trax/screens/home/homepage.dart';
+import 'package:train_trax/screens/settings/settings.dart';
 import 'package:flutter/material.dart';
 
 void main() {

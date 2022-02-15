@@ -2,6 +2,7 @@ import 'package:train_trax/widgets/Navigation.dart';
 import 'package:train_trax/screens/library/library.dart';
 import 'package:train_trax/screens/self-directed/self-directed.dart';
 import 'package:flutter/material.dart';
+import 'package:train_trax/screens/settings/settings.dart';
 
 class OurHomepage extends StatelessWidget {
   @override
@@ -44,7 +45,13 @@ class OurHomepage extends StatelessWidget {
             textColor: Colors.white,
             child: const Text("CERTIFICATIONS"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context)=>OurSettings(),
+                ),
+              );
+            },
           )
         ],
       ),

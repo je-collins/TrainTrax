@@ -1,15 +1,16 @@
 import 'package:train_trax/screens/library/local_widgets/NavigationBar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:train_trax/utils/urls.dart';
 
 class OurLibrary extends StatelessWidget {
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('My Personal Journal');
   final fieldText = TextEditingController();
+  var _hover = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
@@ -57,13 +58,14 @@ class OurLibrary extends StatelessWidget {
                         ),
                     child: Center(
                       child: TextField(
+                        controller: fieldText,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.search),
                             suffixIcon: IconButton(
                               icon: Icon(Icons.clear),
                               onPressed: () {
                                 /* Clear the search field */
-                                 TextEditingController().clear(); 
+                                 fieldText.clear(); 
                               },
                             ),
                             hintText: 'Search...',
@@ -88,20 +90,36 @@ class OurLibrary extends StatelessWidget {
                 ),
                 for(var i=0; i<5; i++) 
                   Container(
-                    child: Text(
-                    "\u2022 "+"testing",
-                    style: TextStyle(
-                      color: Theme.of(context).secondaryHeaderColor,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.normal,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                       RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          text: "\u2022 ",
+                        ),
+                        Urls.createUrl(url: 'https://www.youtube.com/', txt: 'Testing', context: context),
+                      ],
+                      
+                    ),
+                  )
+                  
+                      ],
+
                     ),
                   ),
-                  SizedBox(
-                  height: 40.0,
-                ),
 
-                  //USED BY OTHERS list
+                  SizedBox(
+                    height: 40.0,
+                  ),
+
+                //USED BY OTHERS list
                 Container(
                   child: Text(
                   "USED BY OTHERS",
@@ -114,13 +132,28 @@ class OurLibrary extends StatelessWidget {
                 ),
                 for(var i=0; i<5; i++) 
                   Container(
-                    child: Text(
-                    "\u2022 "+"testing",
-                    style: TextStyle(
-                      color: Theme.of(context).secondaryHeaderColor,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.normal,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                style: TextStyle(
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                text: "\u2022 ",
+                              ),
+                              Urls.createUrl(url: 'https://www.youtube.com/', txt: 'Testing', context: context),
+                            ],
+                            
+                          ),
+                        )
+                  
+                      ],
+
                     ),
                   ),
               ],
