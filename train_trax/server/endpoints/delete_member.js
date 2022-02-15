@@ -35,14 +35,14 @@ export default async (request, response) => {
 	}
 
 	// If user is not an admin, return bad request
-	if (user.administrator) {
+	if (!user.administrator) {
         json.error = 'Bad request';
 		json.message = 'The user is not an admin and connot edit teams.';
-		return response.status(400).json(json);
+		return response.status(403).json(json);
 	}
 
     // Check if the user exists in the team
-    const member = await Team.fromId(team_id, member_id);
+    const member = await Team.getTeamUserFromId(team_id, member_id);
 
     // If user exists in the team, return invalid credentials
 	if (member === null) {
