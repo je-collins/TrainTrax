@@ -40,7 +40,7 @@ export default async (request, response) => {
 		return response.status(403).json(json);
 	}
     
-	// Update team information
-	await Question.addAnswer(question_id, user.user_id, answer_text);
+	// Update question information
+	await Team.addMember(member_id, team_id);
 	return response.status(200).json(json);
 };
