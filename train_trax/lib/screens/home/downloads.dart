@@ -1,8 +1,8 @@
 import 'package:train_trax/screens/home/local_widgets/navigation_bar.dart';
-import 'package:train_trax/screens/home/local_widgets/favorites_list.dart';
+import 'package:train_trax/screens/home/local_widgets/downloads_list.dart';
 import 'package:flutter/material.dart';
 
-class OurFavorite extends StatelessWidget {
+class OurDownload extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class OurFavorite extends StatelessWidget {
                   height: 20.0,
                 ),
                 OurHomepage(),
-                OurFavorites(),
+                OurDownloads(),
               ],
             ),
           )
