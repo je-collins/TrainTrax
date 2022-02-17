@@ -24,13 +24,23 @@ class OurRegisterForm extends StatelessWidget {
               ),
             ),
           ),
+          //First Name
           TextFormField(
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.person), hintText: "Name"),
+                prefixIcon: Icon(Icons.person), hintText: "First Name"),
           ),
           SizedBox(
             height: 20.0,
           ),
+          //Last Name
+          TextFormField(
+            decoration: InputDecoration(
+                prefixIcon: Icon(Icons.person), hintText: "Last Name"),
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          //Phone Number
           TextFormField(
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.call), hintText: "Phone Number"),
@@ -38,6 +48,7 @@ class OurRegisterForm extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
+          //Email
           TextFormField(
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.alternate_email), hintText: "Email"),
@@ -45,6 +56,7 @@ class OurRegisterForm extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
+          //Password
           TextFormField(
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
@@ -52,6 +64,7 @@ class OurRegisterForm extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
+          //Confirm Password
           TextFormField(
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.lock_outline),
@@ -60,6 +73,7 @@ class OurRegisterForm extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
+          //Register Button
           RaisedButton(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 100),

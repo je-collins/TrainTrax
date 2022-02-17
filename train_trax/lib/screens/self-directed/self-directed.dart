@@ -1,5 +1,6 @@
 import 'package:train_trax/screens/self-directed/local_widgets/NavigationBar.dart';
 import 'package:flutter/material.dart';
+import 'package:train_trax/utils/urls.dart';
 
 class OurSelfDirected extends StatelessWidget {
   Icon customIcon = const Icon(Icons.search);
@@ -56,13 +57,14 @@ class OurSelfDirected extends StatelessWidget {
                         ),
                     child: Center(
                       child: TextField(
+                        controller: fieldText,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.search),
                             suffixIcon: IconButton(
                               icon: Icon(Icons.clear),
                               onPressed: () {
                                 /* Clear the search field */
-                                 TextEditingController().clear(); 
+                                 fieldText.clear(); 
                               },
                             ),
                             hintText: 'Search...',
@@ -87,13 +89,28 @@ class OurSelfDirected extends StatelessWidget {
                 ),
                 for(var i=0; i<5; i++) 
                   Container(
-                    child: Text(
-                    "\u2022 "+"testing",
-                    style: TextStyle(
-                      color: Theme.of(context).secondaryHeaderColor,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.normal,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                       RichText(
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                          text: "\u2022 ",
+                        ),
+                        Urls.createUrl(url: 'https://www.youtube.com/', txt: 'Testing', context: context),
+                      ],
+                      
+                    ),
+                  )
+                  
+                      ],
+
                     ),
                   ),
               ],
