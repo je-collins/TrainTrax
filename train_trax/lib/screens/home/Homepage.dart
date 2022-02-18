@@ -1,7 +1,10 @@
 import 'package:train_trax/screens/home/local_widgets/navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:train_trax/utils/ProfileBar.dart';
+import 'package:train_trax/utils/NavBar.dart';
 
 class OurHome extends StatelessWidget {
+  String currentPage = "HOME";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,6 +15,10 @@ class OurHome extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(20.0),
               children: <Widget>[
+
+                ProfileBar.createProfileBar(context, currentPage),
+
+                //Logo
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image.asset(
@@ -23,7 +30,9 @@ class OurHome extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                OurHomepage(),
+
+                NavBar.createNavBar(context, currentPage),
+                //OurHomepage(),
               ],
             ),
           )

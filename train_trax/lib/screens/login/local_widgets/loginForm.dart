@@ -3,6 +3,9 @@ import 'package:train_trax/screens/login/forgot.dart';
 import 'package:train_trax/screens/login/register.dart';
 import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 enum LoginType {
   email,
@@ -10,8 +13,24 @@ enum LoginType {
 }
 
 class OurLoginForm extends StatelessWidget {
+
+   late List data;
+   
+
+  //https://train-trax.herokuapp.com/api/login Uri.parse(Uri.encodeFull('https://train-trax.herokuapp.com/api/login'))
+  Future<void> getGoodRequest1() async{
+    var url = 'https://train-trax.herokuapp.com/api/login';
+    http.Response response = await http.get(Uri.parse(url));
+    String data = response.body;
+    
+    print(jsonDecode(data));
+    
+
+  }
+
   @override
   Widget build(BuildContext context) {
+    //getGoodRequest1();
     return ShadowContainer(
       child: Column(
         children: <Widget>[
@@ -53,11 +72,14 @@ class OurLoginForm extends StatelessWidget {
               ),
             ),
             onPressed: () {
+              //getData();
+              
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context)=>OurHome(),
                 ),
               );
+              //*/
             },
           ),
           FlatButton(

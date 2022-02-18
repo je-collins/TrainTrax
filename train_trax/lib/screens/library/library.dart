@@ -1,11 +1,14 @@
 import 'package:train_trax/screens/library/local_widgets/NavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:train_trax/utils/urls.dart';
+import 'package:train_trax/utils/ProfileBar.dart';
+import 'package:train_trax/utils/NavBar.dart';
 
 class OurLibrary extends StatelessWidget {
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('My Personal Journal');
   final fieldText = TextEditingController();
+  String currentPage = "LIBRARY";
   var _hover = false;
   @override
   Widget build(BuildContext context) {
@@ -17,6 +20,7 @@ class OurLibrary extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
+                ProfileBar.createProfileBar(context, currentPage),
                 //Logo
                 Padding(
                   padding: EdgeInsets.all(10.0),
@@ -30,7 +34,9 @@ class OurLibrary extends StatelessWidget {
                   height: 20.0,
                 ),
                 //Page bar
-                OurLibrarypage(),
+                NavBar.createNavBar(context, currentPage),
+                
+                //OurLibrarypage(),
                 
                 //Library Search
                 Padding(
