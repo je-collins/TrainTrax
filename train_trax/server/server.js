@@ -44,3 +44,5 @@ app.post('/api/delete_member', delete_member);
 app.post('/api/delete_member', get_articles);
 app.post('/api/add_favorite', set_favorite(true));
 app.post('/api/remove_favorite', set_favorite(false));
+app.post('/api/add_starred_article', add_starred(false));
+app.post('/api/add_starred_domain', add_starred(true));
