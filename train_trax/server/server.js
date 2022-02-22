@@ -14,6 +14,7 @@ import add_member from './endpoints/add_members.js';
 import delete_member from './endpoints/delete_member.js';
 import get_articles from './endpoints/get_articles.js';
 import set_favorite from './endpoints/set_favorite.js';
+import add_starred from './endpoints/add_starred.js';
 
 // Create the app
 const app = express();
