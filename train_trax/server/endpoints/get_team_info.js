@@ -48,17 +48,15 @@ export default async (request, response) => {
     // Get user_ids of all team members
     const user_ids = await Team.getMembers(team_id);
 
-    let team_articles = Article.getOrderedArticlesFromTeam(user_ids);
+    let team_articles = Article.getArticlesFromTeamMembers(user_ids);
     
     let i = 0;
     // Get articles for each team members
-    for (const id in user_ids) {
+    for (const id of user_ids) {
         i = 0;
         const list = [];
-        for (const article in team_articles)
-        {
-            if(article.user_id === id)
-            {
+        for (const article in team_articles){
+            if(article.user_id === id){
                 console.log(id);
                 list.push({
                     'id': article.article_id,
@@ -79,33 +77,27 @@ export default async (request, response) => {
     team_articles.sort(function(a, b) { return a.start_time - b.start_time;})
     //for (const item in all_articles) print(item.name);
 
-    i = 0;
-    for (const item in team_articles) {
+    for (const item in (await team_articles).slice(0, 5)) {
         json.team_articles.push({
             'id': item.article_id,
             'article': article
         });
-        i++;
-        if(i === 5) break;
     }
 
     // Filter all articles by complete time and take the top 5
     // What if they don't have a complete time?
     team_articles.sort(function(a, b) { return a.complete_time - b.complete_time;})
 
-    i = 0;
-    for (const item in team_articles) {
+    for (const item of (await team_articles).slice(0, 5)) {
         json.team_completed.push({
             'id': item.article_id,
             'article': article
         });
-        i++;
-        if(i === 5) break;
     }
 
     // Count of completed / count of all
     const complete = team_articles.filter (({complete_time}) => complete_time !== null).length
-    json.completion_rate = complete / length(team_articles);
+    json.completion_rate = complete / (await team_articles).length;
 
 	return response.status(200).json(json);
 };

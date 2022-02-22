@@ -7,7 +7,7 @@ export default class Article {
 		return res.length === 0 ? [] : res;
 	}
 
-	static async getOrderedArticlesFromTeam(team) {
+	static async getArticlesFromTeamMembers(team) {
 		const res = await DB.query('SELECT * FROM articles WHERE user_id = ANY ($1);', [user_id]);
 		return res.length === 0 ? [] : res;
 	}

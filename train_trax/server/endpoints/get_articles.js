@@ -37,7 +37,7 @@ export default async (request, response) => {
 	const articles = await Article.getArticles();
 
 	// If articles is not null return the articles
-	for (const row in articles) json.articles.push(row.article)
+	for (const row of articles) json.articles.push(row.article)
 	
 	return response.status(200).json(json);
 };
