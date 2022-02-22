@@ -13,6 +13,7 @@ import get_favorites from './endpoints/get_favorites.js';
 import add_member from './endpoints/add_members.js';
 import delete_member from './endpoints/delete_member.js';
 import get_articles from './endpoints/get_articles.js';
+import set_favorite from './endpoints/set_favorite.js';
 
 // Create the app
 const app = express();
@@ -41,3 +42,5 @@ app.post('/api/get_favorites', get_favorites);
 app.post('/api/add_member', add_member);
 app.post('/api/delete_member', delete_member);
 app.post('/api/delete_member', get_articles);
+app.post('/api/add_favorite', set_favorite(true));
+app.post('/api/remove_favorite', set_favorite(false));
