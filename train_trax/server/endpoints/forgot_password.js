@@ -1,5 +1,4 @@
-import Mailer from '../objects/Mailer.js';
-import User from '../objects/User.js';
+import { Json, Mailer, User } from '../objects/Objects.js';
 import md5 from 'md5';
 
 export default async (request, response) => {
@@ -7,31 +6,16 @@ export default async (request, response) => {
 	const { email } = request.body;
 
 	// Create return JSON structure
-	const json = {
-		'error': '',
-		'message': ''
-	};
+	const json = new Json();
 
 	// Check if one or more fields is not declared
 	const undef = [];
 	if (email === undefined) undef.push('email');
-
-	// If undeclared field, return error
-	if (undef.length > 0) {
-		json.error = 'Invalid payload';
-		json.message = `Missing the following field${undef.length === 1 ? '' : 's'}: ${undef.join(', ')}.`;
-		return response.status(400).json(json);
-	}
+	if (undef.length > 0) return json.badPayload(undef).send(response);
 
 	// Retrieve user data
 	const user = await User.fromEmail(email);
-
-	// If user does not exist, return invalid credentials
-	if (user === null) {
-		json.error = 'Invalid credentials';
-		json.message = 'No user exists with the given email.';
-		return response.status(401).json(json);
-	}
+	if (user === null) return json.badCredentials().send(response);
 
 	// Create token and update user information
 	const token = md5(`token of ${user.user_id} at time ${new Date().getTime().toString()}`);
