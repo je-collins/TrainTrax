@@ -48,7 +48,7 @@ export default async (request, response) => {
     // Get user_ids of all team members
     const user_ids = await Team.getMembers(team_id);
 
-    let team_articles = Article.getArticlesFromTeamMembers(user_ids);
+    let team_articles = await Article.getArticlesFromTeamMembers(user_ids);
     
     let i = 0;
     // Get articles for each team members
@@ -77,7 +77,7 @@ export default async (request, response) => {
     team_articles.sort(function(a, b) { return a.start_time - b.start_time;})
     //for (const item in all_articles) print(item.name);
 
-    for (const item in (await team_articles).slice(0, 5)) {
+    for (const item in team_articles.slice(0, 5)) {
         json.team_articles.push({
             'id': item.article_id,
             'article': article
@@ -88,7 +88,7 @@ export default async (request, response) => {
     // What if they don't have a complete time?
     team_articles.sort(function(a, b) { return a.complete_time - b.complete_time;})
 
-    for (const item of (await team_articles).slice(0, 5)) {
+    for (const item of team_articles.slice(0, 5) {
         json.team_completed.push({
             'id': item.article_id,
             'article': article
@@ -97,7 +97,7 @@ export default async (request, response) => {
 
     // Count of completed / count of all
     const complete = team_articles.filter (({complete_time}) => complete_time !== null).length
-    json.completion_rate = complete / (await team_articles).length;
+    json.completion_rate = complete / team_articles.length;
 
 	return response.status(200).json(json);
 };
