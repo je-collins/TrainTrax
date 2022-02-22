@@ -8,7 +8,7 @@ export default class Article {
 	}
 
 	static async getOrderedArticlesFromTeam(team) {
-		const res = await DB.query('SELECT * FROM articles WHERE user_id IN ($1);', [user_id]);
+		const res = await DB.query('SELECT * FROM articles WHERE user_id = ANY ($1);', [user_id]);
 		return res.length === 0 ? [] : res;
 	}
 
