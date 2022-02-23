@@ -24,6 +24,6 @@ export default async (request, response) => {
 	if (member !== undefined) return json.error(Json.STATUS_BAD_INFO, 'Invalid member', 'The user does not exist in this team.').send();
     
 	// Update team information
-	await Team.removeMember(team_id, member_id);
+	await Team.removeMemberFromTeam(team_id, member_id);
 	return json.send();
 };
