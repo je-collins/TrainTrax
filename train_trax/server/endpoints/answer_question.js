@@ -1,8 +1,8 @@
-import { Json, Team, User } from '../objects/Objects.js';
+import { Json, Question, User } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
-	const { token, team_id, member_id} = request.body;
+	const { token, question_id, answer_text} = request.body;
 
 	// Create return JSON structure
 	const json = new Json(response);
@@ -10,20 +10,16 @@ export default async (request, response) => {
 	// Check if one or more fields is not declared
 	const undef = [];
 	if (token === undefined) undef.push('token');
-	if (team_id === undefined) undef.push('team_id');
-	if (member_id === undefined) undef.push('member_id');
+	if (question_id === undefined) undef.push('question_id');
+	if (answer_text === undefined) undef.push('answer_text');
 	if (undef.length > 0) return json.badPayload(undef).send();
 
 	// Retrieve user data
 	const user = await User.fromToken(token);
     if (user === null) return json.badToken().send();
 	if (!user.administrator) return json.notAdmin().send();
-    
-    // Check if the user exists in the team
-    const member = await Team.getTeamUserFromId(team_id, member_id);
-	if (member !== null) return json.error(Json.STATUS_BAD_INFO, 'Invalid member', 'The user does not exist in this team.').send();
-    
-	// Update team information
-	await Team.deleteMember(member_id, team_id);
+
+	// Update question information
+	await Question.addAnswer(question_id, user.user_id, answer_text);
 	return json.send();
 };

@@ -5,7 +5,7 @@ export default async (request, response) => {
 	const { email, password, name, phone_number } = request.body;
 	
 	// Create return JSON structure
-	const json = new Json();
+	const json = new Json(response);
 
 	// Check if one or more fields is not declared
 	const undef = [];
@@ -13,13 +13,13 @@ export default async (request, response) => {
 	if (password === undefined) undef.push('password');
 	if (name === undefined) undef.push('name');
 	if (phone_number === undefined) undef.push('phone_number');
-	if (undef.length > 0) return json.badPayload(undef).send(response);
+	if (undef.length > 0) return json.badPayload(undef).send();
 
 	// If email exists, return duplicate email
-	if (await User.fromEmail(email) !== null) return json.error(401, 'Duplicate email', 'A user with the given email already exists.').send(response);
+	if (await User.fromEmail(email) !== null) return json.error(Json.STATUS_BAD_INFO, 'Duplicate email', 'A user with the given email already exists.').send();
 
 	// If user does not exist, add them and send an email
 	await User.create(email, password, name, phone_number);
 	await Mailer.sendEmail(email, 'Welcome to Train Trax!', `Welcome ${name} to Train Trax!`);
-	return json.send(response);
+	return json.send();
 };

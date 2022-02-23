@@ -2,6 +2,11 @@ import DB from './DB.js';
 
 export default class Article {
     
+	// Starred Articles
+	static async addStarred(user_id, article, is_domain) {
+		return DB.query('INSERT INTO starred_articles(user_id, article, is_domain) VALUES($1, $2, $3);', user_id, article, is_domain);
+	}
+
     static async getArticlesFromUser(user_id) {
 		const res = await DB.query('SELECT * FROM articles WHERE user_id = $1;', [user_id]);
 		return res.length === 0 ? [] : res;

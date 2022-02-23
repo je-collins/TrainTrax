@@ -1,43 +1,23 @@
-import User from '../objects/User.js';
-import Article from '../objects/Article.js';
+import { Article, Json, User } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
 	const { token } = request.body;
 
 	// Create return JSON structure
-	const json = {
-		'articles': [],
-		'error': '',
-		'message': ''
-	};
+	const json = new Json(response, 'results');
 
 	// Check if one or more fields is not declared
 	const undef = [];
 	if (token === undefined) undef.push('token');
-
-	// If undeclared field, return error
-	if (undef.length > 0) {
-		json.error = 'Invalid payload';
-		json.message = `Missing the following field${undef.length === 1 ? '' : 's'}: ${undef.join(', ')}.`;
-		return response.status(400).json(json);
-	}
+	if (undef.length > 0) return json.badPayload(undef).send();
 
 	// Retrieve user data
 	const user = await User.fromToken(token);
-    
-	// If user token is not valid, return bad request
-	if (user === null) {
-        json.error = 'Bad request';
-		json.message = 'The user session has expired.';
-		return response.status(400).json(json);
-	}
+	if (user === null) return json.badToken().send();
 
-    // Get all articles in the articles table
+    // Retrieve and send all articles
 	const articles = await Article.getArticles();
-
-	// If articles is not null return the articles
-	for (const row of articles) json.articles.push(row.article)
-	
-	return response.status(200).json(json);
+	for (const row of articles) json.get('results').push(row.article);
+	return json.send();
 };

@@ -2,17 +2,17 @@ export default class Json {
 
 	// Private class variables
 	#replied = false;
-	#status = 200;
+	#status = Json.STATUS_SUCCESS;
+	#response;
 	#json = {
 		'error': '',
 		'message': ''
 	};
 
 	// Constructor
-	constructor(...parameters) {
-		for (const name of parameters) {
-			this.#json[name] = '';
-		}
+	constructor(response, ...parameters) {
+		this.#response = response;
+		for (const name of parameters) this.#json[name] = '';
 	}
 
 	// Generic functions
@@ -39,25 +39,54 @@ export default class Json {
 	}
 
 	// Helper functions
-	badPayload(missing) {
-		return this.error(400, 'Invalid payload', `Missing the following field${missing.length === 1 ? '' : 's'}: ${missing.join(', ')}.`);
+	badPayload(fields) {
+		return this.error(Json.STATUS_BAD_PAYLOAD, 'Invalid payload', `Missing the following field${fields.length === 1 ? '' : 's'}: ${fields.join(', ')}.`);
+	}
+
+	badData(fields) {
+		return this.error(Json.STATUS_BAD_PAYLOAD, 'Invalid payload', `Invalid data for the following field${fields.length === 1 ? '' : 's'}: ${fields.join(', ')}.`);
 	}
 
 	badCredentials() {
-		return this.error(401, 'Invalid credentials', 'No user exists with the given email and password.');
+		return this.error(Json.STATUS_BAD_CREDENTIALS, 'Invalid credentials', 'No user exists with the given email and/or password.');
 	}
 
 	badToken() {
-		return this.error(401, 'Invalid credentials', 'The token provided is either invalid or expired.')
+		return this.error(Json.STATUS_BAD_CREDENTIALS, 'Invalid credentials', 'The token provided is either invalid or expired.')
+	}
+
+	notAdmin() {
+		return this.error(Json.STATUS_BAD_PERMISSION, 'Invalid permission', 'The user does not have permission to access this endpoint.');
 	}
 
 	// Send the json as the response
-	send(response) {
+	send() {
 		if (!this.#replied) {
 			this.#replied = true;
-			response.status(this.#status).json(this.#json);
+			this.#response.status(this.#status).json(this.#json);
 		}
 
 		return this;
+	}
+
+	// constant error values
+	static get STATUS_SUCCESS() {
+		return 200;
+	}
+
+	static get STATUS_BAD_PAYLOAD() {
+		return 400;
+	}
+
+	static get STATUS_BAD_CREDENTIALS() {
+		return 401;
+	}
+
+	static get STATUS_BAD_INFO() {
+		return 401;
+	}
+
+	static get STATUS_BAD_PERMISSION() {
+		return 403;
 	}
 }
