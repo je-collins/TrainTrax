@@ -50,8 +50,11 @@ export default async (request, response) => {
 
     let team_articles = await Article.getArticlesFromUsers(user_ids);
     
-    let i = 0;
-    // Get articles for each team members
+    // Filter all articles by start time
+    team_articles.sort(function(a, b) { return a.start_time - b.start_time;})
+    //for (const item in all_articles) print(item.name);
+
+    // Get articles for each team member
     for (const id of user_ids) {
         i = 0;
         const list = [];
@@ -64,7 +67,7 @@ export default async (request, response) => {
                 });
                 i++;
             }
-            if (i === 5) break;
+            if (list.length === 5) break;
         }
         json.member_articles.push({
             'user': id,
@@ -72,11 +75,7 @@ export default async (request, response) => {
         });        
     }
 
-    // Filter all articles by start time and take the top 5
-    // What if they don't have a start time?
-    team_articles.sort(function(a, b) { return a.start_time - b.start_time;})
-    //for (const item in all_articles) print(item.name);
-
+    // Take top 5 most recently started articles
     for (const item in team_articles.slice(0, 5)) {
         json.team_articles.push({
             'id': item.article_id,
@@ -89,10 +88,13 @@ export default async (request, response) => {
     team_articles.sort(function(a, b) { return a.complete_time - b.complete_time;})
 
     for (const item of team_articles.slice(0, 5)) {
-        json.team_completed.push({
-            'id': item.article_id,
-            'article': article
-        });
+
+        if(item.complete_time !== null) {
+            json.team_completed.push({
+                'id': item.article_id,
+                'article': article
+            });
+        }
     }
 
     // Count of completed / count of all
