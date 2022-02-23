@@ -46,7 +46,7 @@ export default async (request, response) => {
 	}
 
     // Get user_ids of all team members
-    const user_ids = await Team.getMembers(team_id);
+    const user_ids = await Team.getMembersFromTeam(team_id);
 
     let team_articles = await Article.getArticlesFromUsers(user_ids);
     

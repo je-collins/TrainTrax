@@ -20,10 +20,10 @@ export default async (request, response) => {
 	if (!user.administrator) return json.notAdmin().send();
     
     // Check if the user exists in the team
-    const member = await Team.getTeamUserFromId(team_id, member_id);
-	if (member !== null) return json.error(Json.STATUS_BAD_INFO, 'Invalid member', 'The user does not exist in this team.').send();
+    const member = await Team.getMemberFromTeamAndId(team_id, member_id);
+	if (member !== undefined) return json.error(Json.STATUS_BAD_INFO, 'Invalid member', 'The user does not exist in this team.').send();
     
 	// Update team information
-	await Team.deleteMember(member_id, team_id);
+	await Team.removeMember(team_id, member_id);
 	return json.send();
 };
