@@ -1,5 +1,4 @@
-import { Json, Mailer, User } from '../objects/Objects.js';
-import md5 from 'md5';
+import { Constants, Json, Mailer, User } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -18,7 +17,7 @@ export default async (request, response) => {
 	if (user === null) return json.badCredentials().send();
 
 	// Create token and update user information
-	const token = md5(`token of ${user.user_id} at time ${new Date().getTime().toString()}`);
+	const token = Constants.generateToken(user.user_id);
 	await User.setValidationToken(user.user_id, token);
 
 	// Send email
