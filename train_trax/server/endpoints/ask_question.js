@@ -15,7 +15,7 @@ export default async (request, response) => {
 
 	// Retrieve user data
 	const user = await User.fromToken(token);
-    if (user === null) return json.badToken().send();
+    if (user === undefined) return json.badToken().send();
     
 	// Update question information
 	await Question.addQuestion(user.user_id, question_text)

@@ -32,7 +32,7 @@ export default async (request, response) => {
 	const user = await User.fromToken(token);
     
 	// If user token is not valid, return bad request
-	if (user === null) {
+	if (user === undefined) {
         json.error = 'Bad request';
 		json.message = 'The user session has expired.';
 		return response.status(400).json(json);

@@ -16,7 +16,7 @@ export default async (request, response) => {
 	if (undef.length > 0) return json.badPayload(undef).send();
 
 	// If email exists, return duplicate email
-	if (await User.fromEmail(email) !== null) return json.error(Json.STATUS_BAD_INFO, 'Duplicate email', 'A user with the given email already exists.').send();
+	if (await User.fromEmail(email) !== undefined) return json.error(Json.STATUS_BAD_INFO, 'Duplicate email', 'A user with the given email already exists.').send();
 
 	// If user does not exist, add them and send an email
 	await User.create(email, password, name, phone_number);

@@ -14,7 +14,7 @@ export default async (request, response) => {
 
 	// Retrieve user data
 	const user = await User.fromToken(token);
-	if (user === null) return json.badToken().send();
+	if (user === undefined) return json.badToken().send();
 
     // Retrieve and send all articles
 	const articles = await Article.getArticles();

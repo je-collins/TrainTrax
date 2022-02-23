@@ -14,7 +14,7 @@ export default async (request, response) => {
 
 	// Retrieve user data
 	const user = await User.fromEmail(email);
-	if (user === null) return json.badCredentials().send();
+	if (user === undefined) return json.badCredentials().send();
 
 	// Create token and update user information
 	const token = Constants.generateToken(user.user_id);

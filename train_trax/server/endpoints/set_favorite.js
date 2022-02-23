@@ -15,7 +15,7 @@ export default (addFavorite) => async (request, response) => {
 
 	// Retrieve user data
 	const user = await User.fromToken(token);
-	if (user === null) return json.badCredentials().send();
+	if (user === undefined) return json.badCredentials().send();
 
 	// Retrieve article data
 	const article = await Article.getArticleFromId(article_id);

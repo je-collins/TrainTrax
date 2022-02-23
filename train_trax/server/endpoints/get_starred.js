@@ -14,7 +14,7 @@ export default (isDomain) => async (request, response) => {
 
 	// Retrieve user data
 	const user = await User.fromToken(token);
-	if (user === null) return json.badCredentials().send();
+	if (user === undefined) return json.badCredentials().send();
 
 	// Query database for starred articles/domains and return
 	const articles = await (isDomain ? Article.getStarredArticles : Article.getStarredDomains)();

@@ -15,7 +15,7 @@ export default async (request, response) => {
 
 	// Retrieve user data
 	const user = await User.fromToken(validation_token);
-	if (user === null) return json.badCredentials().send();
+	if (user === undefined) return json.badCredentials().send();
 
 	// Update the user's password
 	await User.setPassword(user.user_id, password);

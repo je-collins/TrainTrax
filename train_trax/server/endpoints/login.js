@@ -15,7 +15,7 @@ export default async (request, response) => {
 
 	// Retrieve user data
 	const user = await User.fromLogin(email, password);
-	if (user === null) return json.badCredentials().send();
+	if (user === undefined) return json.badCredentials().send();
 
 	// Create token and update user information, return token
 	const token = Constants.generateToken(user.user_id);
