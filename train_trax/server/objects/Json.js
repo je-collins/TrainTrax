@@ -55,6 +55,10 @@ export default class Json {
 		return this.error(Json.STATUS_BAD_CREDENTIALS, 'Invalid credentials', 'The token provided is either invalid or expired.')
 	}
 
+	badArticle() {
+		return this.error(Json.STATUS_BAD_INFO, 'Unknown article', 'The article with the given ID does not exist.');
+	}
+
 	notAdmin() {
 		return this.error(Json.STATUS_BAD_PERMISSION, 'Invalid permission', 'The user does not have permission to access this endpoint.');
 	}

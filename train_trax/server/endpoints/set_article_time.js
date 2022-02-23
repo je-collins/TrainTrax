@@ -18,9 +18,9 @@ export default (isStart) => async (request, response) => {
 	const user = await User.fromToken(token);
 	if (user === null) return json.badToken().send();
     
-    // Retrieve user data
+    // Retrieve article data
 	const article = await Article.getArticleFromId(article_id);
-    if (article === null || article.user_id !== user.user_id) return json.error(Json.STATUS_BAD_INFO, 'Unknown article', 'The article with the given ID does not exist.').send();
+    if (article === null || article.user_id !== user.user_id) return json.badArticle().send();
 
     // Update Article information
     await (isStart ? Article.setStart : Article.setEnd)(article_id, new Date(time).toISOString());

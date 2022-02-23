@@ -17,7 +17,11 @@ export default (addFavorite) => async (request, response) => {
 	const user = await User.fromToken(token);
 	if (user === null) return json.badCredentials().send();
 
+	// Retrieve article data
+	const article = await Article.getArticleFromId(article_id);
+    if (article === null || article.user_id !== user.user_id) return json.badArticle().send();
+
 	// Query database for favorited articles and return
-	await Article.setFavorite(user.user_id, article_id, addFavorite);
+	await Article.setFavorite(article_id, addFavorite);
 	return json.send();
 };

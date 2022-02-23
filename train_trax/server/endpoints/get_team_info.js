@@ -48,7 +48,7 @@ export default async (request, response) => {
     // Get user_ids of all team members
     const user_ids = await Team.getMembers(team_id);
 
-    let team_articles = await Article.getArticlesFromTeamMembers(user_ids);
+    let team_articles = await Article.getArticlesFromUsers(user_ids);
     
     let i = 0;
     // Get articles for each team members
@@ -88,7 +88,7 @@ export default async (request, response) => {
     // What if they don't have a complete time?
     team_articles.sort(function(a, b) { return a.complete_time - b.complete_time;})
 
-    for (const item of team_articles.slice(0, 5) {
+    for (const item of team_articles.slice(0, 5)) {
         json.team_completed.push({
             'id': item.article_id,
             'article': article
