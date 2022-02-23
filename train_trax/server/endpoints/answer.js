@@ -41,6 +41,6 @@ export default async (request, response) => {
 	}
     
 	// Update question information
-	await Team.addMember(member_id, team_id);
+	await Question.addAnswer(question_id, user.user_id, answer_text);
 	return response.status(200).json(json);
 };
