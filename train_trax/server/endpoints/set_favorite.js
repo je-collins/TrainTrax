@@ -19,7 +19,7 @@ export default (addFavorite) => async (request, response) => {
 
 	// Retrieve article data
 	const article = await Article.getArticleFromId(article_id);
-    if (article === null || article.user_id !== user.user_id) return json.badArticle().send();
+    if (article === undefined || article.user_id !== user.user_id) return json.badArticle().send();
 
 	// Query database for favorited articles and return
 	await Article.setFavorite(article_id, addFavorite);

@@ -59,7 +59,7 @@ export default class Article {
 	
 	// Get Articles
 	static async getArticleFromId(article_id) {
-		return DB.query('SELECT * FROM articles WHERE article_id = $1;', [article_id]);
+		return DB.query('SELECT * FROM articles WHERE article_id = $1;', [article_id]).then(value => value[0]);
 	}
 
 	static async getArticles() {
