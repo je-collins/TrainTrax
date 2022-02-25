@@ -1,4 +1,3 @@
-import 'package:train_trax/screens/home/local_widgets/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:train_trax/screens/settings/local_widgets/settingsForm.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
@@ -28,7 +27,7 @@ class OurSettings extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                
+
                 NavBar.createNavBar(context, currentPage),
                 //OurHomepage(),
                 const SizedBox(

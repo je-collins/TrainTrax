@@ -1,5 +1,3 @@
-import 'package:train_trax/screens/home/local_widgets/navigation_bar.dart';
-import 'package:train_trax/screens/home/local_widgets/downloads_list.dart';
 import 'package:flutter/material.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
@@ -28,10 +26,32 @@ class OurDownload extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-
-                NavBar.createNavBar(context, currentPage), 
-                //OurHomepage(),
-                OurDownloads(),
+                NavBar.createNavBar(context, currentPage),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
+                  child: Center(
+                    child: Text(
+                      "DOWNLOADS",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+                for (var i = 0; i < 5; i++)
+                  Container(
+                    child: Text(
+                      "\u2022 " + "testing",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
               ],
             ),
           )

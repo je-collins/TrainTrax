@@ -1,4 +1,3 @@
-import 'package:train_trax/screens/home/local_widgets/navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
@@ -15,7 +14,6 @@ class OurHome extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(20.0),
               children: <Widget>[
-
                 ProfileBar.createProfileBar(context, currentPage),
 
                 //Logo
@@ -32,7 +30,6 @@ class OurHome extends StatelessWidget {
                 ),
 
                 NavBar.createNavBar(context, currentPage),
-                //OurHomepage(),
               ],
             ),
           )

@@ -1,4 +1,3 @@
-import 'package:train_trax/screens/home/local_widgets/navigation_bar.dart';
 import 'package:train_trax/screens/login/register.dart';
 import 'package:train_trax/utils/ourTheme.dart';
 import 'package:train_trax/screens/login/login.dart';
@@ -19,11 +18,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo', 
-        theme: OurTheme().buildTheme(), 
-        home: OurLogin(),
-        );
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      theme: OurTheme().buildTheme(),
+      home: OurLogin(),
+    );
   }
 }
 

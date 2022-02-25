@@ -1,4 +1,3 @@
-import 'package:train_trax/screens/home/local_widgets/navigation_bar.dart';
 import 'package:train_trax/screens/home/admin/admin_widgets/admin_nav_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +28,6 @@ class OurTeamStatistics extends StatelessWidget {
                   height: 20.0,
                 ),
                 //Page bar
-                OurHomepage(),
                 OurAdminNavigation(),
 
                 //Search
