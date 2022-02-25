@@ -36,6 +36,10 @@ class OurAddResources extends StatelessWidget {
                 //Page bar
                 OurAdminNavigation(),
 
+                const SizedBox(
+                  height: 20.0,
+                ),
+
                 //Search
                 Padding(
                   padding:

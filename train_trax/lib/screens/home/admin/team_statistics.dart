@@ -1,10 +1,10 @@
 import 'package:train_trax/screens/home/admin/admin_widgets/admin_nav_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:train_trax/utils/ProfileBar.dart';
+import 'package:train_trax/utils/NavBar.dart';
 
 class OurTeamStatistics extends StatelessWidget {
-  Icon customIcon = const Icon(Icons.search);
-  Widget customSearchBar = const Text('My Personal Journal');
-  final fieldText = TextEditingController();
+  String currentPage = "SETTINGS";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,23 +13,32 @@ class OurTeamStatistics extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: ListView(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               children: <Widget>[
-                //Logo
+                ProfileBar.createProfileBar(context, currentPage),
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Image.asset(
                     "assets/NETC_Logo.jpg",
                     height: 100,
                     width: 100,
                   ),
                 ),
-                SizedBox(
+
+                const SizedBox(
+                  height: 20.0,
+                ),
+
+                NavBar.createNavBar(context, currentPage),
+                const SizedBox(
                   height: 20.0,
                 ),
                 //Page bar
                 OurAdminNavigation(),
 
+                const SizedBox(
+                  height: 20.0,
+                ),
                 //Search
                 Padding(
                   padding:
