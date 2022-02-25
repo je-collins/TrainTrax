@@ -30,6 +30,102 @@ class OurHome extends StatelessWidget {
                 ),
 
                 NavBar.createNavBar(context, currentPage),
+
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
+                  child: Center(
+                    child: Text(
+                      "USER DASHBOARD",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 25.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
+                  child: Center(
+                    child: Text(
+                      "RECOMMENDED",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+
+                for (var i = 0; i < 5; i++)
+                  Container(
+                    child: Text(
+                      "\u2022 " + "testing",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
+                  child: Center(
+                    child: Text(
+                      "STARTED CONTENT",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+
+                for (var i = 0; i < 5; i++)
+                  Container(
+                    child: Text(
+                      "\u2022 " + "testing",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
+
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
+                  child: Center(
+                    child: Text(
+                      "COMPLETED CONTENT",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+
+                for (var i = 0; i < 5; i++)
+                  Container(
+                    child: Text(
+                      "\u2022 " + "testing",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ),
               ],
             ),
           )

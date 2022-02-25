@@ -10,7 +10,7 @@ class OurSettingsForm extends StatelessWidget {
         children: <Widget>[
           Center(
             child: Text(
-              "Settings",
+              "SETTINGS",
               style: TextStyle(
                 color: Theme.of(context).secondaryHeaderColor,
                 fontSize: 25.0,
@@ -21,13 +21,11 @@ class OurSettingsForm extends StatelessWidget {
           const SizedBox(
             height: 20.0,
           ),
-          Text(
-            "User Information:"
-          ),
+          Text("User Information:"),
           const SizedBox(
             height: 5.0,
           ),
-          
+
           //Email
           RichText(
             text: TextSpan(
@@ -40,7 +38,6 @@ class OurSettingsForm extends StatelessWidget {
                 ),
               ],
               style: TextStyle(color: Colors.black),
-              
             ),
           ),
           const SizedBox(
@@ -59,7 +56,6 @@ class OurSettingsForm extends StatelessWidget {
                 ),
               ],
               style: TextStyle(color: Colors.black),
-              
             ),
           ),
           const SizedBox(
@@ -67,9 +63,7 @@ class OurSettingsForm extends StatelessWidget {
           ),
 
           //Change Password
-          Text(
-            "Change Password?"
-          ),
+          Text("Change Password?"),
           const SizedBox(
             height: 5.0,
           ),
@@ -89,25 +83,25 @@ class OurSettingsForm extends StatelessWidget {
           ),
           Center(
             child: RaisedButton(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 100),
-              child: Text(
-                "Change password",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 100),
+                child: Text(
+                  "Change password",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                  ),
                 ),
               ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => OurHome(),
+                  ),
+                );
+              },
             ),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context)=>OurHome(),
-                ),
-              );
-            },
-          ),
           ),
         ],
       ),

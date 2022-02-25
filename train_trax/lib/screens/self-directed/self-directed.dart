@@ -35,12 +35,13 @@ class OurSelfDirected extends StatelessWidget {
                 //Page bar
                 NavBar.createNavBar(context, currentPage),
                 //OurLibrarypage(),
-                
+
                 //Search
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
                   child: Center(
-                      child: Text(
+                    child: Text(
                       "SEARCH ONLINE",
                       style: TextStyle(
                         color: Theme.of(context).secondaryHeaderColor,
@@ -49,78 +50,76 @@ class OurSelfDirected extends StatelessWidget {
                       ),
                     ),
                   ),
-
                 ),
                 //Search bar
                 Container(
                   width: double.infinity,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.white, 
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.black)
-                        ),
-                    child: Center(
-                      child: TextField(
-                        controller: fieldText,
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.search),
-                            suffixIcon: IconButton(
-                              icon: Icon(Icons.clear),
-                              onPressed: () {
-                                /* Clear the search field */
-                                 fieldText.clear(); 
-                              },
-                            ),
-                            hintText: 'Search...',
-                            border: InputBorder.none),
-                      ),
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.black)),
+                  child: Center(
+                    child: TextField(
+                      controller: fieldText,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.search),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.clear),
+                            onPressed: () {
+                              /* Clear the search field */
+                              fieldText.clear();
+                            },
+                          ),
+                          hintText: 'Search...',
+                          border: InputBorder.none),
                     ),
+                  ),
                 ),
                 SizedBox(
                   height: 40.0,
                 ),
 
-                  //USED BY OTHERS list
+                //USED BY OTHERS list
                 Container(
                   child: Text(
-                  "MOST RECENTLY SEARCHED:",
-                  style: TextStyle(
-                    color: Theme.of(context).secondaryHeaderColor,
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.bold,
+                    "MOST RECENTLY SEARCHED",
+                    style: TextStyle(
+                      color: Theme.of(context).secondaryHeaderColor,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
-                for(var i=0; i<5; i++) 
+                for (var i = 0; i < 5; i++)
                   Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                       RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          style: TextStyle(
-                            color: Theme.of(context).secondaryHeaderColor,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.normal,
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                style: TextStyle(
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                text: "\u2022 ",
+                              ),
+                              Urls.createUrl(
+                                  url: 'https://www.youtube.com/',
+                                  txt: 'Testing',
+                                  context: context),
+                            ],
                           ),
-                          text: "\u2022 ",
-                        ),
-                        Urls.createUrl(url: 'https://www.youtube.com/', txt: 'Testing', context: context),
+                        )
                       ],
-                      
-                    ),
-                  )
-                  
-                      ],
-
                     ),
                   ),
               ],
             ),
-            ),
+          ),
         ],
       ),
     );
