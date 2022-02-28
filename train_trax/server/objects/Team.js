@@ -2,36 +2,31 @@ import DB from './DB.js';
 
 export default class Team {
 	
-	// team exists
-	static async getTeamUserFromId(team_id, user_id) {
-		const res = await DB.query('SELECT * FROM team_users WHERE team_id = $1 AND user_id = $2;', [team_id, user_id]);
-		return res.length === 0 ? null : res[0];
+	// Get Team User
+	static async getMemberFromTeamAndId(team_id, user_id) {
+		return DB.query('SELECT user_id FROM team_users WHERE team_id = $1 AND user_id = $2;', [team_id, user_id]).then(value => value[0]);
 	}
 
-	// create team
-	static async createTeam(user_id, name) {
-		return await DB.query('INSERT INTO teams(administrator, team_name) VALUES($1, $2);', [user_id, name]);
+	static async getMembersFromTeam(team_id) {
+		return DB.query('SELECT user_id FROM team_users WHERE team_id = $1;', [team_id]);
 	}
 
-	// add to team
-	static async addMember(user_id, team_id) {
-		return await DB.query('INSERT INTO team_users(user_id, team_id) VALUES($1, $2);', [user_id, team_id]);
-    }
+	// Insert and Delete Team User
+	static async addMemberToTeam(team_id, user_id) {
+		return DB.query('INSERT INTO team_users(team_id, user_id) VALUES($1, $2);', [team_id, user_id]);
+	}
 
-	// delete from team
-	static async deleteMember(user_id, team_id) {
-		return await DB.query('DELETE FROM team_users WHERE team_id = $2 AND user_id = $1;', [user_id, team_id]);
-    }
+	static async removeMemberFromTeam(team_id, user_id) {
+		return DB.query('DELETE FROM team_users WHERE team_id = $1 AND user_id = $2;', [team_id, user_id]);
+	}
+	
+	// Insert and Delete Team
+	static async addTeam(user_id, name) {
+		return DB.query('INSERT INTO teams(administrator, team_name) VALUES($1, $2);', [user_id, name]);
+	}
 
-	// delete team
-	static async deleteTeam(team_id) {
-        await DB.query('DELETE FROM team_users WHERE team_id = $1;', [team_id]);
-		return await DB.query('DELETE FROM teams WHERE team_id = $1;', [team_id]);
-    }
-
-	// get team info
-	static async getMembers(team_id) {
-		const res = await DB.query('SELECT user_id FROM team_users WHERE team_id = $1;', [team_id]);
-		return res.length === 0 ? [] : res;;
+	static async removeTeam(team_id) {
+		return DB.query('DELETE FROM team_users WHERE team_id = $1;', [team_id])
+			.then(value => [value, DB.query('DELETE FROM teams WHERE team_id = $1;', [team_id])]);
     }
 }

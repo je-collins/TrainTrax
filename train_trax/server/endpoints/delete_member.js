@@ -1,57 +1,29 @@
-import User from '../objects/User.js';
-import Team from '../objects/Team.js';
+import { Json, Team, User } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
-	const { token , team_id , member_id} = request.body;
+	const { token, team_id, member_id} = request.body;
 
 	// Create return JSON structure
-	const json = {
-		'error': '',
-		'message': ''
-	};
+	const json = new Json(response);
 
 	// Check if one or more fields is not declared
 	const undef = [];
 	if (token === undefined) undef.push('token');
 	if (team_id === undefined) undef.push('team_id');
 	if (member_id === undefined) undef.push('member_id');
-
-	// If undeclared field, return error
-	if (undef.length > 0) {
-		json.error = 'Invalid payload';
-		json.message = `Missing the following field${undef.length === 1 ? '' : 's'}: ${undef.join(', ')}.`;
-		return response.status(400).json(json);
-	}
+	if (undef.length > 0) return json.badPayload(undef).send();
 
 	// Retrieve user data
 	const user = await User.fromToken(token);
+    if (user === undefined) return json.badToken().send();
+	if (!user.administrator) return json.notAdmin().send();
     
-	// If user token is not valid, return bad request
-	if (user === null) {
-        json.error = 'Bad request';
-		json.message = 'The user session has expired.';
-		return response.status(400).json(json);
-	}
-
-	// If user is not an admin, return bad request
-	if (!user.administrator) {
-        json.error = 'Bad request';
-		json.message = 'The user is not an admin and connot edit teams.';
-		return response.status(403).json(json);
-	}
-
     // Check if the user exists in the team
-    const member = await Team.getTeamUserFromId(team_id, member_id);
-
-    // If user exists in the team, return invalid credentials
-	if (member === null) {
-        json.error = 'Bad request';
-		json.message = 'The user does not exists in the team.';
-		return response.status(401).json(json);
-	}
+    const member = await Team.getMemberFromTeamAndId(team_id, member_id);
+	if (member !== undefined) return json.error(Json.STATUS_BAD_INFO, 'Invalid member', 'The user does not exist in this team.').send();
     
 	// Update team information
-	await Team.deleteMember(member_id, team_id);
-	return response.status(200).json(json);
+	await Team.removeMemberFromTeam(team_id, member_id);
+	return json.send();
 };
