@@ -88,7 +88,10 @@ export default async (request, response) => {
     team_articles.sort(function(a, b) { return a.complete_time - b.complete_time;})
 
     for (const item of team_articles.slice(0, 5)) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 81a10311b20b5d94cd83d613c70f6942b1afe5b7
         if(item.complete_time !== null) {
             json.team_completed.push({
                 'id': item.article_id,
