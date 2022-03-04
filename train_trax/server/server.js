@@ -49,7 +49,11 @@ app.post('/api/add_starred_article', add_starred(false));
 app.post('/api/add_starred_domain', add_starred(true));
 
 // Team-related endpoints
+import create_team from './endpoints/create_team.js';
+import delete_team from './endpoints/delete_team.js';
 import add_member from './endpoints/add_member.js';
 import delete_member from './endpoints/delete_member.js';
+app.post('/api/create_team', create_team);
+app.post('/api/delete_team', delete_team);
 app.post('/api/add_member', add_member);
 app.post('/api/delete_member', delete_member);

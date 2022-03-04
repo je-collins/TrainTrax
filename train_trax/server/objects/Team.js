@@ -21,6 +21,10 @@ export default class Team {
 	}
 	
 	// Insert and Delete Team
+	static async getTeam(team_id) {
+		return DB.query("SELECT * FROM teams WHERE team_id = $1;", team_id);
+	}
+
 	static async addTeam(user_id, name) {
 		return DB.query('INSERT INTO teams(administrator, team_name) VALUES($1, $2);', [user_id, name]);
 	}
