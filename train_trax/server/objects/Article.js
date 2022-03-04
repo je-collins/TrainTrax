@@ -63,19 +63,19 @@ export default class Article {
 	}
 
 	static async getArticles() {
-		return DB.query('SELECT DISTINCT article FROM articles WHERE NOT is_domain;');
+		return DB.query('SELECT DISTINCT article FROM articles;');
 	}
 
-	static async getDomains() {
-		return DB.query('SELECT DISTINCT article FROM articles WHERE is_domain;');
-	}
-	
 	static async getStartedArticlesFromUser(user_id) {
 		return DB.query('SELECT * FROM articles WHERE user_id = $1 AND start_time IS NOT NULL;', [user_id]);
 	}
 
 	static async getCompletedArticlesFromUser(user_id) {
 		return DB.query('SELECT * FROM articles WHERE user_id = $1 AND complete_time IS NOT NULL;', [user_id]);
+	}
+
+	static async getUserArticles() {
+		return DB.query('SELECT * FROM articles;');
 	}
 
 	// Insert

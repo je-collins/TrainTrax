@@ -11,6 +11,10 @@ export default class Team {
 		return DB.query('SELECT user_id FROM team_users WHERE team_id = $1;', [team_id]);
 	}
 
+	static async getUsersFromTeam(team_id) {
+		return DB.query('SELECT * FROM users WHERE user_id IN (SELECT user_id FROM team_users WHERE team_id = $1);', team_id);
+	}
+
 	// Insert and Delete Team User
 	static async addMemberToTeam(team_id, user_id) {
 		return DB.query('INSERT INTO team_users(team_id, user_id) VALUES($1, $2);', [team_id, user_id]);
@@ -21,6 +25,10 @@ export default class Team {
 	}
 	
 	// Insert and Delete Team
+	static async getTeam(team_id) {
+		return DB.query("SELECT * FROM teams WHERE team_id = $1;", team_id);
+	}
+
 	static async addTeam(user_id, name) {
 		return DB.query('INSERT INTO teams(administrator, team_name) VALUES($1, $2);', [user_id, name]);
 	}
