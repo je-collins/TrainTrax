@@ -4,7 +4,7 @@ import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 
 class OurAddResources extends StatelessWidget {
-  String currentPage = "SETTINGS";
+  String currentPage = "ADD RESOURCES";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +34,7 @@ class OurAddResources extends StatelessWidget {
                   height: 20.0,
                 ),
                 //Page bar
-                OurAdminNavigation(),
+                OurAdminNavigation.createAdminBar(context, currentPage),
 
                 const SizedBox(
                   height: 20.0,

@@ -42,16 +42,10 @@ class OurFavorite extends StatelessWidget {
                   ),
                 ),
                 for (var i = 0; i < 5; i++)
-                  Container(
-                    child: Text(
-                      "\u2022 " + "testing",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ),
+                  IconButton(
+                      icon: const Icon(Icons.favorite),
+                      //text: "testing",
+                      onPressed: () {}),
               ],
             ),
           )

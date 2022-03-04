@@ -4,7 +4,7 @@ import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 
 class OurTeamStatistics extends StatelessWidget {
-  String currentPage = "SETTINGS";
+  String currentPage = "TEAM STATS";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +34,7 @@ class OurTeamStatistics extends StatelessWidget {
                   height: 20.0,
                 ),
                 //Page bar
-                OurAdminNavigation(),
+                OurAdminNavigation.createAdminBar(context, currentPage),
 
                 const SizedBox(
                   height: 20.0,

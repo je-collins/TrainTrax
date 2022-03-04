@@ -3,8 +3,8 @@ import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:flutter/material.dart';
 
-class OurAdminFAQ extends StatelessWidget {
-  String currentPage = "ADMIN FAQ";
+class OurManageTeams extends StatelessWidget {
+  String currentPage = "MANAGE TEAMS";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,7 +46,7 @@ class OurAdminFAQ extends StatelessWidget {
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
                   child: Center(
                     child: Text(
-                      "ASKED QUESTIONS",
+                      "MANAGE TEAMS",
                       style: TextStyle(
                         color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 25.0,
@@ -55,17 +55,6 @@ class OurAdminFAQ extends StatelessWidget {
                     ),
                   ),
                 ),
-                for (var i = 0; i < 5; i++)
-                  Container(
-                    child: Text(
-                      "\u2022 " + "testing",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ),
               ],
             ),
           ),
