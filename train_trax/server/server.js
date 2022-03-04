@@ -57,3 +57,11 @@ app.post('/api/create_team', create_team);
 app.post('/api/delete_team', delete_team);
 app.post('/api/add_member', add_member);
 app.post('/api/delete_member', delete_member);
+
+// Question and Answer endpoints
+import ask_question from './endpoints/ask_question.js';
+import answer_question from './endpoints/answer_question.js';
+import get_questions_answers from './endpoints/get_questions_answers.js';
+app.post('/api/ask_question', ask_question);
+app.post('/api/answer_question', answer_question);
+app.post('/api/get_questions_answers', get_questions_answers);
