@@ -27,12 +27,12 @@ export default async (request, response) => {
 		const ans = [];
 		for (const answer of answers) {
 			if (question.question_id === answer.question_id) {
-				ans.append(answer.answer);
+				ans.push(answer.answer);
 			}
 		}
 
 		// Add object to json
-		json.get('questions').append({
+		json.get('questions').push({
 			'question': question.question,
 			'answers': ans
 		});
