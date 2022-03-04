@@ -20,6 +20,11 @@ export default class User {
 		return DB.query('SELECT * FROM users WHERE email = $1;', [email]).then(value => value[0]);
 	}
 
+	// Get all users
+	static async getUsers() {
+		return DB.query('SELECT * FROM users;');
+	}
+
 	// Modify User info
 	static async setLoginToken(user_id, token, expire_time = new Date(new Date().getTime() + 60 * 60 * 1000).toISOString()) {
 		return DB.query('UPDATE users SET user_token = $1, token_expire_time = $2 WHERE user_id = $3;', [token, expire_time, user_id]);

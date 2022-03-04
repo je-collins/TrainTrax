@@ -48,6 +48,14 @@ app.post('/api/remove_favorite', set_favorite(false));
 app.post('/api/add_starred_article', add_starred(false));
 app.post('/api/add_starred_domain', add_starred(true));
 
+// Stats-related endpoints
+import get_user_stats from './endpoints/get_user_stats.js';
+import get_team_stats from './endpoints/get_team_stats.js';
+import get_all_stats from './endpoints/get_all_stats.js';
+app.post('/api/get_user_stats', get_user_stats);
+app.post('/api/get_team_stats', get_team_stats);
+app.post('/api/get_all_stats', get_all_stats);
+
 // Team-related endpoints
 import create_team from './endpoints/create_team.js';
 import delete_team from './endpoints/delete_team.js';
