@@ -76,11 +76,13 @@ class OurSettingsForm extends StatelessWidget {
           TextFormField(
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.password), hintText: "Odd Password"),
+            obscureText: true,
           ),
           SizedBox(
             height: 20.0,
           ),
           TextFormField(
+            obscureText: true,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.password), hintText: "New Password"),
           ),

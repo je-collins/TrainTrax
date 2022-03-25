@@ -3,34 +3,49 @@ import 'package:train_trax/screens/login/forgot.dart';
 import 'package:train_trax/screens/login/register.dart';
 import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:train_trax/utils/APICall.dart';
 
-enum LoginType {
-  email,
-  google,
-}
 
 class OurLoginForm extends StatelessWidget {
 
-   late List data;
-   
+  late List data;
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
 
-  //https://train-trax.herokuapp.com/api/login Uri.parse(Uri.encodeFull('https://train-trax.herokuapp.com/api/login'))
-  Future<void> getGoodRequest1() async{
-    var url = 'https://train-trax.herokuapp.com/api/login';
-    http.Response response = await http.get(Uri.parse(url));
-    String data = response.body;
-    
-    print(jsonDecode(data));
-    
+  void _loginUser({
+    required String email,
+    required String password,
+    required BuildContext context,
+  }) async {
+    try {
+      String _returnString;
 
+      _returnString = await APICall.loginRequest(email, password);
+          
+      if (_returnString == "success") {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OurHome(),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(_returnString),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    //getGoodRequest1();
+    bool check = false;
     return ShadowContainer(
       child: Column(
         children: <Widget>[
@@ -44,21 +59,27 @@ class OurLoginForm extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            
           ),
           TextFormField(
+            controller: _emailController,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.alternate_email), hintText: "Email"),
           ),
           SizedBox(
             height: 20.0,
           ),
+
           TextFormField(
+            controller: _passwordController,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
+                obscureText: true,
           ),
           SizedBox(
             height: 20.0,
           ),
+
           RaisedButton(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 100),
@@ -72,16 +93,13 @@ class OurLoginForm extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              //getData();
-              
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context)=>OurHome(),
-                ),
-              );
-              //*/
+              _loginUser(
+                  email: _emailController.text,
+                  password: _passwordController.text,
+                  context: context);
             },
           ),
+
           FlatButton(
             child: Text("Don't have an account? Sign up here"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -93,6 +111,7 @@ class OurLoginForm extends StatelessWidget {
               );
             },
           ),
+
           FlatButton(
             child: Text("Forgot Password"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -103,7 +122,7 @@ class OurLoginForm extends StatelessWidget {
                 ),
               );
             },
-          )
+          ),
         ],
       ),
     );

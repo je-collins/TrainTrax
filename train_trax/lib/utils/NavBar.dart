@@ -11,6 +11,7 @@ class NavBar{
     currentPage=current;
 
   }
+
   static Navigation createNavBar(BuildContext context, String currentPage){
     return Navigation(
       child: Wrap(
@@ -109,32 +110,64 @@ class NavBar{
     );
   }
 
-  Widget build(BuildContext context) {
+  static Navigation createAdminNavBar(BuildContext context, String currentPage){
     return Navigation(
       child: Wrap(
         alignment: WrapAlignment.center,
         children: <Widget>[
+
+          //HOME
+          if(currentPage == "MANAGE_TEAMS")
+            FlatButton(
+              textColor: Colors.yellow,
+              child: Text("MANAGE TEAMS"),
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              onPressed: () {                
+              },
+            ),
+          if(currentPage != "MANAGE_TEAMS")
+          FlatButton(
+              textColor: Colors.white,
+              child: Text("MANAGE TEAMS"),
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              onPressed: () {}),
+
+          //LIBRARY
+          if(currentPage == "TEAM_STATS")
+          FlatButton(
+            textColor: Colors.yellow,
+            child: Text("TEAM STATS"),
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            onPressed: () {
+            },
+          ),
+          if(currentPage != "TEAM_STATS")
           FlatButton(
             textColor: Colors.white,
-            child: Text("HOME"),
+            child: Text("TEAM STATS"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context)=>OurHome(),
+                  builder: (context)=>OurLibrary(),
                 ),
               );
             },
           ),
+
+          //SELF-DIRECTED
+          if(currentPage == "ADD_RESOURCES")
           FlatButton(
             textColor: Colors.yellow,
-            child: Text("LIBRARY"),
+            child: Text("ADD RESOURCES"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            onPressed: () {},
+            onPressed: () {
+            },
           ),
+          if(currentPage != "ADD_RESOURCES")
           FlatButton(
             textColor: Colors.white,
-            child: Text("SELF-DIRECTED"),
+            child: Text("ADD RESOURCES"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {
               Navigator.of(context).push(
@@ -144,12 +177,6 @@ class NavBar{
               );
             },
           ),
-          FlatButton(
-            textColor: Colors.white,
-            child: Text("CERTIFICATIONS"),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            onPressed: () {},
-          )
         ],
       ),
     );

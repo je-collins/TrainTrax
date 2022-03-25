@@ -17,6 +17,7 @@ class OurSettings extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               children: <Widget>[
                 ProfileBar.createProfileBar(context, currentPage),
+                //Logo
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image.asset(

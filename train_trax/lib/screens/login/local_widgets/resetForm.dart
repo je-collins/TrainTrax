@@ -34,6 +34,7 @@ class OurResetPasswordForm extends StatelessWidget {
           TextFormField(
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.lock_outline), hintText: "New Password"),
+            obscureText: true,
           ),
           SizedBox(
             height: 20.0,
@@ -42,6 +43,7 @@ class OurResetPasswordForm extends StatelessWidget {
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.lock_outline),
                 hintText: "Confirm New Password"),
+            obscureText: true,
           ),
           SizedBox(
             height: 20.0,

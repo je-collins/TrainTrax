@@ -15,12 +15,11 @@ class ProfileBar extends StatelessWidget{
 
   }
 
-  static Container createProfileBar(BuildContext context, String currentPage){
-    return Container(
-      child: Wrap(
+  static Wrap createProfileBar(BuildContext context, String currentPage){
+    return Wrap(
         alignment: WrapAlignment.end,
         children: <Widget>[
-
+          
           //DOWNLOAD
           if(currentPage == "DOWNLOAD")
           IconButton(
@@ -101,8 +100,7 @@ class ProfileBar extends StatelessWidget{
             },
           ),
         ],
-      ),
-    );
+      );
   }
 
   Widget build(BuildContext context) {

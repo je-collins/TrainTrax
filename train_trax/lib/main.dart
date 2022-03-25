@@ -1,3 +1,4 @@
+import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:train_trax/screens/home/local_widgets/navigation_bar.dart';
 import 'package:train_trax/screens/login/register.dart';
 import 'package:train_trax/utils/ourTheme.dart';
@@ -7,7 +8,13 @@ import 'package:train_trax/screens/login/resetPassword.dart';
 import 'package:train_trax/screens/home/homepage.dart';
 import 'package:train_trax/screens/settings/settings.dart';
 import 'package:flutter/material.dart';
-
+import 'package:train_trax/screens/home/faq.dart';
+import 'package:train_trax/screens/home/downloads.dart';
+import 'package:train_trax/screens/home/favorites.dart';
+import 'package:train_trax/screens/home/admin/add_resources.dart';
+import 'package:train_trax/screens/home/admin/team_statistics.dart';
+import 'package:train_trax/screens/admin/adminTeamMang.dart';
+import 'package:train_trax/screens/admin/adminFAQ.dart';
 void main() {
   runApp(const MyApp());
 }
