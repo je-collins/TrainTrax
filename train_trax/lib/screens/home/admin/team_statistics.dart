@@ -1,11 +1,10 @@
-import 'package:train_trax/screens/home/local_widgets/navigation_bar.dart';
 import 'package:train_trax/screens/home/admin/admin_widgets/admin_nav_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:train_trax/utils/ProfileBar.dart';
+import 'package:train_trax/utils/NavBar.dart';
 
 class OurTeamStatistics extends StatelessWidget {
-  Icon customIcon = const Icon(Icons.search);
-  Widget customSearchBar = const Text('My Personal Journal');
-  final fieldText = TextEditingController();
+  String currentPage = "TEAM STATS";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,28 +13,101 @@ class OurTeamStatistics extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: ListView(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               children: <Widget>[
-                //Logo
+                ProfileBar.createProfileBar(context, currentPage),
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Image.asset(
                     "assets/NETC_Logo.jpg",
                     height: 100,
                     width: 100,
                   ),
                 ),
-                SizedBox(
+
+                const SizedBox(
+                  height: 20.0,
+                ),
+
+                NavBar.createNavBar(context, currentPage),
+                const SizedBox(
                   height: 20.0,
                 ),
                 //Page bar
-                OurHomepage(),
-                OurAdminNavigation(),
+                OurAdminNavigation.createAdminBar(context, currentPage),
 
-                //Search
+                const SizedBox(
+                  height: 25.0,
+                ),
+
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: Text(
+                          "MOST RECENTLY VIEWED",
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "(%) OF MEMBERS COMPLETED",
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ]),
+
+                for (var i = 0; i < 5; i++)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: Text(
+                          "testing",
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "%",
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Divider(
+                  height: 5,
+                  thickness: 2,
+                  indent: 20,
+                  endIndent: 20,
+                  color: Theme.of(context).secondaryHeaderColor,
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
                   child: Center(
                     child: Text(
                       "TEAM STATS",
@@ -47,14 +119,125 @@ class OurTeamStatistics extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 40.0,
+
+                const Center(
+                  child: MyStatefulWidget(),
+                ),
+
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: Text(
+                          "MOST RECENTLY VIEWED",
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "TEAMS OVERALL (%) COMPLETED",
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ]),
+
+                for (var i = 0; i < 5; i++)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        child: Text(
+                          "testing",
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "%",
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
+                  child: Center(
+                    child: Text(
+                      "Team Members",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+//Dropdown
+class MyStatefulWidget extends StatefulWidget {
+  const MyStatefulWidget({Key? key}) : super(key: key);
+
+  @override
+  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+}
+
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  String dropdownValue = 'Team 1';
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      value: dropdownValue,
+      icon: const Icon(Icons.arrow_drop_down),
+      iconEnabledColor: Theme.of(context).secondaryHeaderColor,
+      iconSize: 24,
+      elevation: 16,
+      style: TextStyle(color: Theme.of(context).secondaryHeaderColor),
+      underline: Container(
+        height: 2,
+        color: Theme.of(context).secondaryHeaderColor,
+      ),
+      onChanged: (String? newValue) {
+        setState(() {
+          dropdownValue = newValue!;
+        });
+      },
+      items: <String>['Team 1', 'Team 2', 'Team 3', 'Team 4']
+          .map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
   }
 }

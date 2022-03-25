@@ -1,11 +1,10 @@
-import 'package:train_trax/screens/home/local_widgets/navigation_bar.dart';
 import 'package:train_trax/screens/home/admin/admin_widgets/admin_nav_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:train_trax/utils/ProfileBar.dart';
+import 'package:train_trax/utils/NavBar.dart';
 
 class OurAddResources extends StatelessWidget {
-  Icon customIcon = const Icon(Icons.search);
-  Widget customSearchBar = const Text('My Personal Journal');
-  final fieldText = TextEditingController();
+  String currentPage = "ADD RESOURCES";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,23 +13,32 @@ class OurAddResources extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: ListView(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               children: <Widget>[
-                //Logo
+                ProfileBar.createProfileBar(context, currentPage),
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Image.asset(
                     "assets/NETC_Logo.jpg",
                     height: 100,
                     width: 100,
                   ),
                 ),
-                SizedBox(
+
+                const SizedBox(
+                  height: 20.0,
+                ),
+
+                NavBar.createNavBar(context, currentPage),
+                const SizedBox(
                   height: 20.0,
                 ),
                 //Page bar
-                OurHomepage(),
-                OurAdminNavigation(),
+                OurAdminNavigation.createAdminBar(context, currentPage),
+
+                const SizedBox(
+                  height: 20.0,
+                ),
 
                 //Search
                 Padding(
@@ -71,6 +79,31 @@ class OurAddResources extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                SizedBox(
+                  height: 20.0,
+                ),
+                Container(
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Theme.of(context).secondaryHeaderColor),
+                        ),
+                        onPressed: () {},
+                        child: Text('Search'),
+                      ),
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Theme.of(context).secondaryHeaderColor),
+                        ),
+                        onPressed: () {},
+                        child: Text('Add'),
+                      ),
+                    ])),
                 SizedBox(
                   height: 40.0,
                 ),

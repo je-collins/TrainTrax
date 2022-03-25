@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:train_trax/screens/home/admin/admin_widgets/admin_nav_bar.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
+import 'package:flutter/material.dart';
 
-class OurDownload extends StatelessWidget {
-  String currentPage = "DOWNLOAD";
+class OurManageTeams extends StatelessWidget {
+  String currentPage = "MANAGE TEAMS";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,16 +24,29 @@ class OurDownload extends StatelessWidget {
                     width: 100,
                   ),
                 ),
+
                 const SizedBox(
                   height: 20.0,
                 ),
+
                 NavBar.createNavBar(context, currentPage),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                //Page bar
+                OurAdminNavigation.createAdminBar(context, currentPage),
+
+                const SizedBox(
+                  height: 20.0,
+                ),
+
+                //USED BY OTHERS list
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
                   child: Center(
                     child: Text(
-                      "DOWNLOADS",
+                      "MANAGE TEAMS",
                       style: TextStyle(
                         color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 25.0,
@@ -41,12 +55,9 @@ class OurDownload extends StatelessWidget {
                     ),
                   ),
                 ),
-                for (var i = 0; i < 5; i++)
-                  IconButton(
-                      icon: const Icon(Icons.download), onPressed: () {}),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
