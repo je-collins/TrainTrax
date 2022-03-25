@@ -79,6 +79,31 @@ class OurAddResources extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                SizedBox(
+                  height: 20.0,
+                ),
+                Container(
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Theme.of(context).secondaryHeaderColor),
+                        ),
+                        onPressed: () {},
+                        child: Text('Search'),
+                      ),
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Theme.of(context).secondaryHeaderColor),
+                        ),
+                        onPressed: () {},
+                        child: Text('Add'),
+                      ),
+                    ])),
                 SizedBox(
                   height: 40.0,
                 ),
