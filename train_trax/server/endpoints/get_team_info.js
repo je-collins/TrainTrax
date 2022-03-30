@@ -63,7 +63,7 @@ export default async (request, response) => {
     // Filter all articles by complete time and take the top 5
     // What if they don't have a complete time?
     team_articles.sort(function(a, b) { return a.complete_time - b.complete_time;})
-    for (const item of team_articles.slice(0, 5)) 
+    for (const item of team_articles.slice(0, 5)) {
         if(item.complete_time !== null) {
             json.team_completed.push({
                 'id': item.article_id,
