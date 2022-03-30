@@ -3,6 +3,10 @@ import 'package:train_trax/screens/library/library.dart';
 import 'package:train_trax/screens/self-directed/self-directed.dart';
 import 'package:train_trax/widgets/Navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:train_trax/screens/admin/adminFAQ.dart';
+import 'package:train_trax/screens/admin/adminTeamMang.dart';
+import 'package:train_trax/screens/home/admin/team_statistics.dart';
+import 'package:train_trax/screens/home/admin/add_resources.dart';
 
 class NavBar {
   String? currentPage = null;
@@ -125,10 +129,16 @@ class NavBar {
               textColor: Colors.white,
               child: Text("MANAGE TEAMS"),
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              onPressed: () {}),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => OurAdminTeamMang(),
+                  ),
+                );
+              }),
 
           //LIBRARY
-          if(currentPage == "TEAM_STATS")
+          if(currentPage == "TEAM STATS")
           FlatButton(
             textColor: Colors.yellow,
             child: Text("TEAM STATS"),
@@ -136,7 +146,7 @@ class NavBar {
             onPressed: () {
             },
           ),
-          if(currentPage != "TEAM_STATS")
+          if(currentPage != "TEAM STATS")
           FlatButton(
             textColor: Colors.white,
             child: Text("TEAM STATS"),
@@ -144,14 +154,14 @@ class NavBar {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context)=>OurLibrary(),
+                  builder: (context)=>OurTeamStatistics(),
                 ),
               );
             },
           ),
 
           //SELF-DIRECTED
-          if(currentPage == "ADD_RESOURCES")
+          if(currentPage == "ADD RESOURCES")
           FlatButton(
             textColor: Colors.yellow,
             child: Text("ADD RESOURCES"),
@@ -159,7 +169,7 @@ class NavBar {
             onPressed: () {
             },
           ),
-          if(currentPage != "ADD_RESOURCES")
+          if(currentPage != "ADD RESOURCES")
           FlatButton(
             textColor: Colors.white,
             child: Text("ADD RESOURCES"),
@@ -167,7 +177,7 @@ class NavBar {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context)=>OurSelfDirected(),
+                  builder: (context)=>OurAddResources(),
                 ),
               );
             },

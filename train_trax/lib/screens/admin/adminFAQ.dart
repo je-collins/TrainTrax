@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:train_trax/utils/urls.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
+import 'package:train_trax/widgets/TopBar.dart';
 
 
 class OurAdminFAQ extends StatelessWidget {
@@ -11,6 +12,7 @@ class OurAdminFAQ extends StatelessWidget {
   Widget customSearchBar = const Text('My Personal Journal');
   final fieldText = TextEditingController();
   String currentPage = "FAQ";
+  String name ='John Smith';
   TextEditingController answerController = TextEditingController();
   var _hover = false;
   int maxLine = 8;
@@ -32,7 +34,7 @@ class OurAdminFAQ extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
-                ProfileBar.createProfileBar(context, currentPage),
+                TopBar.createTopBar(context, name, currentPage),
                 //Logo
                 Padding(
                   padding: EdgeInsets.all(10.0),

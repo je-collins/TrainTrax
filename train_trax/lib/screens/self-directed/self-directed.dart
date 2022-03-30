@@ -1,14 +1,20 @@
+import 'dart:html';
+
 import 'package:train_trax/screens/self-directed/local_widgets/NavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:train_trax/utils/urls.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
+import 'package:train_trax/widgets/TopBar.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/link.dart';
 
 class OurSelfDirected extends StatelessWidget {
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('My Personal Journal');
   final fieldText = TextEditingController();
   String currentPage = "SELF-DIRECTED";
+  String name ='John Smith';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +25,7 @@ class OurSelfDirected extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
-                ProfileBar.createProfileBar(context, currentPage),
+                TopBar.createTopBar(context, name, currentPage),
                 //Logo
                 Padding(
                   padding: EdgeInsets.all(10.0),
@@ -73,6 +79,10 @@ class OurSelfDirected extends StatelessWidget {
                           ),
                           hintText: 'Search...',
                           border: InputBorder.none),
+                      onSubmitted: (value) async {
+                        await launch("http://www.google.com/search?q="+fieldText.text);
+                        //await Urls._launchUrl("http://www.google.com/search?");
+                      },
                     ),
                   ),
                 ),

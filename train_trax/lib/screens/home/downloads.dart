@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
+import 'package:train_trax/widgets/TopBar.dart';
 
 class OurDownload extends StatelessWidget {
   String currentPage = "DOWNLOAD";
+  String name ='John Smith';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +16,7 @@ class OurDownload extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(20.0),
               children: <Widget>[
-                ProfileBar.createProfileBar(context, currentPage),
+                TopBar.createTopBar(context, name, currentPage),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image.asset(

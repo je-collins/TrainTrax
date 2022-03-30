@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:train_trax/screens/settings/local_widgets/settingsForm.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
+import 'package:train_trax/widgets/TopBar.dart';
 
 class OurSettings extends StatelessWidget {
   String currentPage = "SETTINGS";
+  String name ='John Smith';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +17,7 @@ class OurSettings extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(20.0),
               children: <Widget>[
-                ProfileBar.createProfileBar(context, currentPage),
+                TopBar.createTopBar(context, name, currentPage),
                 //Logo
                 Padding(
                   padding: const EdgeInsets.all(10.0),
