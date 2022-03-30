@@ -1,5 +1,4 @@
 import 'package:train_trax/screens/home/Homepage.dart';
-import 'package:train_trax/screens/home/local_widgets/navigation_bar.dart';
 import 'package:train_trax/screens/login/register.dart';
 import 'package:train_trax/utils/ourTheme.dart';
 import 'package:train_trax/screens/login/login.dart';
@@ -11,6 +10,7 @@ import 'package:train_trax/screens/home/admin/add_resources.dart';
 import 'package:train_trax/screens/home/admin/team_statistics.dart';
 import 'package:train_trax/screens/admin/adminTeamMang.dart';
 import 'package:train_trax/screens/admin/adminFAQ.dart';
+
 void main() {
   runApp(const MyApp());
 }

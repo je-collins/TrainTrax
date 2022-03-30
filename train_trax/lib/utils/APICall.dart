@@ -5,24 +5,23 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 class APICall {
-
   //https://train-trax.herokuapp.com/api/login Uri.parse(Uri.encodeFull('https://train-trax.herokuapp.com/api/login'))
   //String url = "https://cors-anywhere.herokuapp.com/https://train-trax.herokuapp.com/api/login";
   //print(await http.read(Uri.parse('https://train-trax.herokuapp.com/api/login')));
-  
-  Future<http.Response> getGoodRequest1(String email, String password) async{
+
+  Future<http.Response> getGoodRequest1(String email, String password) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/login");
-    var response = await http.post(url,
-    headers: <String, String>{
-          "JSON": "application/json",
-        },
-    body: {"email": "christopher@email.com", 
-            "password": "admin"});
-    
+    var response = await http.post(url, headers: <String, String>{
+      "JSON": "application/json",
+    }, body: {
+      "email": "christopher@email.com",
+      "password": "admin"
+    });
+
     //flutter run -d web-server
 
     //Dio().post("https://train-trax.herokuapp.com/api/login", queryParameters: {"email":"christopher@email.com", "password":"admin"});
-   //post(url,
+    //post(url,
     //body: {"email":"christopher@email.com", "password":"admin"});
     //var responses = await http.get('https://train-trax.herokuapp.com/api/login',
     /*
@@ -48,32 +47,46 @@ class APICall {
     //return "Success";
 
     //return "Failure";
-    
-
   }
 
   //flutter run -d web-server
-  static Future<String> loginRequest(String email, String password) async{
+  static Future<String> loginRequest(String email, String password) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/login");
-    
-    var response = await http.post(url,
-    headers: <String, String>{
+
+    var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
-        },
-    body: {"email": email, 
-            "password": password});
-            //"email": "ebtran8745@gmail.com", 
-            //"password": "tran"
-            
+    }, body: {
+      "email": email,
+      "password": password
+    });
+    //"email": "ebtran8745@gmail.com",
+    //"password": "tran"
 
     print(response.statusCode);
     //print(response.body);
-    
-    if(response.statusCode == 200)
-      return "success";
+
+    if (response.statusCode == 200) return "success";
 
     return "failure";
-
   }
 
+  //flutter run -d web-server
+  static Future<String> test(String token, String team_id) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_team_stats");
+
+    Map<String, String> queryParams = {'token': token, 'team_id': team_id};
+
+    final finalUrl = url.replace(queryParameters: queryParams);
+    var response = await http.get(url, headers: <String, String>{
+      "JSON": "application/json",
+    });
+
+    var body = jsonDecode(response.body);
+    print(body['total_articles_started']);
+    //print(response.body);
+
+    if (response.statusCode == 200) return "success";
+
+    return "failure";
+  }
 }
