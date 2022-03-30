@@ -44,10 +44,30 @@ class OurFavorite extends StatelessWidget {
                   ),
                 ),
                 for (var i = 0; i < 5; i++)
-                  IconButton(
-                      icon: const Icon(Icons.favorite),
-                      //text: "testing",
-                      onPressed: () {}),
+                  Row(
+                    children: [
+                      Container(
+                        child: IconButton(
+                          icon: Icon(Icons.favorite),
+                          color: Theme.of(context).secondaryHeaderColor,
+                          onPressed: () {},
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5.0,
+                      ),
+                      Container(
+                        child: Text(
+                          "testing",
+                          style: TextStyle(
+                            color: Theme.of(context).secondaryHeaderColor,
+                            fontSize: 15.0,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
               ],
             ),
           )
