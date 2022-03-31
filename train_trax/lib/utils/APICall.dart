@@ -25,10 +25,12 @@ class APICall {
 
     if (response.statusCode == 200) return "success";
 
-    return "failure";
+    var token = jsonDecode(response.body);
+    return token["message"];
   }
 
-  static Future<String> loginTokenRequest(String email, String password) async {
+  static Future<http.Response> loginTokenRequest(
+      String email, String password) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/login");
 
     var response = await http.post(url, headers: <String, String>{
@@ -42,15 +44,16 @@ class APICall {
     //cd .\train_trax\
     //flutter run -d web-server
 
-    //print(response.statusCode);
-    //print(response.body);
-
     //if (response.statusCode == 200)
     //return "success";
-    var token = jsonDecode(response.body);
+    //var token = jsonDecode(response.body);
 
-    return token["token"];
+    //return token["token"];
+    return response;
   }
+
+  //1234@12mail.com
+  //1234
 
   static Future<String> registerRequest(
       String email, String password, String phone, String name) async {
@@ -85,7 +88,7 @@ class APICall {
       "token": token
     });
 
-    print(response.statusCode);
+    //print(response.statusCode);
     jsonDecode(response.body);
     //print(response.body);
 
