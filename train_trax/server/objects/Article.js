@@ -79,7 +79,11 @@ export default class Article {
 	}
 
 	// Insert
-	static async add(user_id, article) {
-		return DB.query('INSERT INTO articles(user_id, article, is_favorite) VALUES($1, $2, FALSE);', [user_id, article]);
+	static async add(user_id, article, start_time) {
+		if (start_time === undefined) {
+			return DB.query('INSERT INTO articles(user_id, article, is_favorite) VALUES($1, $2, FALSE);', [user_id, article]);
+		} else {
+			return DB.query('INSERT INTO articles(user_id, article, start_time, is_favorite) VALUES($1, $2, $3, FALSE);', [user_id, article, start_time]);
+		}
 	}
 }

@@ -40,11 +40,18 @@ app.post('/api/get_favorites', get_favorites);
 app.post('/api/get_starred_articles', get_starred(false));
 app.post('/api/get_starred_domains', get_starred(true));
 
-// Modify Articles/Domains endpoints
+// Modify User Articles endpoints
+import add_article from './endpoints/add_article.js';
+import set_article_time from './endpoints/set_article_time.js';
 import set_favorite from './endpoints/set_favorite.js';
-import add_starred from './endpoints/add_starred.js';
+app.post('/api/add_article', add_article);
+app.post('/api/set_article_start_time', set_article_time(true));
+app.post('/api/set_article_end_time', set_article_time(false));
 app.post('/api/add_favorite', set_favorite(true));
 app.post('/api/remove_favorite', set_favorite(false));
+
+// Modify Starred Articles/Domains endpoints
+import add_starred from './endpoints/add_starred.js';
 app.post('/api/add_starred_article', add_starred(false));
 app.post('/api/add_starred_domain', add_starred(true));
 
