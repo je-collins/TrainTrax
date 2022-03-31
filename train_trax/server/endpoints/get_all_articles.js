@@ -6,6 +6,7 @@ export default async (request, response) => {
 
 	// Create return JSON structure
 	const json = new Json(response, 'results');
+	json.set('results', []);
 
 	// Check if one or more fields is not declared
 	const undef = [];
@@ -16,13 +17,8 @@ export default async (request, response) => {
 	const user = await User.fromToken(token);
 	if (user === undefined) return json.badToken().send();
 
-	// Query database for favorited articles and return
-	const articles = Article.getFavoritesFromUser(user.user_id);
-	for (const row of articles) {
-		json.get('results').push({
-			article_id: row.article_id,
-			article: row.article
-		});
-	}
+    // Retrieve all articles
+	const articles = await Article.getArticles();
+	for (const row of articles) json.get('results').push(row.article);
 	return json.send();
 };

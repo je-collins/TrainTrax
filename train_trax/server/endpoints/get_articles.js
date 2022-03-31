@@ -18,7 +18,12 @@ export default async (request, response) => {
 	if (user === undefined) return json.badToken().send();
 
     // Retrieve all articles
-	const articles = await Article.getArticles();
-	for (const row of articles) json.get('results').push(row.article);
+	const articles = await Article.getUserArticles(user.user_id);
+	for (const row of articles) {
+		json.get('results').push({
+			article_id: row.article_id,
+			article: row.article
+		});
+	}
 	return json.send();
 };

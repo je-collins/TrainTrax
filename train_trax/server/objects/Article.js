@@ -74,8 +74,8 @@ export default class Article {
 		return DB.query('SELECT * FROM articles WHERE user_id = $1 AND complete_time IS NOT NULL;', [user_id]);
 	}
 
-	static async getUserArticles() {
-		return DB.query('SELECT * FROM articles;');
+	static async getUserArticles(user_id) {
+		return DB.query('SELECT * FROM articles WHERE user_id = $1;', [user_id]);
 	}
 
 	// Insert
