@@ -67,7 +67,7 @@ export default async (request, response) => {
         if(item.complete_time !== null) {
             json.team_completed.push({
                 'id': item.article_id,
-                'article': article
+                'article': item.article
             });
         }
     }
