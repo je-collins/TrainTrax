@@ -17,7 +17,7 @@ export default async (request, response) => {
 	if (user === undefined) return json.badToken().send();
 
 	// Query database for favorited articles and return
-	const articles = Article.getFavoritesFromUser(user.user_id);
+	const articles = await Article.getFavoritesFromUser(user.user_id);
 	for (const row of articles) {
 		json.get('results').push({
 			article_id: row.article_id,

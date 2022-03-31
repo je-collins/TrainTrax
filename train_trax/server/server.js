@@ -35,10 +35,12 @@ app.post('/api/reset_password', reset_password);
 import get_articles from './endpoints/get_articles.js';
 import get_favorites from './endpoints/get_favorites.js';
 import get_starred from './endpoints/get_starred.js';
+import get_all_articles from './endpoints/get_all_articles.js';
 app.post('/api/get_articles', get_articles);
 app.post('/api/get_favorites', get_favorites);
 app.post('/api/get_starred_articles', get_starred(false));
 app.post('/api/get_starred_domains', get_starred(true));
+app.post('/api/get_all_articles', get_all_articles);
 
 // Modify User Articles endpoints
 import add_article from './endpoints/add_article.js';
