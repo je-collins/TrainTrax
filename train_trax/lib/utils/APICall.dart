@@ -29,8 +29,7 @@ class APICall {
     return token["message"];
   }
 
-  static Future<http.Response> loginTokenRequest(
-      String email, String password) async {
+  static Future<String> loginTokenRequest(String email, String password) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/login");
 
     var response = await http.post(url, headers: <String, String>{
@@ -49,7 +48,10 @@ class APICall {
     //var token = jsonDecode(response.body);
 
     //return token["token"];
-    return response;
+    var decoded = json.decode(response.body);
+    decoded['token'];
+
+    return decoded['token'];
   }
 
   //1234@12mail.com

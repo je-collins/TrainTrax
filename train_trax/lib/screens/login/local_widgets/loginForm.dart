@@ -5,9 +5,7 @@ import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:train_trax/utils/APICall.dart';
 
-
 class OurLoginForm extends StatelessWidget {
-
   late List data;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -19,12 +17,11 @@ class OurLoginForm extends StatelessWidget {
   }) async {
     try {
       String _returnString;
-      var token;
+      String token;
 
       _returnString = await APICall.loginRequest(email, password);
       token = await APICall.loginTokenRequest(email, password);
 
-          
       if (_returnString == "success") {
         Navigator.pushAndRemoveUntil(
           context,
@@ -62,7 +59,6 @@ class OurLoginForm extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            
           ),
           TextFormField(
             controller: _emailController,
@@ -72,17 +68,15 @@ class OurLoginForm extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
-
           TextFormField(
             controller: _passwordController,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
-                obscureText: true,
+            obscureText: true,
           ),
           SizedBox(
             height: 20.0,
           ),
-
           RaisedButton(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 100),
@@ -102,26 +96,24 @@ class OurLoginForm extends StatelessWidget {
                   context: context);
             },
           ),
-
           FlatButton(
             child: Text("Don't have an account? Sign up here"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context)=>OurRegister(),
+                  builder: (context) => OurRegister(),
                 ),
               );
             },
           ),
-
           FlatButton(
             child: Text("Forgot Password"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context)=>OurForgot(),
+                  builder: (context) => OurForgot(),
                 ),
               );
             },

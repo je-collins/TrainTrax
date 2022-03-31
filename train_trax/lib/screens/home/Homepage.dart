@@ -5,11 +5,11 @@ import 'package:train_trax/widgets/TopBar.dart';
 
 class OurHome extends StatelessWidget {
   String currentPage = "HOME";
-  String name ='John Smith';
-  var token;
+  String name = 'John Smith';
+  String token;
 
   OurHome({Key? key, required this.token}) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +35,7 @@ class OurHome extends StatelessWidget {
                   height: 20.0,
                 ),
 
-                NavBar.createNavBar(context, currentPage,token),
+                NavBar.createNavBar(context, currentPage, token),
 
                 Padding(
                   padding:
