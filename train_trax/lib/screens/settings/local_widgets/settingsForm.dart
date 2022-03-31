@@ -2,6 +2,11 @@ import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:flutter/material.dart';
 
 class OurSettingsForm extends StatelessWidget {
+
+  String token;
+
+  OurSettingsForm({Key? key, required this.token}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -99,7 +104,7 @@ class OurSettingsForm extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurHome(),
+                    builder: (context) => OurHome(token: token,),
                   ),
                 );
               },

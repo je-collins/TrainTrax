@@ -23,6 +23,16 @@ class OurAdminTeamMang extends StatelessWidget {
   var _hover = false;
   var teamateNum =0;
 
+  String token;
+  List<bool>  delete = [false, 
+                          false,
+                          false,
+                          false,
+                          false,
+                          false];
+
+  OurAdminTeamMang({Key? key, required this.token}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +43,7 @@ class OurAdminTeamMang extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage),
+                TopBar.createTopBar(context, name, currentPage, token),
                 //Logo
                 Padding(
                   padding: EdgeInsets.all(10.0),
@@ -47,11 +57,11 @@ class OurAdminTeamMang extends StatelessWidget {
                   height: 20.0,
                 ),
                 //Page bar
-                NavBar.createNavBar(context, currentPage),
+                NavBar.createNavBar(context, currentPage, token),
                 SizedBox(
                   height: 20.0,
                 ),
-                NavBar.createAdminNavBar(context, currentPage),
+                NavBar.createAdminNavBar(context, currentPage, token),
 
                 SizedBox(
                   height: 20.0,
@@ -117,7 +127,8 @@ class OurAdminTeamMang extends StatelessWidget {
                                                         ),
                                                       ),
                                                       onPressed: () {
-                                                        //send response
+                                                        delete[i] = true;
+                                                        Navigator.pop(context, delete);
                                                       },
                                                     ),
 
@@ -134,14 +145,18 @@ class OurAdminTeamMang extends StatelessWidget {
                                                         ),
                                                       ),
                                                       onPressed: () {
-                                                        //send response
+                                                        delete[i] = false;
+                                                        Navigator.pop(context, delete);
                                                       },
                                                     )
+                                                    //if(delete)
+
                                                   ],
                                                 ),
                                               ],
                                             ),
                                           ),
+                                          //if(delete)
                                         ));
 
                                     },

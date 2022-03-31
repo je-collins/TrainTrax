@@ -10,12 +10,11 @@ import 'package:train_trax/screens/home/admin/add_resources.dart';
 
 class NavBar {
   String? currentPage = null;
-
   void setPage(String? current) {
     currentPage = current;
   }
 
-  static Navigation createNavBar(BuildContext context, String currentPage) {
+  static Navigation createNavBar(BuildContext context, String currentPage, String tokn) {
     return Navigation(
       child: Wrap(
         alignment: WrapAlignment.center,
@@ -36,7 +35,7 @@ class NavBar {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurHome(),
+                    builder: (context) => OurHome(token: tokn,),
                   ),
                 );
               },
@@ -58,7 +57,7 @@ class NavBar {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurLibrary(),
+                    builder: (context) => OurLibrary(token: tokn,),
                   ),
                 );
               },
@@ -80,7 +79,7 @@ class NavBar {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurSelfDirected(),
+                    builder: (context) => OurSelfDirected(token: tokn),
                   ),
                 );
               },
@@ -109,7 +108,7 @@ class NavBar {
     );
   }
 
-  static Navigation createAdminNavBar(BuildContext context, String currentPage){
+  static Navigation createAdminNavBar(BuildContext context, String currentPage, String tokn){
     return Navigation(
       child: Wrap(
         alignment: WrapAlignment.center,
@@ -132,7 +131,7 @@ class NavBar {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurAdminTeamMang(),
+                    builder: (context) => OurAdminTeamMang(token: tokn),
                   ),
                 );
               }),
@@ -154,7 +153,7 @@ class NavBar {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context)=>OurTeamStatistics(),
+                  builder: (context)=>OurTeamStatistics(token: tokn),
                 ),
               );
             },
@@ -177,7 +176,7 @@ class NavBar {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context)=>OurAddResources(),
+                  builder: (context)=>OurAddResources(token: tokn),
                 ),
               );
             },

@@ -6,6 +6,10 @@ import 'package:train_trax/widgets/TopBar.dart';
 class OurHome extends StatelessWidget {
   String currentPage = "HOME";
   String name ='John Smith';
+  var token;
+
+  OurHome({Key? key, required this.token}) : super(key: key);
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +20,7 @@ class OurHome extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage),
+                TopBar.createTopBar(context, name, currentPage, token),
 
                 //Logo
                 Padding(
@@ -31,7 +35,7 @@ class OurHome extends StatelessWidget {
                   height: 20.0,
                 ),
 
-                NavBar.createNavBar(context, currentPage),
+                NavBar.createNavBar(context, currentPage,token),
 
                 Padding(
                   padding:

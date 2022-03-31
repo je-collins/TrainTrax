@@ -11,6 +11,9 @@ class OurLibrary extends StatelessWidget {
   String currentPage = "LIBRARY";
   var _hover = false;
   String name ='John Smith';
+  String token;
+
+  OurLibrary({Key? key, required this.token}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +24,7 @@ class OurLibrary extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage),
+                TopBar.createTopBar(context, name, currentPage, token),
                 //Logo
                 Padding(
                   padding: EdgeInsets.all(10.0),
@@ -35,7 +38,7 @@ class OurLibrary extends StatelessWidget {
                   height: 20.0,
                 ),
                 //Page bar
-                NavBar.createNavBar(context, currentPage),
+                NavBar.createNavBar(context, currentPage, token),
 
                 //OurLibrarypage(),
 

@@ -19,14 +19,17 @@ class OurLoginForm extends StatelessWidget {
   }) async {
     try {
       String _returnString;
+      var token;
 
       _returnString = await APICall.loginRequest(email, password);
+      token = await APICall.loginTokenRequest(email, password);
+
           
       if (_returnString == "success") {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => OurHome(),
+            builder: (context) => OurHome(token: token),
           ),
           (route) => false,
         );
@@ -34,7 +37,7 @@ class OurLoginForm extends StatelessWidget {
         Scaffold.of(context).showSnackBar(
           SnackBar(
             content: Text(_returnString),
-            duration: Duration(seconds: 2),
+            duration: Duration(seconds: 3),
           ),
         );
       }

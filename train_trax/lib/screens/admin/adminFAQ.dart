@@ -5,6 +5,7 @@ import 'package:train_trax/utils/urls.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
+import 'package:train_trax/utils/APICall.dart';
 
 
 class OurAdminFAQ extends StatelessWidget {
@@ -24,8 +25,14 @@ class OurAdminFAQ extends StatelessWidget {
                           'John Smith'];
   var numQuest = 3;
 
+  //works
+  String token;
+
+  OurAdminFAQ({Key? key, required this.token}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    //name = token;
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -34,7 +41,7 @@ class OurAdminFAQ extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage),
+                TopBar.createTopBar(context, name, currentPage, token),
                 //Logo
                 Padding(
                   padding: EdgeInsets.all(10.0),
@@ -50,13 +57,13 @@ class OurAdminFAQ extends StatelessWidget {
                 ),
                 
                 //Page bar
-                NavBar.createNavBar(context, currentPage),
+                NavBar.createNavBar(context, currentPage, token),
 
                 SizedBox(
                   height: 20.0,
                 ),
 
-                NavBar.createAdminNavBar(context, currentPage),
+                NavBar.createAdminNavBar(context, currentPage, token),
 
                 //QUESTIONS FOR ADMIN
                 Padding(
@@ -237,6 +244,8 @@ class OurAdminFAQ extends StatelessWidget {
                                         ),
                                         onPressed: () {
                                           //send response
+                                          //APICall.answerQuestionRequest(token, qid, answerController.text);
+                                          Navigator.pop(context, answerController.text);
                                         },
                                       ),
                                     ],

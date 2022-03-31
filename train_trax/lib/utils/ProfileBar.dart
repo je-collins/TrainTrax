@@ -12,7 +12,7 @@ class ProfileBar extends StatelessWidget {
     currentPage = current;
   }
 
-  static Wrap createProfileBar(BuildContext context, String currentPage){
+  static Wrap createProfileBar(BuildContext context, String currentPage, String tokn){
     return Wrap(
         alignment: WrapAlignment.end,
         children: <Widget>[
@@ -30,7 +30,7 @@ class ProfileBar extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurDownload(),
+                    builder: (context) => OurDownload(token: tokn),
                   ),
                 );
               },
@@ -49,7 +49,7 @@ class ProfileBar extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurFAQ(),
+                    builder: (context) => OurFAQ(token: tokn),
                   ),
                 );
               },
@@ -68,7 +68,7 @@ class ProfileBar extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurFavorite(),
+                    builder: (context) => OurFavorite(token: tokn),
                   ),
                 );
               },
@@ -87,7 +87,7 @@ class ProfileBar extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurSettings(),
+                    builder: (context) => OurSettings(token: tokn),
                   ),
                 );
               },
@@ -106,7 +106,7 @@ class ProfileBar extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurTeamStatistics(),
+                    builder: (context) => OurTeamStatistics(token: tokn),
                   ),
                 );
               },

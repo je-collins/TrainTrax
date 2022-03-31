@@ -1,6 +1,4 @@
-import 'dart:html';
-
-import 'package:train_trax/screens/self-directed/local_widgets/NavigationBar.dart';
+//import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:train_trax/utils/urls.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
@@ -15,6 +13,8 @@ class OurSelfDirected extends StatelessWidget {
   final fieldText = TextEditingController();
   String currentPage = "SELF-DIRECTED";
   String name ='John Smith';
+  String token;
+  OurSelfDirected({Key? key, required this.token}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class OurSelfDirected extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage),
+                TopBar.createTopBar(context, name, currentPage, token),
                 //Logo
                 Padding(
                   padding: EdgeInsets.all(10.0),
@@ -39,7 +39,7 @@ class OurSelfDirected extends StatelessWidget {
                   height: 20.0,
                 ),
                 //Page bar
-                NavBar.createNavBar(context, currentPage),
+                NavBar.createNavBar(context, currentPage, token),
                 //OurLibrarypage(),
 
                 //Search

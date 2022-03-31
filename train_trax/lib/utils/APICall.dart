@@ -21,12 +21,37 @@ class APICall {
             //flutter run -d web-server
             
 
-    print(response.statusCode);
+    //print(response.statusCode);
     //print(response.body);
 
-    if (response.statusCode == 200) return "success";
+    if (response.statusCode == 200) 
+      return "success";
 
     return "failure";
+  }
+
+  static Future<String> loginTokenRequest(String email, String password) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/login");
+
+    var response = await http.post(url, headers: <String, String>{
+      "JSON": "application/json",
+        },
+    body: {"email": email, 
+            "password": password});
+            //"email": "ebtran8745@gmail.com", 
+            //"password": "tran"
+            //cd .\train_trax\
+            //flutter run -d web-server
+            
+
+    //print(response.statusCode);
+    //print(response.body);
+
+    //if (response.statusCode == 200) 
+      //return "success";
+    var token = jsonDecode(response.body);
+
+    return token["token"];
   }
 
   static Future<String> registerRequest(String email, String password, String phone, String name) async{
@@ -47,9 +72,6 @@ class APICall {
     if(response.statusCode == 200)
       return "success";
 
-    if(response.statusCode == 401)
-      return "Duplicate email";
-    
     //check missing error
 
     return "failure";
@@ -57,7 +79,7 @@ class APICall {
   }
 
   //does not work
-  static Future<String> getArticleRequest(String token) async{
+  static Future<List> getArticleRequest(String token) async{
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_articles");
     
     var response = await http.post(url,
@@ -68,17 +90,18 @@ class APICall {
         });
 
     print(response.statusCode);
+    jsonDecode(response.body);
     //print(response.body);
     
-    if(response.statusCode == 200)
-      return "success";
+    //if(response.statusCode == 200)
+      //return "success";
 
-    return "failure";
+    return jsonDecode(response.body);
 
   }
 
   //works
-  static Future<String> getStarredArticleRequest(String token) async{
+  static Future<List> getStarredArticleRequest(String token) async{
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_starred_articles");
     
     var response = await http.post(url,
@@ -91,15 +114,15 @@ class APICall {
     print(response.statusCode);
     //print(response.body);
     
-    if(response.statusCode == 200)
-      return "success";
+    //if(response.statusCode == 200)
+      //return "success";
 
-    return "failure";
+    return jsonDecode(response.body);
 
   }
 
   //works
-  static Future<String> getStarredDomainsRequest(String token) async{
+  static Future<List> getStarredDomainsRequest(String token) async{
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_starred_domains");
     
     var response = await http.post(url,
@@ -109,13 +132,13 @@ class APICall {
     body: {"token": token
         });
 
-    print(response.statusCode);
+    //print(response.statusCode);
     //print(response.body);
     
-    if(response.statusCode == 200)
-      return "success";
+    //if(response.statusCode == 200)
+      //return jsonDecode(response.body);
 
-    return "failure";
+    return jsonDecode(response.body);
 
   }
 
@@ -130,7 +153,7 @@ class APICall {
            "team_name": teamName
         });
 
-    print(response.statusCode);
+    //print(response.statusCode);
     //print(response.body);
     
     if(response.statusCode == 200)
@@ -140,17 +163,18 @@ class APICall {
 
   }
 
-  static Future<String> deleteTeamRequest(String token) async{
+  static Future<String> deleteTeamRequest(String token, String teamid) async{
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/delete_team");
     
     var response = await http.post(url,
     headers: <String, String>{
       "JSON": "application/json",
         },
-    body: {"token": token
+    body: {"token": token,
+           "teamid": teamid
         });
 
-    print(response.statusCode);
+    //print(response.statusCode);
     //print(response.body);
     
     if(response.statusCode == 200)
@@ -172,7 +196,7 @@ class APICall {
            "member_id": memberid,
         });
 
-    print(response.statusCode);
+    //print(response.statusCode);
     //print(response.body);
     
     if(response.statusCode == 200)
@@ -194,7 +218,7 @@ class APICall {
            "member_id": memberid,
         });
 
-    print(response.statusCode);
+    //print(response.statusCode);
     //print(response.body);
     
     if(response.statusCode == 200)
@@ -216,7 +240,7 @@ class APICall {
            "answer_text": answer,
         });
 
-    print(response.statusCode);
+    //print(response.statusCode);
     //print(response.body);
     
     if(response.statusCode == 200)
@@ -237,7 +261,7 @@ class APICall {
            "article_id": articleid,
         });
 
-    print(response.statusCode);
+    //print(response.statusCode);
     //print(response.body);
     
     if(response.statusCode == 200)
@@ -258,7 +282,7 @@ class APICall {
            "article_id": articleid,
         });
 
-    print(response.statusCode);
+    //print(response.statusCode);
     //print(response.body);
     
     if(response.statusCode == 200)

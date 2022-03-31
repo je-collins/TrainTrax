@@ -6,6 +6,10 @@ import 'package:train_trax/widgets/TopBar.dart';
 class OurFavorite extends StatelessWidget {
   String currentPage = "FAVORITE";
   String name ='John Smith';
+  String token;
+
+  OurFavorite({Key? key, required this.token}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +20,7 @@ class OurFavorite extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage),
+                TopBar.createTopBar(context, name, currentPage, token),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image.asset(
@@ -28,7 +32,7 @@ class OurFavorite extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                NavBar.createNavBar(context, currentPage),
+                NavBar.createNavBar(context, currentPage, token),
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),

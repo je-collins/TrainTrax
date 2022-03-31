@@ -10,12 +10,12 @@ class TopBar extends StatelessWidget{
 
   }
 
-  static Row createTopBar(BuildContext context, String name, String currentPage){
+  static Row createTopBar(BuildContext context, String name, String currentPage, String tokn){
     return Row(
       children: [
       Profile.createProfile(context, name, true),
       Spacer(),
-      ProfileBar.createProfileBar(context, currentPage),
+      ProfileBar.createProfileBar(context, currentPage, tokn),
       ],
     );
   }
