@@ -22,6 +22,6 @@ export default async (request, response) => {
 	if (user === undefined) return json.badToken().send();
 
 	// Add article to DB
-	await Article.add(user.user_id, article, new Date(time).toISOString());
+	await Article.add(user.user_id, article, new Date().toISOString());
 	return json.send();
 };
