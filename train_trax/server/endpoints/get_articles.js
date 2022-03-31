@@ -6,6 +6,7 @@ export default async (request, response) => {
 
 	// Create return JSON structure
 	const json = new Json(response, 'results');
+	json.put('results', []);
 
 	// Check if one or more fields is not declared
 	const undef = [];
