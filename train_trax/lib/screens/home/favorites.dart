@@ -2,11 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
+import 'package:train_trax/utils/APICall.dart';
 
 class OurFavorite extends StatelessWidget {
   String currentPage = "FAVORITE";
-  String name ='John Smith';
+  String name = 'John Smith';
   String token;
+
+  Future<List> parseFavorites({required String token}) async {
+    try {
+      List _returnString;
+
+      _returnString = await APICall.getFavoritesRequest(token);
+
+      return _returnString;
+    } catch (e) {
+      print(e);
+    }
+    throw (e) {};
+  }
 
   OurFavorite({Key? key, required this.token}) : super(key: key);
 
