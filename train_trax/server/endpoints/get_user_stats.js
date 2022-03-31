@@ -18,7 +18,7 @@ export default async (request, response) => {
 	if (user === undefined) return json.badToken().send();
 
 	// Get stats for user
-	json.set('stats', get_stats([user], true));
+	json.set('stats', await get_stats([user], true));
 
 	// Send information
 	return json.send();
