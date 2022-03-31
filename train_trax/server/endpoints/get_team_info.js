@@ -6,9 +6,9 @@ export default async (request, response) => {
 
 	// Create return JSON structure
 	const json = new Json('member_articles', 'team_articles', 'team_completed', 'completion_rate', response);
-	json.put('member_articles', []);
-	json.put('team_articles', []);
-	json.put('team_completed', []);
+	json.set('member_articles', []);
+	json.set('team_articles', []);
+	json.set('team_completed', []);
 
 	// Check if one or more fields is not declared
 	const undef = [];
@@ -63,7 +63,7 @@ export default async (request, response) => {
     // Filter all articles by complete time and take the top 5
     // What if they don't have a complete time?
     team_articles.sort(function(a, b) { return a.complete_time - b.complete_time;})
-    for (const item of team_articles.slice(0, 5)) 
+    for (const item of team_articles.slice(0, 5)) {
         if(item.complete_time !== null) {
             json.team_completed.push({
                 'id': item.article_id,
@@ -75,6 +75,5 @@ export default async (request, response) => {
     // Count of completed / count of all
     const complete = team_articles.filter (({complete_time}) => complete_time !== null).length
     json.set('completion_rate') = complete / team_articles.length;
-
 	return json.send();
 };
