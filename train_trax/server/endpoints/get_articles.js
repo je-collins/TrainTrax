@@ -6,6 +6,7 @@ export default async (request, response) => {
 
 	// Create return JSON structure
 	const json = new Json(response, 'results');
+	json.set('results', []);
 
 	// Check if one or more fields is not declared
 	const undef = [];
@@ -18,10 +19,6 @@ export default async (request, response) => {
 
     // Retrieve all articles
 	const articles = await Article.getArticles();
-	const results = [];
-	for (const row of articles) results.push(row.article);
-	json.set('results', results);
-
-	// Send articles
+	for (const row of articles) json.get('results').push(row.article);
 	return json.send();
 };
