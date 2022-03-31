@@ -19,12 +19,10 @@ app.listen(port, function() {
 	console.log(`Server listening on port ${port}`)
 });
 
-const on_fail = response => console.err('ERROR: ' + response);
-
 // Login-related Endpoints
 import login from './endpoints/login.js';
 import register from './endpoints/register.js';
-app.post('/api/login', login).fail(on_fail);
+app.post('/api/login', login);
 app.post('/api/register', register);
 
 // Password-related endpoints
