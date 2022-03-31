@@ -13,6 +13,10 @@ export default async (request, response) => {
 	if (question_text === undefined) undef.push('question_text');
 	if (undef.length > 0) return json.badPayload(undef).send();
 
+	// Check if one or more fields are too long
+	if (question_text.length > Constants.DB_QUESTION_MAX_LENGTH) undef.push('question_text');
+	if (undef.length > 0) return json.badData(undef).send();
+
 	// Retrieve user data
 	const user = await User.fromToken(token);
     if (user === undefined) return json.badToken().send();
