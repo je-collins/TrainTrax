@@ -66,7 +66,6 @@ export default class Json {
 	// Send the json as the response
 	send() {
 		if (!this.#replied) {
-			console.log(this.#json);
 			this.#replied = true;
 			this.#response.status(this.#status).json(this.#json);
 		}
