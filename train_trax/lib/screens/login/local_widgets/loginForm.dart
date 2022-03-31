@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:http/http.dart';
 import 'package:train_trax/widgets/shadowContainer.dart';
 import 'package:train_trax/screens/login/forgot.dart';
 import 'package:train_trax/screens/login/register.dart';
@@ -18,25 +21,24 @@ class OurLoginForm extends StatelessWidget {
     required BuildContext context,
   }) async {
     try {
-      String _returnString;
+      Response _returnString;
       var token;
 
-      _returnString = await APICall.loginRequest(email, password);
-      token = await APICall.loginTokenRequest(email, password);
-
+      _returnString = (await APICall.loginTokenRequest(email, password)) as Response;
+      token = jsonDecode(_returnString.body);
           
-      if (_returnString == "success") {
+      if (_returnString.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => OurHome(token: token),
+            builder: (context) => OurHome(token: token["token"]),
           ),
           (route) => false,
         );
       } else {
         Scaffold.of(context).showSnackBar(
           SnackBar(
-            content: Text(_returnString),
+            content: Text(token["message"]),
             duration: Duration(seconds: 3),
           ),
         );
