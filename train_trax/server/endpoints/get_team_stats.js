@@ -25,7 +25,7 @@ export default async (request, response) => {
 	if (admin.user_id !== team.administrator) return json.notAdmin().send();
 
 	// Get stats for user
-	json.set('stats', get_stats(await Team.getUsersFromTeam(team_id)));
+	json.set('stats', get_stats(await Team.getUsersFromTeam(team_id), true));
 
 	// Send information
 	return json.send();
