@@ -6,7 +6,7 @@ import 'package:train_trax/widgets/TopBar.dart';
 class OurHome extends StatelessWidget {
   String currentPage = "HOME";
   String name ='John Smith';
-  var token;
+  String token;
 
   OurHome({Key? key, required this.token}) : super(key: key);
   

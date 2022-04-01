@@ -14,9 +14,15 @@ class OurSelfDirected extends StatelessWidget {
   String currentPage = "SELF-DIRECTED";
   String name ='John Smith';
   String token;
+  var searches;
+  var names;
   OurSelfDirected({Key? key, required this.token}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    searches = ['https://www.youtube.com/', 
+                'https://www.navy.mil/',];
+    names = ['youtube', 
+              'navy website',];
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +107,7 @@ class OurSelfDirected extends StatelessWidget {
                     ),
                   ),
                 ),
-                for (var i = 0; i < 5; i++)
+                for (var i = 0; i < searches.length; i++)
                   Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,8 +124,8 @@ class OurSelfDirected extends StatelessWidget {
                                 text: "\u2022 ",
                               ),
                               Urls.createUrl(
-                                  url: 'https://www.youtube.com/',
-                                  txt: 'Testing',
+                                  url: searches[i],
+                                  txt: names[i],
                                   context: context),
                             ],
                           ),

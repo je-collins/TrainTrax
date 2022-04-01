@@ -1,5 +1,6 @@
 import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:train_trax/screens/login/login.dart';
 
 class OurSettingsForm extends StatelessWidget {
 
@@ -93,7 +94,7 @@ class OurSettingsForm extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 100),
                 child: Text(
-                  "Change password",
+                  "Change Password",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
@@ -105,6 +106,34 @@ class OurSettingsForm extends StatelessWidget {
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => OurHome(token: token,),
+                  ),
+                );
+              },
+            ),
+          ),
+
+          SizedBox(
+            height: 20.0,
+          ),
+
+          //add sign out button
+          Center(
+            child: RaisedButton(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 100),
+                child: Text(
+                  "Sign Out",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                  ),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => OurLogin(),
                   ),
                 );
               },

@@ -43,6 +43,7 @@ class APICall {
             //"password": "tran"
             //cd .\train_trax\
             //flutter run -d web-server
+            //token last an hour
             
     //if (response.statusCode == 200) 
       //return "success";
@@ -92,18 +93,22 @@ class APICall {
         });
 
     //print(response.statusCode);
-    jsonDecode(response.body);
+    //jsonDecode(response.body);
     //print(response.body);
     
     //if(response.statusCode == 200)
       //return "success";
-
-    return jsonDecode(response.body);
+     var file = jsonDecode(response.body);
+    
+    if(response.statusCode == 200)
+      return file["results"];
+    
+    return file["message"];
 
   }
 
   //works
-  static Future<List> getStarredArticleRequest(String token) async{
+  static Future<http.Response> getStarredArticleRequest(String token) async{
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_starred_articles");
     
     var response = await http.post(url,
@@ -113,13 +118,20 @@ class APICall {
     body: {"token": token
         });
 
-    print(response.statusCode);
+    //print(response.statusCode);
     //print(response.body);
     
     //if(response.statusCode == 200)
       //return "success";
 
-    return jsonDecode(response.body);
+    //return jsonDecode(response.body);
+    var file = jsonDecode(response.body);
+    
+    //if(response.statusCode == 200)
+      //return file["results"];
+    
+    //return file["message"];
+    return response;
 
   }
 
@@ -313,7 +325,6 @@ class APICall {
 
     return "failure";
   }
-
 
 
 }
