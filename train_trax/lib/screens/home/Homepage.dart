@@ -2,20 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
+import 'package:train_trax/utils/urls.dart';
 
 class OurHome extends StatelessWidget {
   String currentPage = "HOME";
-<<<<<<< HEAD
-  String name ='John Smith';
-=======
   String name = 'John Smith';
->>>>>>> 7c287ab622b70fe0f1901ff562560334450b1d19
   String token;
+  var searches;
+  var names;
+  var toBeComplete;
+  var namestoBe;
+  var recommended;
+  var namesRecommended;
 
   OurHome({Key? key, required this.token}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    searches = [
+      'https://www.youtube.com/',
+      'https://www.navy.mil/',
+      'https://en.wikipedia.org/wiki/Sharable_Content_Object_Reference_Model'
+    ];
+    names = ['youtube', 'navy website', 'SCORM Reference'];
+    toBeComplete = [
+      'https://www.youtube.com/watch?v=JSIXnw3hoOg',
+      'https://scorm.com/scorm-explained/one-minute-scorm-overview/',
+    ];
+    namestoBe = ['cmi5 Youtube', 'SCORM Explained'];
+    recommended = [
+      'https://www.youtube.com/watch?v=JSIXnw3hoOg',
+      'https://scorm.com/scorm-explained/one-minute-scorm-overview/',
+    ];
+    namesRecommended = ['cmi5 Youtube', 'SCORM Explained'];
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -71,15 +90,30 @@ class OurHome extends StatelessWidget {
                   ),
                 ),
 
-                for (var i = 0; i < 5; i++)
+                for (var i = 0; i < recommended.length; i++)
                   Container(
-                    child: Text(
-                      "\u2022 " + "testing",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.normal,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                style: TextStyle(
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                text: "\u2022 ",
+                              ),
+                              Urls.createUrl(
+                                  url: recommended[i],
+                                  txt: namesRecommended[i],
+                                  context: context),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
 
@@ -98,15 +132,30 @@ class OurHome extends StatelessWidget {
                   ),
                 ),
 
-                for (var i = 0; i < 5; i++)
+                for (var i = 0; i < toBeComplete.length; i++)
                   Container(
-                    child: Text(
-                      "\u2022 " + "testing",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.normal,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                style: TextStyle(
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                text: "\u2022 ",
+                              ),
+                              Urls.createUrl(
+                                  url: toBeComplete[i],
+                                  txt: namestoBe[i],
+                                  context: context),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
 
@@ -125,15 +174,30 @@ class OurHome extends StatelessWidget {
                   ),
                 ),
 
-                for (var i = 0; i < 5; i++)
+                for (var i = 0; i < searches.length; i++)
                   Container(
-                    child: Text(
-                      "\u2022 " + "testing",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.normal,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                style: TextStyle(
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                text: "\u2022 ",
+                              ),
+                              Urls.createUrl(
+                                  url: searches[i],
+                                  txt: names[i],
+                                  context: context),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
               ],
