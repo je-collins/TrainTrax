@@ -1,12 +1,57 @@
 import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:train_trax/utils/APICall.dart';
 
 class OurSettingsForm extends StatelessWidget {
-
   String token;
 
   OurSettingsForm({Key? key, required this.token}) : super(key: key);
 
+  void _changePassword({
+    required String token,
+    required String password,
+    required String passwordConfirm,
+    required BuildContext context,
+  }) async {
+    try {
+      String _returnString;
+      if (password == passwordConfirm) {
+        _returnString = await APICall.resetPasswordRequest(token, password);
+
+        if (_returnString == "success") {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OurHome(
+                token: token,
+              ),
+            ),
+            (route) => false,
+          );
+        } else {
+          Scaffold.of(context).showSnackBar(
+            SnackBar(
+              content: Text(_returnString),
+              duration: Duration(seconds: 3),
+            ),
+          );
+        }
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Passwords are not the same"),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  TextEditingController _tokenController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+  TextEditingController _passwordConfirmController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -73,17 +118,19 @@ class OurSettingsForm extends StatelessWidget {
             height: 5.0,
           ),
           TextFormField(
+            controller: _passwordController,
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.password), hintText: "Odd Password"),
+                prefixIcon: Icon(Icons.password), hintText: "New Password"),
             obscureText: true,
           ),
           SizedBox(
             height: 20.0,
           ),
           TextFormField(
-            obscureText: true,
+            controller: _passwordConfirmController,
             decoration: InputDecoration(
-                prefixIcon: Icon(Icons.password), hintText: "New Password"),
+                prefixIcon: Icon(Icons.password),
+                hintText: "Confirm New Password"),
           ),
           SizedBox(
             height: 20.0,
@@ -102,11 +149,11 @@ class OurSettingsForm extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => OurHome(token: token,),
-                  ),
-                );
+                _changePassword(
+                    token: token,
+                    password: _passwordController.text,
+                    passwordConfirm: _passwordConfirmController.text,
+                    context: context);
               },
             ),
           ),

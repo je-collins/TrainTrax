@@ -49,7 +49,6 @@ class APICall {
 
     //return token["token"];
     var decoded = json.decode(response.body);
-    decoded['token'];
 
     return decoded['token'];
   }
@@ -68,6 +67,46 @@ class APICall {
       "password": password,
       "name": name,
       "phone_number": phone
+    });
+
+    print(response.statusCode);
+    //print(response.body);
+
+    if (response.statusCode == 200) return "success";
+
+    //check missing error
+
+    return "failure";
+  }
+
+  static Future<String> forgotPasswordRequest(String email) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/forgot_password");
+
+    var response = await http.post(url, headers: <String, String>{
+      "JSON": "application/json",
+    }, body: {
+      "email": email,
+    });
+
+    print(response.statusCode);
+    //print(response.body);
+
+    if (response.statusCode == 200) return "success";
+
+    //check missing error
+
+    return "failure";
+  }
+
+  static Future<String> resetPasswordRequest(
+      String token, String password) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/reset_password");
+
+    var response = await http.post(url, headers: <String, String>{
+      "JSON": "application/json",
+    }, body: {
+      "validation_token": token,
+      "password": password,
     });
 
     print(response.statusCode);
@@ -111,7 +150,7 @@ class APICall {
       "token": token
     });
 
-    print(response.statusCode);
+    //print(response.statusCode);
     //print(response.body);
 
     //if(response.statusCode == 200)

@@ -5,7 +5,7 @@ import 'package:train_trax/widgets/TopBar.dart';
 
 class OurFAQ extends StatelessWidget {
   String currentPage = "FAQ";
-  String name ='John Smith';
+  String name = 'John Smith';
   final fieldText = TextEditingController();
   String token;
 
@@ -49,7 +49,16 @@ class OurFAQ extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  child: Text("\u2022 " + "How do I complete a module?",
+                  child: Text("\u2022 " + "How can I access my user stats?",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+                Container(
+                  child: Text(
+                      " Reference your personal user stats on the Homepage.",
                       style: TextStyle(
                         color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 18.0,
@@ -57,7 +66,15 @@ class OurFAQ extends StatelessWidget {
                       )),
                 ),
                 Container(
-                  child: Text("\u2022 " + "How do I complete a module?",
+                  child: Text("\u2022 " + "How can I access my team stats?",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+                Container(
+                  child: Text(" Team stats are only visible to administrators.",
                       style: TextStyle(
                         color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 18.0,
@@ -65,15 +82,34 @@ class OurFAQ extends StatelessWidget {
                       )),
                 ),
                 Container(
-                  child: Text("\u2022 " + "How do I complete a module?",
+                  child: Text("\u2022 " + "How can I change my password?",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+                Wrap(children: [
+                  Text(
+                      " Users can change their password either by using the Forgot Password page or visiting the Settings page within the application.",
                       style: TextStyle(
                         color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 18.0,
                         fontWeight: FontWeight.normal,
                       )),
+                ]),
+                Container(
+                  child: Text(
+                      "\u2022 " + "What should I do if I have more questions?",
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                      )),
                 ),
                 Container(
-                  child: Text("\u2022 " + "How do I complete a module?",
+                  child: Text(
+                      " Reference the box below to ask your administrator.",
                       style: TextStyle(
                         color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 18.0,
@@ -106,7 +142,7 @@ class OurFAQ extends StatelessWidget {
                       controller: fieldText,
                       decoration: InputDecoration(
                           suffixIcon: IconButton(
-                            icon: Icon(Icons.clear),
+                            icon: const Icon(Icons.clear),
                             onPressed: () {
                               /* Clear the search field */
                               fieldText.clear();

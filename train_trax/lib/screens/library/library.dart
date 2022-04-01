@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:train_trax/utils/urls.dart';
-import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
+import 'package:train_trax/utils/APICall.dart';
 
+/*
+List createFavorites(String token) {
+  var test;
+  List test2;
+
+  test = APICall.getFavoritesRequest(token);
+
+  test2 = test.toList();
+
+  return test;
+}
+*/
 class OurLibrary extends StatelessWidget {
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('My Personal Journal');
   final fieldText = TextEditingController();
   String currentPage = "LIBRARY";
   var _hover = false;
-  String name ='John Smith';
+  String name = 'John Smith';
   String token;
 
   OurLibrary({Key? key, required this.token}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +70,7 @@ class OurLibrary extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 //Search bar
                 Container(
                   width: double.infinity,
@@ -85,7 +99,6 @@ class OurLibrary extends StatelessWidget {
                 SizedBox(
                   height: 40.0,
                 ),
-
                 //Recommmended list
                 Container(
                   child: Text(
@@ -97,7 +110,7 @@ class OurLibrary extends StatelessWidget {
                     ),
                   ),
                 ),
-                for (var i = 0; i < 5; i++)
+                for (var i = 0; i < 3; i++)
                   Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,12 +124,10 @@ class OurLibrary extends StatelessWidget {
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.normal,
                                 ),
-                                text: "\u2022 ",
+                                text: "",
                               ),
                               Urls.createUrl(
-                                  url: 'https://www.youtube.com/',
-                                  txt: 'Testing',
-                                  context: context),
+                                  url: '', txt: 'Testing', context: context),
                             ],
                           ),
                         )
