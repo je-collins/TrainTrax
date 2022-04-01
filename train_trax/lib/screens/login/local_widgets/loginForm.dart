@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:http/http.dart';
 import 'package:train_trax/widgets/shadowContainer.dart';
 import 'package:train_trax/screens/login/forgot.dart';
 import 'package:train_trax/screens/login/register.dart';
@@ -8,9 +5,7 @@ import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:train_trax/utils/APICall.dart';
 
-
 class OurLoginForm extends StatelessWidget {
-
   late List data;
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
@@ -21,24 +16,24 @@ class OurLoginForm extends StatelessWidget {
     required BuildContext context,
   }) async {
     try {
-      Response _returnString;
-      var token;
+      String _returnString;
+      String token;
 
-      _returnString = (await APICall.loginTokenRequest(email, password)) as Response;
-      token = jsonDecode(_returnString.body);
-          
-      if (_returnString.statusCode == 200) {
+      _returnString = await APICall.loginRequest(email, password);
+      token = await APICall.loginTokenRequest(email, password);
+
+      if (_returnString == "success") {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => OurHome(token: token["token"]),
+            builder: (context) => OurHome(token: token),
           ),
           (route) => false,
         );
       } else {
         Scaffold.of(context).showSnackBar(
           SnackBar(
-            content: Text(token["message"]),
+            content: Text(_returnString),
             duration: Duration(seconds: 3),
           ),
         );
@@ -64,7 +59,6 @@ class OurLoginForm extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            
           ),
           TextFormField(
             controller: _emailController,
@@ -74,17 +68,15 @@ class OurLoginForm extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
-
           TextFormField(
             controller: _passwordController,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
-                obscureText: true,
+            obscureText: true,
           ),
           SizedBox(
             height: 20.0,
           ),
-
           RaisedButton(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 100),
@@ -104,26 +96,24 @@ class OurLoginForm extends StatelessWidget {
                   context: context);
             },
           ),
-
           FlatButton(
             child: Text("Don't have an account? Sign up here"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context)=>OurRegister(),
+                  builder: (context) => OurRegister(),
                 ),
               );
             },
           ),
-
           FlatButton(
             child: Text("Forgot Password"),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context)=>OurForgot(),
+                  builder: (context) => OurForgot(),
                 ),
               );
             },
