@@ -131,6 +131,7 @@ class OurSettingsForm extends StatelessWidget {
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.password),
                 hintText: "Confirm New Password"),
+            obscureText: true,
           ),
           SizedBox(
             height: 20.0,
