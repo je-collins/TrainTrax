@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:http/http.dart';
 import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:train_trax/screens/library/library.dart';
 import 'package:train_trax/screens/self-directed/self-directed.dart';
@@ -7,11 +10,45 @@ import 'package:train_trax/screens/admin/adminFAQ.dart';
 import 'package:train_trax/screens/admin/adminTeamMang.dart';
 import 'package:train_trax/screens/home/admin/team_statistics.dart';
 import 'package:train_trax/screens/home/admin/add_resources.dart';
+import 'package:train_trax/utils/APICall.dart';
 
 class NavBar {
   String? currentPage = null;
   void setPage(String? current) {
     currentPage = current;
+  }
+
+  static void _toLibrary({
+    required String tokn,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await APICall.getStarredArticleRequest(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+          
+      if (_returnString.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            //articles: token["results"]
+            builder: (context) => OurLibrary(token: tokn,  articles: token["results"],),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   static Navigation createNavBar(BuildContext context, String currentPage, String tokn) {
@@ -55,11 +92,8 @@ class NavBar {
               child: Text("LIBRARY"),
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => OurLibrary(token: tokn,),
-                  ),
-                );
+                _toLibrary(context: context, 
+                           tokn: tokn);
               },
             ),
 
