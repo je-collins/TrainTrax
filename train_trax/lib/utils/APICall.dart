@@ -34,7 +34,6 @@ class APICall {
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
-<<<<<<< HEAD
         },
     body: {"email": email, 
             "password": password});
@@ -46,25 +45,12 @@ class APICall {
             
     //if (response.statusCode == 200) 
       //return "success";
-=======
-    }, body: {
-      "email": email,
-      "password": password
-    });
-    //"email": "ebtran8745@gmail.com",
-    //"password": "tran"
-    //cd .\train_trax\
-    //flutter run -d web-server
-
-    //if (response.statusCode == 200)
-    //return "success";
->>>>>>> 7c287ab622b70fe0f1901ff562560334450b1d19
     //var token = jsonDecode(response.body);
 
     //return token["token"];
     var decoded = json.decode(response.body);
 
-    return decoded['token'];
+    return decoded["token"];
   }
 
   //1234@12mail.com
@@ -148,7 +134,6 @@ class APICall {
     //print(response.body);
 
     //if(response.statusCode == 200)
-<<<<<<< HEAD
       //return "success";
      var file = jsonDecode(response.body);
     
@@ -197,49 +182,12 @@ class APICall {
         },
     body: {"token": token
         });
-=======
-    //return "success";
-
-    return jsonDecode(response.body);
-  }
-
-  //works
-  static Future<List> getStarredArticleRequest(String token) async {
-    Uri url =
-        Uri.parse("https://train-trax.herokuapp.com/api/get_starred_articles");
-
-    var response = await http.post(url, headers: <String, String>{
-      "JSON": "application/json",
-    }, body: {
-      "token": token
-    });
->>>>>>> 7c287ab622b70fe0f1901ff562560334450b1d19
 
     //print(response.statusCode);
     //print(response.body);
 
     //if(response.statusCode == 200)
     //return "success";
-
-    return jsonDecode(response.body);
-  }
-
-  //works
-  static Future<List> getStarredDomainsRequest(String token) async {
-    Uri url =
-        Uri.parse("https://train-trax.herokuapp.com/api/get_starred_domains");
-
-    var response = await http.post(url, headers: <String, String>{
-      "JSON": "application/json",
-    }, body: {
-      "token": token
-    });
-
-    //print(response.statusCode);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return jsonDecode(response.body);
 
     return jsonDecode(response.body);
   }
@@ -415,9 +363,4 @@ class APICall {
 
     return "failure";
   }
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 7c287ab622b70fe0f1901ff562560334450b1d19
 }

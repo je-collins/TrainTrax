@@ -7,10 +7,7 @@ import 'package:train_trax/utils/urls.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
 import 'package:train_trax/utils/APICall.dart';
-<<<<<<< HEAD
 import 'package:train_trax/utils/urls.dart';
-=======
->>>>>>> 7c287ab622b70fe0f1901ff562560334450b1d19
 
 /*
 List createFavorites(String token) {
@@ -145,11 +142,6 @@ class OurLibrary extends StatelessWidget {
       }
 */
 
-<<<<<<< HEAD
-=======
-  OurLibrary({Key? key, required this.token}) : super(key: key);
-
->>>>>>> 7c287ab622b70fe0f1901ff562560334450b1d19
   @override
   Widget build(BuildContext context) {
     
@@ -235,13 +227,9 @@ class OurLibrary extends StatelessWidget {
                     ),
                   ),
                 ),
-<<<<<<< HEAD
                 //createListView(context,token),
                 //*
                 for (var i = 0; i < len; i++)
-=======
-                for (var i = 0; i < 3; i++)
->>>>>>> 7c287ab622b70fe0f1901ff562560334450b1d19
                   Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -257,7 +245,6 @@ class OurLibrary extends StatelessWidget {
                                 ),
                                 text: "",
                               ),
-<<<<<<< HEAD
                               TextSpan(
                                 style: TextStyle(
                                   color: Theme.of(context).secondaryHeaderColor,
@@ -346,10 +333,6 @@ class OurLibrary extends StatelessWidget {
                                         
                                   }
                               ),
-=======
-                              Urls.createUrl(
-                                  url: '', txt: 'Testing', context: context),
->>>>>>> 7c287ab622b70fe0f1901ff562560334450b1d19
                             ],
                           ),
                         )
