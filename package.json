@@ -12,7 +12,8 @@
 	},
 	"scripts": {
 		"start": "node train_trax/server/server.js",
-		"heroku-postbuild": "npm install && npm run build"
+		"heroku-postbuild": "npm install && npm run build",
+		"test": "jest"
 	},
 	"dependencies": {
 		"body-parser": "^1.19.1",
@@ -20,7 +21,8 @@
 		"express": "^4.17.2",
 		"md5": "^2.3.0",
 		"pg": "^8.7.1",
-		"nodemailer": "^6.7.2"
+		"nodemailer": "^6.7.2",
+		"jest": "^27.5.1"
 	},
 	"engines": {
 		"node": "16.x"
