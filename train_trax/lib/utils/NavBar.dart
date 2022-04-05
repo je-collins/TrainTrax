@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:http/http.dart';
 import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:train_trax/screens/library/library.dart';
@@ -119,7 +118,10 @@ class NavBar {
               },
             ),
 
+          
+          
           //CERTIFICATIONS
+          /*
           if(currentPage == "CERTIFICATIONS")
           FlatButton(
             textColor: Colors.yellow,
@@ -137,6 +139,7 @@ class NavBar {
 
             },
           ),
+          */
         ],
       ),
     );
