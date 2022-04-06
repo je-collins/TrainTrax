@@ -122,7 +122,57 @@ class APICall {
     return "failure";
   }
 
-  //does not work
+  static Future<http.Response> getUserStats(String token) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_user_stats");
+
+    var response = await http.post(url, headers: <String, String>{
+      "JSON": "application/json",
+    }, body: {
+      "token": token
+    });
+
+    //print(response.statusCode);
+    //print(response.body);
+
+    //if(response.statusCode == 200)
+    //return jsonDecode(response.body);
+    var decoded = json.decode(response.body);
+    var stats = decoded["stats"];
+    var users = stats["users"];
+
+    return response;
+  }
+
+  
+  static Future<String> getUserName({
+    required String tokn,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await getUserStats(tokn)) as Response;
+      token = jsonDecode(_returnString.data);
+          
+      if (_returnString.statusCode == 200) {
+        return token["stats"]["users"][0]["name"];
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+        return '';
+      }
+    } catch (e) {
+      print(e);
+      return '';
+    }
+  }
+
+  
   static Future<List> getArticleRequest(String token) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_articles");
 
@@ -191,8 +241,9 @@ class APICall {
 
     //if(response.statusCode == 200)
     //return "success";
+    var file = jsonDecode(response.body);
 
-    return jsonDecode(response.body);
+    return file["results"];
   }
 
   static Future<String> createTeamRequest(String token, String teamName) async {
@@ -231,7 +282,7 @@ class APICall {
     return "failure";
   }
 
-  static Future<List> getFavoritesRequest(String token) async {
+  static Future<http.Response> getFavoritesRequest(String token) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_favorites");
 
     var response = await http.post(url, headers: <String, String>{
@@ -246,7 +297,7 @@ class APICall {
     //if(response.statusCode == 200)
     //return jsonDecode(response.body);
 
-    return jsonDecode(response.body);
+    return response;
   }
 
   static Future<String> addMemberRequest(

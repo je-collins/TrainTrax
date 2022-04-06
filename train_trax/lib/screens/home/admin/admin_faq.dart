@@ -9,7 +9,7 @@ class OurAdminFAQ extends StatelessWidget {
   String name ='John Smith';
   String token;
 
-  OurAdminFAQ({Key? key, required this.token}) : super(key: key);
+  OurAdminFAQ({Key? key, required this.token, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class OurAdminFAQ extends StatelessWidget {
                   height: 20.0,
                 ),
 
-                NavBar.createNavBar(context, currentPage, token),
+                NavBar.createNavBar(context, currentPage, token, name),
                 const SizedBox(
                   height: 20.0,
                 ),

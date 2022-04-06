@@ -17,40 +17,7 @@ class NavBar {
     currentPage = current;
   }
 
-  static void _toLibrary({
-    required String tokn,
-    required BuildContext context,
-  }) async {
-    try {
-      Response _returnString;
-      var token;
-
-      _returnString = (await APICall.getStarredArticleRequest(tokn)) as Response;
-      token = jsonDecode(_returnString.body);
-          
-      if (_returnString.statusCode == 200) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            //articles: token["results"]
-            builder: (context) => OurLibrary(token: tokn,  articles: token["results"],),
-          ),
-          (route) => false,
-        );
-      } else {
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text(token["message"]),
-            duration: Duration(seconds: 3),
-          ),
-        );
-      }
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  static Navigation createNavBar(BuildContext context, String currentPage, String tokn) {
+  static Navigation createNavBar(BuildContext context, String currentPage, String tokn, String name) {
     return Navigation(
       child: Wrap(
         alignment: WrapAlignment.center,
@@ -71,7 +38,7 @@ class NavBar {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurHome(token: tokn,),
+                    builder: (context) => OurHome(token: tokn, name: name, ),
                   ),
                 );
               },
@@ -92,7 +59,8 @@ class NavBar {
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               onPressed: () {
                 _toLibrary(context: context, 
-                           tokn: tokn);
+                           tokn: tokn,
+                           name: name);
               },
             ),
 
@@ -112,7 +80,7 @@ class NavBar {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurSelfDirected(token: tokn),
+                    builder: (context) => OurSelfDirected(token: tokn, name: name,),
                   ),
                 );
               },
@@ -145,7 +113,7 @@ class NavBar {
     );
   }
 
-  static Navigation createAdminNavBar(BuildContext context, String currentPage, String tokn){
+  static Navigation createAdminNavBar(BuildContext context, String currentPage, String tokn, String name){
     return Navigation(
       child: Wrap(
         alignment: WrapAlignment.center,
@@ -168,7 +136,7 @@ class NavBar {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurAdminTeamMang(token: tokn),
+                    builder: (context) => OurAdminTeamMang(token: tokn, name: name,),
                   ),
                 );
               }),
@@ -190,7 +158,7 @@ class NavBar {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context)=>OurTeamStatistics(token: tokn),
+                  builder: (context)=>OurTeamStatistics(token: tokn, name: name,),
                 ),
               );
             },
@@ -213,7 +181,7 @@ class NavBar {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context)=>OurAddResources(token: tokn),
+                  builder: (context)=>OurAddResources(token: tokn, name: name,),
                 ),
               );
             },
@@ -222,4 +190,209 @@ class NavBar {
       ),
     );
   }
+
+  static void _toHome({
+    required String tokn,
+    required String name,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await APICall.getStarredArticleRequest(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+          
+      if (_returnString.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            //articles: token["results"]
+            builder: (context) => OurLibrary(token: tokn,  articles: token["results"], name: name,),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static void _toLibrary({
+    required String tokn,
+    required String name,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await APICall.getStarredArticleRequest(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+          
+      if (_returnString.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            //articles: token["results"]
+            builder: (context) => OurLibrary(token: tokn,  articles: token["results"], name: name,),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static void _toSelfDirect({
+    required String tokn,
+    required String name,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await APICall.getStarredArticleRequest(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+          
+      if (_returnString.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            //articles: token["results"]
+            builder: (context) => OurLibrary(token: tokn,  articles: token["results"], name: name,),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static void _toManageTeams({
+    required String tokn,
+    required String name,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await APICall.getStarredArticleRequest(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+          
+      if (_returnString.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            //articles: token["results"]
+            builder: (context) => OurLibrary(token: tokn,  articles: token["results"], name: name,),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static void _toTeamStats({
+    required String tokn,
+    required String name,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await APICall.getStarredArticleRequest(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+          
+      if (_returnString.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            //articles: token["results"]
+            builder: (context) => OurLibrary(token: tokn,  articles: token["results"], name: name,),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static void _toAddResources({
+    required String tokn,
+    required String name,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await APICall.getStarredArticleRequest(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+          
+      if (_returnString.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            //articles: token["results"]
+            builder: (context) => OurLibrary(token: tokn,  articles: token["results"], name: name,),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+  
 }

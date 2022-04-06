@@ -16,7 +16,7 @@ class OurSelfDirected extends StatelessWidget {
   String token;
   var searches;
   var names;
-  OurSelfDirected({Key? key, required this.token}) : super(key: key);
+  OurSelfDirected({Key? key, required this.token, required this.name}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     searches = ['https://www.youtube.com/', 
@@ -45,7 +45,7 @@ class OurSelfDirected extends StatelessWidget {
                   height: 20.0,
                 ),
                 //Page bar
-                NavBar.createNavBar(context, currentPage, token),
+                NavBar.createNavBar(context, currentPage, token, name),
                 //OurLibrarypage(),
 
                 //Search

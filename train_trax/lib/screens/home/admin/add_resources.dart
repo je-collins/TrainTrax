@@ -9,7 +9,7 @@ class OurAddResources extends StatelessWidget {
   String name ='John Smith';
   String token;
 
-  OurAddResources({Key? key, required this.token}) : super(key: key);
+  OurAddResources({Key? key, required this.token, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +35,12 @@ class OurAddResources extends StatelessWidget {
                   height: 20.0,
                 ),
 
-                NavBar.createNavBar(context, currentPage, token),
+                NavBar.createNavBar(context, currentPage, token, name),
                 const SizedBox(
                   height: 20.0,
                 ),
                 //Page bar
-                NavBar.createAdminNavBar(context, currentPage, token),
+                NavBar.createAdminNavBar(context, currentPage, token, name),
 
                 const SizedBox(
                   height: 20.0,

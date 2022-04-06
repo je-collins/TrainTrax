@@ -8,7 +8,7 @@ class OurDownload extends StatelessWidget {
   String name ='John Smith';
   String token;
 
-  OurDownload({Key? key, required this.token}) : super(key: key);
+  OurDownload({Key? key, required this.token, required this.name}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +31,7 @@ class OurDownload extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                NavBar.createNavBar(context, currentPage, token),
+                NavBar.createNavBar(context, currentPage, token, name),
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),

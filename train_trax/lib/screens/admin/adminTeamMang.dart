@@ -31,7 +31,7 @@ class OurAdminTeamMang extends StatelessWidget {
                           false,
                           false];
 
-  OurAdminTeamMang({Key? key, required this.token}) : super(key: key);
+  OurAdminTeamMang({Key? key, required this.token, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +57,11 @@ class OurAdminTeamMang extends StatelessWidget {
                   height: 20.0,
                 ),
                 //Page bar
-                NavBar.createNavBar(context, currentPage, token),
+                NavBar.createNavBar(context, currentPage, token, name),
                 SizedBox(
                   height: 20.0,
                 ),
-                NavBar.createAdminNavBar(context, currentPage, token),
+                NavBar.createAdminNavBar(context, currentPage, token, name),
 
                 SizedBox(
                   height: 20.0,

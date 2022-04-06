@@ -28,7 +28,7 @@ class OurAdminFAQ extends StatelessWidget {
   //works
   String token;
 
-  OurAdminFAQ({Key? key, required this.token}) : super(key: key);
+  OurAdminFAQ({Key? key, required this.token, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +57,13 @@ class OurAdminFAQ extends StatelessWidget {
                 ),
                 
                 //Page bar
-                NavBar.createNavBar(context, currentPage, token),
+                NavBar.createNavBar(context, currentPage, token, name),
 
                 SizedBox(
                   height: 20.0,
                 ),
 
-                NavBar.createAdminNavBar(context, currentPage, token),
+                NavBar.createAdminNavBar(context, currentPage, token, name),
 
                 //QUESTIONS FOR ADMIN
                 Padding(

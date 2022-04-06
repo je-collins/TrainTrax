@@ -9,7 +9,7 @@ class OurFAQ extends StatelessWidget {
   final fieldText = TextEditingController();
   String token;
 
-  OurFAQ({Key? key, required this.token}) : super(key: key);
+  OurFAQ({Key? key, required this.token, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class OurFAQ extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                NavBar.createNavBar(context, currentPage, token),
+                NavBar.createNavBar(context, currentPage, token, name),
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),

@@ -5,8 +5,9 @@ import 'package:train_trax/utils/APICall.dart';
 
 class OurSettingsForm extends StatelessWidget {
   String token;
+  String name;
 
-  OurSettingsForm({Key? key, required this.token}) : super(key: key);
+  OurSettingsForm({Key? key, required this.token, required this.name}) : super(key: key);
 
   void _changePassword({
     required String token,
@@ -23,9 +24,12 @@ class OurSettingsForm extends StatelessWidget {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => OurHome(
+              builder: (context) => 
+              OurHome(
                 token: token,
+                name: name
               ),
+            
             ),
             (route) => false,
           );

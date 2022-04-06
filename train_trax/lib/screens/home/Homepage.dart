@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:train_trax/utils/APICall.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
@@ -15,7 +16,7 @@ class OurHome extends StatelessWidget {
   var recommended;
   var namesRecommended;
 
-  OurHome({Key? key, required this.token}) : super(key: key);
+  OurHome({Key? key, required this.token, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,6 +36,7 @@ class OurHome extends StatelessWidget {
       'https://scorm.com/scorm-explained/one-minute-scorm-overview/',
     ];
     namesRecommended = ['cmi5 Youtube', 'SCORM Explained'];
+    
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -58,7 +60,7 @@ class OurHome extends StatelessWidget {
                   height: 20.0,
                 ),
 
-                NavBar.createNavBar(context, currentPage, token),
+                NavBar.createNavBar(context, currentPage, token, name),
 
                 Padding(
                   padding:

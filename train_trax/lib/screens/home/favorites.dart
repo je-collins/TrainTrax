@@ -8,21 +8,22 @@ class OurFavorite extends StatelessWidget {
   String currentPage = "FAVORITE";
   String name = 'John Smith';
   String token;
+  List articles;
 
-  Future<List> parseFavorites({required String token}) async {
+  Future<String> parseFavorites({required String token}) async {
     try {
       List _returnString;
 
-      _returnString = await APICall.getFavoritesRequest(token);
+      //_returnString = await APICall.getFavoritesRequest(token);
 
-      return _returnString;
+      return '';
     } catch (e) {
       print(e);
     }
     throw (e) {};
   }
 
-  OurFavorite({Key? key, required this.token}) : super(key: key);
+  OurFavorite({Key? key, required this.token, required this.articles, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class OurFavorite extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                NavBar.createNavBar(context, currentPage, token),
+                NavBar.createNavBar(context, currentPage, token, name),
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),

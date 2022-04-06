@@ -15,7 +15,7 @@ class TopBar extends StatelessWidget{
       children: [
       Profile.createProfile(context, name, true),
       Spacer(),
-      ProfileBar.createProfileBar(context, currentPage, tokn),
+      ProfileBar.createProfileBar(context, currentPage, tokn, name),
       ],
     );
   }

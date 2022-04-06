@@ -32,7 +32,7 @@ class OurAdminNavigation {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurManageTeams(token: '',),
+                    builder: (context) => OurManageTeams(token: '', name: ''),
                   ),
                 );
               },
@@ -54,7 +54,7 @@ class OurAdminNavigation {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurTeamStatistics(token: '',),
+                    builder: (context) => OurTeamStatistics(token: '', name: '',),
                   ),
                 );
               },
@@ -76,7 +76,7 @@ class OurAdminNavigation {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurAddResources(token: '',),
+                    builder: (context) => OurAddResources(token: '',name: '',),
                   ),
                 );
               },

@@ -32,7 +32,7 @@ class OurLibrary extends StatelessWidget {
   List articles;
   //required this.articles
 
-  OurLibrary({Key? key, required this.token, required this.articles}) : super(key: key);
+  OurLibrary({Key? key, required this.token, required this.articles, required this.name}) : super(key: key);
 
   Widget createListView(BuildContext context, String token) {
     //List values = snapshot.data;
@@ -170,7 +170,7 @@ class OurLibrary extends StatelessWidget {
                   height: 20.0,
                 ),
                 //Page bar
-                NavBar.createNavBar(context, currentPage, token),
+                NavBar.createNavBar(context, currentPage, token, name),
 
                 //Library Search
                 Padding(

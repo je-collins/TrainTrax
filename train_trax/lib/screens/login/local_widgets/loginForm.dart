@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:http/http.dart';
 import 'package:train_trax/widgets/shadowContainer.dart';
 import 'package:train_trax/screens/login/forgot.dart';
 import 'package:train_trax/screens/login/register.dart';
@@ -18,15 +21,22 @@ class OurLoginForm extends StatelessWidget {
     try {
       String _returnString;
       String token;
+      //String _returnStringName = 'John Smith';
+      Response _returnStringName;
 
       _returnString = await APICall.loginRequest(email, password);
       token = await APICall.loginTokenRequest(email, password);
+      //var tkn = json.decode(token.body);
+      _returnStringName = await APICall.getUserStats(token);
+      var nameTk = json.decode(_returnStringName.body);
+      var name = nameTk["stats"]["users"][0]["name"];
 
+      //tkn["token"] != ""
       if (_returnString == "success") {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => OurHome(token: token),
+            builder: (context) => OurHome(token: token, name: name,),
           ),
           (route) => false,
         );

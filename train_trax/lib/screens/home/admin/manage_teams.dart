@@ -9,7 +9,7 @@ class OurManageTeams extends StatelessWidget {
   String name ='John Smith';
   String token;
 
-  OurManageTeams({Key? key, required this.token}) : super(key: key);
+  OurManageTeams({Key? key, required this.token, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class OurManageTeams extends StatelessWidget {
                   height: 20.0,
                 ),
 
-                NavBar.createNavBar(context, currentPage, token),
+                NavBar.createNavBar(context, currentPage, token, name),
                 const SizedBox(
                   height: 20.0,
                 ),

@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:train_trax/screens/home/downloads.dart';
 import 'package:train_trax/screens/home/faq.dart';
 import 'package:train_trax/screens/home/favorites.dart';
 import 'package:train_trax/screens/settings/settings.dart';
 import 'package:train_trax/screens/home/admin/team_statistics.dart';
+import 'package:train_trax/utils/APICall.dart';
 
 class ProfileBar extends StatelessWidget {
   String? currentPage = null;
@@ -12,7 +16,7 @@ class ProfileBar extends StatelessWidget {
     currentPage = current;
   }
 
-  static Wrap createProfileBar(BuildContext context, String currentPage, String tokn){
+  static Wrap createProfileBar(BuildContext context, String currentPage, String tokn, String name){
     return Wrap(
         alignment: WrapAlignment.end,
         children: <Widget>[
@@ -30,7 +34,7 @@ class ProfileBar extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurDownload(token: tokn),
+                    builder: (context) => OurDownload(token: tokn, name: name,),
                   ),
                 );
               },
@@ -49,7 +53,7 @@ class ProfileBar extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurFAQ(token: tokn),
+                    builder: (context) => OurFAQ(token: tokn, name: name,),
                   ),
                 );
               },
@@ -66,11 +70,9 @@ class ProfileBar extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.favorite),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => OurFavorite(token: tokn),
-                  ),
-                );
+                _toFavorites(context: context, 
+                          tokn: tokn,
+                          name: name);
               },
             ),
 
@@ -87,7 +89,7 @@ class ProfileBar extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurSettings(token: tokn),
+                    builder: (context) => OurSettings(token: tokn, name: name,),
                   ),
                 );
               },
@@ -106,7 +108,7 @@ class ProfileBar extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurTeamStatistics(token: tokn),
+                    builder: (context) => OurTeamStatistics(token: tokn, name: name,),
                   ),
                 );
               },
@@ -143,5 +145,39 @@ class ProfileBar extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  static void _toFavorites({
+    required String tokn,
+    required String name,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await APICall.getFavoritesRequest(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+          
+      if (_returnString.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            //articles: token["results"]
+            builder: (context) => OurFavorite(token: tokn,  articles: token["results"], name: name,),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }
