@@ -135,29 +135,6 @@ class OurAddResources extends StatelessWidget {
                 SizedBox(
                   height: 40.0,
                 ),
-
-                //USED BY OTHERS list
-                Container(
-                  child: Text(
-                    "RECENTLY ADDED:",
-                    style: TextStyle(
-                      color: Theme.of(context).secondaryHeaderColor,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                for (var i = 0; i < 5; i++)
-                  Container(
-                    child: Text(
-                      "\u2022 " + "testing",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 15.0,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ),
               ],
             ),
           ),
