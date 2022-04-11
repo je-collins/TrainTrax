@@ -18,7 +18,7 @@ export default (isDomain) => async (request, response) => {
 	if (user === undefined) return json.badCredentials().send();
 
 	// Query database for starred articles/domains and return
-	const articles = await (isDomain ? Article.getStarredArticles : Article.getStarredDomains)();
+	const articles = await (isDomain ? Article.getStarredDomains : Article.getStarredArticles)();
 	for (const row of articles) json.get('results').push(row.article);
 	return json.send();
 };
