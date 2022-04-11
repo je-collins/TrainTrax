@@ -21,6 +21,10 @@ export default async (request, response) => {
 	const questions = Question.getQuestions();
 	const answers = Question.getAnswers();
 
+	console.log('DEBUG get_questions_answers endpoint');
+	console.log(typeof questions);
+	console.log(typeof answers);
+
 	// Build data
 	for (const question of questions) {
 		// Get question's answers
