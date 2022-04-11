@@ -9,6 +9,7 @@ class OurFavorite extends StatelessWidget {
   String name = 'John Smith';
   String token;
   List articles;
+  bool isAdmin = false;
 
   Future<String> parseFavorites({required String token}) async {
     try {
@@ -23,7 +24,7 @@ class OurFavorite extends StatelessWidget {
     throw (e) {};
   }
 
-  OurFavorite({Key? key, required this.token, required this.articles, required this.name}) : super(key: key);
+  OurFavorite({Key? key, required this.token, required this.articles, required this.name, required this.isAdmin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class OurFavorite extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage, token),
+                TopBar.createTopBar(context, name, currentPage, token, isAdmin),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image.asset(
@@ -47,7 +48,7 @@ class OurFavorite extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                NavBar.createNavBar(context, currentPage, token, name),
+                NavBar.createNavBar(context, currentPage, token, name, isAdmin),
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),

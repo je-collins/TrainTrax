@@ -1,4 +1,7 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
+import 'package:train_trax/utils/APICall.dart';
 import 'package:train_trax/utils/urls.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
@@ -22,6 +25,7 @@ class OurAdminTeamMang extends StatelessWidget {
   var numTeamates = 6;
   var _hover = false;
   var teamateNum =0;
+  bool isAdmin =true;
 
   String token;
   List<bool>  delete = [false, 
@@ -43,7 +47,7 @@ class OurAdminTeamMang extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage, token),
+                TopBar.createTopBar(context, name, currentPage, token, isAdmin),
                 //Logo
                 Padding(
                   padding: EdgeInsets.all(10.0),
@@ -57,7 +61,7 @@ class OurAdminTeamMang extends StatelessWidget {
                   height: 20.0,
                 ),
                 //Page bar
-                NavBar.createNavBar(context, currentPage, token, name),
+                NavBar.createNavBar(context, currentPage, token, name, isAdmin),
                 SizedBox(
                   height: 20.0,
                 ),
@@ -67,172 +71,12 @@ class OurAdminTeamMang extends StatelessWidget {
                   height: 20.0,
                 ),
 
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    children: [
-                      for(int i=0; i<numTeamates; i++)
-                      Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Wrap(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
-                              child: CircleAvatar(
-                                radius: 25.0,
-                                backgroundColor: Colors.black,
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 23.0,
-                                  child: IconButton(
-                                    alignment: Alignment.bottomCenter,
-                                    splashRadius: 26,
-                                    icon: Icon(
-                                      Icons.close,
-                                      color: Colors.black,
-                                    ),
-                                    onPressed:  () {
-                                      //remove from team
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) => 
-                                        Dialog(
-                                          child: Center(
-                                            child: Wrap(
-                                              alignment: WrapAlignment.center,
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding: EdgeInsets.all(15.0),
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    height: 6*24,
-                                                    child: Text(
-                                                      "Do you want to remove this member from the team"
-                                                    ),
-                                                  ),
-                                                ),
-
-                                                Wrap(
-                                                  spacing: 20.0,
-                                                  children: [
-                                                    RaisedButton(
-                                                      child: Padding(
-                                                        padding: EdgeInsets.symmetric(horizontal: 100),
-                                                        child: Text(
-                                                          "Yes",
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 20.0,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      onPressed: () {
-                                                        delete[i] = true;
-                                                        Navigator.pop(context, delete);
-                                                      },
-                                                    ),
-
-                                                    RaisedButton(
-                                                      child: Padding(
-                                                        padding: EdgeInsets.symmetric(horizontal: 100),
-                                                        child: Text(
-                                                          "No",
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 20.0,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      onPressed: () {
-                                                        delete[i] = false;
-                                                        Navigator.pop(context, delete);
-                                                      },
-                                                    )
-                                                    //if(delete)
-
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          //if(delete)
-                                        ));
-
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ),
-
-                            Padding(
-                              padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
-                              child:Profile.createProfile(context, listOfM[i], true),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-
                 Center(
-                  child: DropDown(),
+                  child: DropDown(listOfM: listOfM,),
                 ),
 
                 SizedBox(
                   height: 20.0,
-                ),
-
-                //add member
-                
-                Wrap(
-                  alignment: WrapAlignment.center,
-                  children: [
-                    Container(
-                  width: 750,
-                  height: 40,
-                    decoration: BoxDecoration(
-                        color: Colors.white, 
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.black)
-                        ),
-                    child: Center(
-                      child: TextField(
-                        controller: addMember,
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.search),
-                            suffixIcon: IconButton(
-                              icon: Icon(Icons.clear),
-                              onPressed: () {
-                                /* Clear the search field */
-                                 addMember.clear(); 
-                              },
-                            ),
-                            hintText: 'Team Member',
-                            border: InputBorder.none),
-                      ),
-                    ),
-                ),
-                
-                Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 8.0),
-                        child: RaisedButton(
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 100),
-                          child: Text(
-                            "Add",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20.0,
-                            ),
-                          ),
-                        ),
-                        onPressed: () {
-                        },
-                      ),
-                      ),
-                  ],
                 ),
 
                 SizedBox(
@@ -315,6 +159,8 @@ class OurAdminTeamMang extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
+                          //create team
+                          //APICall.createTeamRequest(String token, String teamName);
                         },
                       ),
                       ),

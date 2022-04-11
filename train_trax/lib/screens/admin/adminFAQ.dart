@@ -27,6 +27,7 @@ class OurAdminFAQ extends StatelessWidget {
 
   //works
   String token;
+  bool isAdmin = true;
 
   OurAdminFAQ({Key? key, required this.token, required this.name}) : super(key: key);
 
@@ -41,7 +42,7 @@ class OurAdminFAQ extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage, token),
+                TopBar.createTopBar(context, name, currentPage, token, isAdmin),
                 //Logo
                 Padding(
                   padding: EdgeInsets.all(10.0),
@@ -57,7 +58,7 @@ class OurAdminFAQ extends StatelessWidget {
                 ),
                 
                 //Page bar
-                NavBar.createNavBar(context, currentPage, token, name),
+                NavBar.createNavBar(context, currentPage, token, name, isAdmin),
 
                 SizedBox(
                   height: 20.0,
@@ -245,6 +246,7 @@ class OurAdminFAQ extends StatelessWidget {
                                         onPressed: () {
                                           //send response
                                           //APICall.answerQuestionRequest(token, qid, answerController.text);
+                                          answerController.clear();
                                           Navigator.pop(context, answerController.text);
                                         },
                                       ),

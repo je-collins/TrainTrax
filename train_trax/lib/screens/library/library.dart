@@ -9,18 +9,6 @@ import 'package:train_trax/widgets/TopBar.dart';
 import 'package:train_trax/utils/APICall.dart';
 import 'package:train_trax/utils/urls.dart';
 
-/*
-List createFavorites(String token) {
-  var test;
-  List test2;
-
-  test = APICall.getFavoritesRequest(token);
-
-  test2 = test.toList();
-
-  return test;
-}
-*/
 class OurLibrary extends StatelessWidget {
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('My Personal Journal');
@@ -30,9 +18,10 @@ class OurLibrary extends StatelessWidget {
   String name = 'John Smith';
   String token;
   List articles;
+  bool isAdmin = false;
   //required this.articles
 
-  OurLibrary({Key? key, required this.token, required this.articles, required this.name}) : super(key: key);
+  OurLibrary({Key? key, required this.token, required this.articles, required this.name, required this.isAdmin}) : super(key: key);
 
   Widget createListView(BuildContext context, String token) {
     //List values = snapshot.data;
@@ -68,79 +57,11 @@ class OurLibrary extends StatelessWidget {
             } else {
               return CircularProgressIndicator(); // displays while loading data
             }
-          /*
-          switch (snapshot.connectionState) {
-            case ConnectionState.none:
-            case ConnectionState.waiting:
-              return new Text('loading...');
-            default:
-              if (snapshot.hasError)
-                return new Text('Error: ${snapshot.error}');
-              else{
-                //List values = snapshot.data;
-                if(values == null){
-                  return new Text('No articles');
-                }
-                else
-                  return new Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      if(values.length > 0)
-                        Container(
-                          child: Column(
-                            children: <Widget>[
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      style: TextStyle(
-                                        color: Theme.of(context).secondaryHeaderColor,
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                      text: "\u2022 ",
-                                    ),
-                                    TextSpan(
-                                      style: TextStyle(
-                                        color: Theme.of(context).secondaryHeaderColor,
-                                        fontSize: 15.0,
-                                        fontWeight: FontWeight.normal,
-                                        decoration: TextDecoration.underline,
-                                      ),
-                                      text: values[index],
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                    ],
-                );
-              }
-          */      
           }
           
     );
   }
 
-  /*
-  Future convertFutureListToList(String token) async {
-    Future<List> _futureOfList = APICall.getStarredArticleRequest(token);
-    List list = await _futureOfList ;
-    return list;
-  }
-
-  Widget projectWidget(String token) {
-  return FutureBuilder(
-    builder: (context, projectSnap) {
-      List? values = projectSnap.data as List?;
-      if (projectSnap.connectionState == ConnectionState.none &&
-          projectSnap.hasData == null) {
-        //print('project snapshot data is: ${projectSnap.data}');
-        return Container();
-      }
-*/
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +77,7 @@ class OurLibrary extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage, token),
+                TopBar.createTopBar(context, name, currentPage, token, isAdmin),
                 //Logo
                 Padding(
                   padding: EdgeInsets.all(10.0),
@@ -170,7 +91,7 @@ class OurLibrary extends StatelessWidget {
                   height: 20.0,
                 ),
                 //Page bar
-                NavBar.createNavBar(context, currentPage, token, name),
+                NavBar.createNavBar(context, currentPage, token, name, isAdmin),
 
                 //Library Search
                 Padding(

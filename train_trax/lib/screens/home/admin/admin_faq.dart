@@ -8,6 +8,7 @@ class OurAdminFAQ extends StatelessWidget {
   String currentPage = "ADMIN FAQ";
   String name ='John Smith';
   String token;
+  bool isAdmin = true;
 
   OurAdminFAQ({Key? key, required this.token, required this.name}) : super(key: key);
 
@@ -21,7 +22,7 @@ class OurAdminFAQ extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage, token),
+                TopBar.createTopBar(context, name, currentPage, token, isAdmin),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image.asset(
@@ -35,7 +36,7 @@ class OurAdminFAQ extends StatelessWidget {
                   height: 20.0,
                 ),
 
-                NavBar.createNavBar(context, currentPage, token, name),
+                NavBar.createNavBar(context, currentPage, token, name, isAdmin),
                 const SizedBox(
                   height: 20.0,
                 ),

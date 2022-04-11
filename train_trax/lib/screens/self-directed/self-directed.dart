@@ -16,7 +16,8 @@ class OurSelfDirected extends StatelessWidget {
   String token;
   var searches;
   var names;
-  OurSelfDirected({Key? key, required this.token, required this.name}) : super(key: key);
+  bool isAdmin = false;
+  OurSelfDirected({Key? key, required this.token, required this.name, required this.isAdmin, required articles}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     searches = ['https://www.youtube.com/', 
@@ -31,7 +32,7 @@ class OurSelfDirected extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage, token),
+                TopBar.createTopBar(context, name, currentPage, token, isAdmin),
                 //Logo
                 Padding(
                   padding: EdgeInsets.all(10.0),
@@ -45,8 +46,7 @@ class OurSelfDirected extends StatelessWidget {
                   height: 20.0,
                 ),
                 //Page bar
-                NavBar.createNavBar(context, currentPage, token, name),
-                //OurLibrarypage(),
+                NavBar.createNavBar(context, currentPage, token, name, isAdmin),
 
                 //Search
                 Padding(

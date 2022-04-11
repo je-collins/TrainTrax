@@ -27,16 +27,17 @@ class OurLoginForm extends StatelessWidget {
       _returnString = await APICall.loginRequest(email, password);
       token = await APICall.loginTokenRequest(email, password);
       //var tkn = json.decode(token.body);
-      _returnStringName = await APICall.getUserStats(token);
+      _returnStringName = await APICall.getUserInfo(token);
       var nameTk = json.decode(_returnStringName.body);
-      var name = nameTk["stats"]["users"][0]["name"];
+      var name = nameTk["name"];
+      var isAdmin = nameTk["administrator"];
 
       //tkn["token"] != ""
       if (_returnString == "success") {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => OurHome(token: token, name: name,),
+            builder: (context) => OurHome(token: token, name: name,isAdmin: isAdmin,),
           ),
           (route) => false,
         );

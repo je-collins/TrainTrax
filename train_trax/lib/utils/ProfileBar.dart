@@ -16,7 +16,7 @@ class ProfileBar extends StatelessWidget {
     currentPage = current;
   }
 
-  static Wrap createProfileBar(BuildContext context, String currentPage, String tokn, String name){
+  static Wrap createProfileBar(BuildContext context, String currentPage, String tokn, String name, bool isAdmin){
     return Wrap(
         alignment: WrapAlignment.end,
         children: <Widget>[
@@ -34,7 +34,7 @@ class ProfileBar extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurDownload(token: tokn, name: name,),
+                    builder: (context) => OurDownload(token: tokn, name: name, isAdmin: isAdmin,),
                   ),
                 );
               },
@@ -53,7 +53,7 @@ class ProfileBar extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurFAQ(token: tokn, name: name,),
+                    builder: (context) => OurFAQ(token: tokn, name: name, isAdmin: isAdmin,),
                   ),
                 );
               },
@@ -72,7 +72,8 @@ class ProfileBar extends StatelessWidget {
               onPressed: () {
                 _toFavorites(context: context, 
                           tokn: tokn,
-                          name: name);
+                          name: name, 
+                          isAdmin: isAdmin,);
               },
             ),
 
@@ -89,20 +90,20 @@ class ProfileBar extends StatelessWidget {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurSettings(token: tokn, name: name,),
+                    builder: (context) => OurSettings(token: tokn, name: name, isAdmin: isAdmin),
                   ),
                 );
               },
             ),
 
-          //FAVORITE
-          if (currentPage == "ADMINISTRATION")
+          //ADMINISTRATION
+          if (isAdmin && currentPage == "ADMINISTRATION")
             IconButton(
               color: Colors.yellow,
               icon: const Icon(Icons.admin_panel_settings),
               onPressed: () {},
             ),
-          if (currentPage != "ADMINISTRATION")
+          if (isAdmin && currentPage != "ADMINISTRATION")
             IconButton(
               icon: const Icon(Icons.admin_panel_settings),
               onPressed: () {
@@ -151,6 +152,7 @@ class ProfileBar extends StatelessWidget {
     required String tokn,
     required String name,
     required BuildContext context,
+    required bool isAdmin,
   }) async {
     try {
       Response _returnString;
@@ -164,7 +166,7 @@ class ProfileBar extends StatelessWidget {
           context,
           MaterialPageRoute(
             //articles: token["results"]
-            builder: (context) => OurFavorite(token: tokn,  articles: token["results"], name: name,),
+            builder: (context) => OurFavorite(token: tokn,  articles: token["results"], name: name, isAdmin: isAdmin,),
           ),
           (route) => false,
         );

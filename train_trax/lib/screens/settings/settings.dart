@@ -8,8 +8,9 @@ class OurSettings extends StatelessWidget {
   String currentPage = "SETTINGS";
   String name ='John Smith';
   String token;
+  bool isAdmin = false;
 
-  OurSettings({Key? key, required this.token, required this.name}) : super(key: key);
+  OurSettings({Key? key, required this.token, required this.name, required this.isAdmin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class OurSettings extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage, token),
+                TopBar.createTopBar(context, name, currentPage, token, isAdmin,),
                 //Logo
                 Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -35,12 +36,12 @@ class OurSettings extends StatelessWidget {
                   height: 20.0,
                 ),
 
-                NavBar.createNavBar(context, currentPage, token, name),
-                //OurHomepage(),
+                NavBar.createNavBar(context, currentPage, token, name, isAdmin),
+
                 const SizedBox(
                   height: 20.0,
                 ),
-                OurSettingsForm(token: token, name: name,),
+                OurSettingsForm(token: token, name: name, isAdmin: isAdmin),
               ],
             ),
           )

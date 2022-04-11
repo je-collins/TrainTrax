@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:train_trax/screens/login/login.dart';
@@ -6,8 +8,9 @@ import 'package:train_trax/utils/APICall.dart';
 class OurSettingsForm extends StatelessWidget {
   String token;
   String name;
+  bool isAdmin = false;
 
-  OurSettingsForm({Key? key, required this.token, required this.name}) : super(key: key);
+  OurSettingsForm({Key? key, required this.token, required this.name, required this.isAdmin}) : super(key: key);
 
   void _changePassword({
     required String token,
@@ -27,7 +30,8 @@ class OurSettingsForm extends StatelessWidget {
               builder: (context) => 
               OurHome(
                 token: token,
-                name: name
+                name: name,
+                isAdmin: isAdmin
               ),
             
             ),

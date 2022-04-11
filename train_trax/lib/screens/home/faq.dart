@@ -8,8 +8,9 @@ class OurFAQ extends StatelessWidget {
   String name = 'John Smith';
   final fieldText = TextEditingController();
   String token;
+  bool isAdmin =false;
 
-  OurFAQ({Key? key, required this.token, required this.name}) : super(key: key);
+  OurFAQ({Key? key, required this.token, required this.name, required this.isAdmin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class OurFAQ extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage, token),
+                TopBar.createTopBar(context, name, currentPage, token, isAdmin),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image.asset(
@@ -33,7 +34,7 @@ class OurFAQ extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                NavBar.createNavBar(context, currentPage, token, name),
+                NavBar.createNavBar(context, currentPage, token, name, isAdmin),
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),

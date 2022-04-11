@@ -143,6 +143,25 @@ class APICall {
     return response;
   }
 
+  static Future<http.Response> getUserInfo(String token) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_user_info");
+
+    var response = await http.post(url, headers: <String, String>{
+      "JSON": "application/json",
+    }, body: {
+      "token": token
+    });
+
+    //print(response.statusCode);
+    //print(response.body);
+
+    //if(response.statusCode == 200)
+    //return jsonDecode(response.body);
+    var decoded = json.decode(response.body);
+
+    return response;
+  }
+
   
   static Future<String> getUserName({
     required String tokn,
@@ -416,5 +435,30 @@ class APICall {
     if (response.statusCode == 200) return "success";
 
     return "failure";
+  }
+
+  static Future<String> addArticleRequest(String token, String article) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_articles");
+
+    var response = await http.post(url, headers: <String, String>{
+      "JSON": "application/json",
+    }, body: {
+      "token": token,
+      "article": article
+    });
+
+    //print(response.statusCode);
+    //jsonDecode(response.body);
+    //print(response.body);
+
+    //if(response.statusCode == 200)
+      //return "success";
+     var file = jsonDecode(response.body);
+    
+    if(response.statusCode == 200)
+      return "success";
+    
+    return "failure";
+
   }
 }

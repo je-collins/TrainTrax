@@ -15,8 +15,9 @@ class OurHome extends StatelessWidget {
   var namestoBe;
   var recommended;
   var namesRecommended;
+  bool isAdmin;
 
-  OurHome({Key? key, required this.token, required this.name}) : super(key: key);
+  OurHome({Key? key, required this.token, required this.name, required this.isAdmin}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class OurHome extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(20.0),
               children: <Widget>[
-                TopBar.createTopBar(context, name, currentPage, token),
+                TopBar.createTopBar(context, name, currentPage, token, isAdmin),
 
                 //Logo
                 Padding(
@@ -60,7 +61,7 @@ class OurHome extends StatelessWidget {
                   height: 20.0,
                 ),
 
-                NavBar.createNavBar(context, currentPage, token, name),
+                NavBar.createNavBar(context, currentPage, token, name, isAdmin),
 
                 Padding(
                   padding:

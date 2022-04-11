@@ -17,7 +17,7 @@ class NavBar {
     currentPage = current;
   }
 
-  static Navigation createNavBar(BuildContext context, String currentPage, String tokn, String name) {
+  static Navigation createNavBar(BuildContext context, String currentPage, String tokn, String name, bool isAdmin) {
     return Navigation(
       child: Wrap(
         alignment: WrapAlignment.center,
@@ -38,7 +38,7 @@ class NavBar {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurHome(token: tokn, name: name, ),
+                    builder: (context) => OurHome(token: tokn, name: name, isAdmin: isAdmin, ),
                   ),
                 );
               },
@@ -60,7 +60,8 @@ class NavBar {
               onPressed: () {
                 _toLibrary(context: context, 
                            tokn: tokn,
-                           name: name);
+                           name: name,
+                           isAdmin: isAdmin);
               },
             ),
 
@@ -80,34 +81,11 @@ class NavBar {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => OurSelfDirected(token: tokn, name: name,),
+                    builder: (context) => OurSelfDirected(token: tokn, name: name, isAdmin: isAdmin,articles: null,),
                   ),
                 );
               },
             ),
-
-          
-          
-          //CERTIFICATIONS
-          /*
-          if(currentPage == "CERTIFICATIONS")
-          FlatButton(
-            textColor: Colors.yellow,
-            child: Text("CERTIFICATIONS"),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            onPressed: () {
-            },
-          ),
-          if(currentPage != "CERTIFICATIONS")
-          FlatButton(
-            textColor: Colors.white,
-            child: Text("CERTIFICATIONS"),
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-            onPressed: () {
-
-            },
-          ),
-          */
         ],
       ),
     );
@@ -195,6 +173,7 @@ class NavBar {
     required String tokn,
     required String name,
     required BuildContext context,
+    required bool isAdmin,
   }) async {
     try {
       Response _returnString;
@@ -208,7 +187,7 @@ class NavBar {
           context,
           MaterialPageRoute(
             //articles: token["results"]
-            builder: (context) => OurLibrary(token: tokn,  articles: token["results"], name: name,),
+            builder: (context) => OurHome(token: tokn, name: name, isAdmin: isAdmin,),
           ),
           (route) => false,
         );
@@ -229,6 +208,7 @@ class NavBar {
     required String tokn,
     required String name,
     required BuildContext context,
+    required bool isAdmin,
   }) async {
     try {
       Response _returnString;
@@ -242,7 +222,7 @@ class NavBar {
           context,
           MaterialPageRoute(
             //articles: token["results"]
-            builder: (context) => OurLibrary(token: tokn,  articles: token["results"], name: name,),
+            builder: (context) => OurLibrary(token: tokn,  articles: token["results"], name: name, isAdmin: isAdmin,),
           ),
           (route) => false,
         );
@@ -263,6 +243,7 @@ class NavBar {
     required String tokn,
     required String name,
     required BuildContext context,
+    required bool isAdmin,
   }) async {
     try {
       Response _returnString;
@@ -276,7 +257,7 @@ class NavBar {
           context,
           MaterialPageRoute(
             //articles: token["results"]
-            builder: (context) => OurLibrary(token: tokn,  articles: token["results"], name: name,),
+            builder: (context) => OurSelfDirected(token: tokn,  articles: token["results"], name: name, isAdmin: isAdmin,),
           ),
           (route) => false,
         );
@@ -310,7 +291,7 @@ class NavBar {
           context,
           MaterialPageRoute(
             //articles: token["results"]
-            builder: (context) => OurLibrary(token: tokn,  articles: token["results"], name: name,),
+            builder: (context) => OurAdminTeamMang(token: tokn, name: name,),
           ),
           (route) => false,
         );
@@ -344,7 +325,7 @@ class NavBar {
           context,
           MaterialPageRoute(
             //articles: token["results"]
-            builder: (context) => OurLibrary(token: tokn,  articles: token["results"], name: name,),
+            builder: (context) => OurTeamStatistics(token: tokn, name: name,),
           ),
           (route) => false,
         );
@@ -378,7 +359,7 @@ class NavBar {
           context,
           MaterialPageRoute(
             //articles: token["results"]
-            builder: (context) => OurLibrary(token: tokn,  articles: token["results"], name: name,),
+            builder: (context) => OurAddResources(token: tokn, name: name,),
           ),
           (route) => false,
         );
