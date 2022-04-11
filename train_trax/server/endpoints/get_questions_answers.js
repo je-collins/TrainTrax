@@ -5,7 +5,7 @@ export default async (request, response) => {
 	const { token } = request.body;
 
 	// Create return JSON structure
-	const json = new Json('questions', response);
+	const json = new Json(response, 'questions');
 	json.set('questions', []);
 
 	// Check if one or more fields is not declared
