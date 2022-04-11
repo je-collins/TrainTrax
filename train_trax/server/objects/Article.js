@@ -4,11 +4,11 @@ export default class Article {
 
 	// Modify User Starred Articles
 	static async addStarred(user_id, article, is_domain) {
-		return DB.query('INSERT INTO starred_articles(user_id, article, is_domain) VALUES($1, $2, $3);', user_id, article, is_domain);
+		return DB.query('INSERT INTO starred_articles(user_id, article, is_domain) VALUES($1, $2, $3);', [user_id, article, is_domain]);
 	}
 
 	static async removeStarred(article_id) {
-		return DB.query('DELETE FROM starred_articles WHERE article_id = $1;', article_id);
+		return DB.query('DELETE FROM starred_articles WHERE article_id = $1;', [article_id]);
 	}
 
 	// Get All Starred Articles
