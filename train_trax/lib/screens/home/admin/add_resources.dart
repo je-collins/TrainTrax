@@ -3,14 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:train_trax/utils/APICall.dart';
 
 class OurAddResources extends StatelessWidget {
   String currentPage = "ADD RESOURCES";
-  String name ='John Smith';
+  String name = 'John Smith';
   String token;
   bool isAdmin = true;
+  final fieldText = TextEditingController();
 
-  OurAddResources({Key? key, required this.token, required this.name}) : super(key: key);
+  OurAddResources({Key? key, required this.token, required this.name})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +76,14 @@ class OurAddResources extends StatelessWidget {
                       border: Border.all(color: Colors.black)),
                   child: Center(
                     child: TextField(
+                      controller: fieldText,
                       decoration: InputDecoration(
                           prefixIcon: Icon(Icons.search),
                           suffixIcon: IconButton(
                             icon: Icon(Icons.clear),
                             onPressed: () {
                               /* Clear the search field */
-                              TextEditingController().clear();
+                              fieldText.clear();
                             },
                           ),
                           hintText: 'Search...',
@@ -99,16 +104,32 @@ class OurAddResources extends StatelessWidget {
                           foregroundColor: MaterialStateProperty.all<Color>(
                               Theme.of(context).secondaryHeaderColor),
                         ),
-                        onPressed: () {},
-                        child: Text('Search'),
+                        onPressed: () {
+                          launch(fieldText.text);
+                        },
+                        child: const Text('Search'),
                       ),
                       TextButton(
                         style: ButtonStyle(
                           foregroundColor: MaterialStateProperty.all<Color>(
                               Theme.of(context).secondaryHeaderColor),
                         ),
-                        onPressed: () {},
-                        child: Text('Add'),
+                        onPressed: () {
+                          launch("http://www.google.com/search?q=" +
+                              fieldText.text);
+                        },
+                        child: const Text('Search Google'),
+                      ),
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Theme.of(context).secondaryHeaderColor),
+                        ),
+                        onPressed: () {
+                          APICall.addStarredArticleRequest(
+                              token, fieldText.text);
+                        },
+                        child: const Text('Add'),
                       ),
                     ])),
                 SizedBox(

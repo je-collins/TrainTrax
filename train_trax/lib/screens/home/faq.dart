@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:train_trax/utils/ProfileBar.dart';
+import 'package:train_trax/utils/APICall.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
 
@@ -8,9 +8,14 @@ class OurFAQ extends StatelessWidget {
   String name = 'John Smith';
   final fieldText = TextEditingController();
   String token;
-  bool isAdmin =false;
+  bool isAdmin;
 
-  OurFAQ({Key? key, required this.token, required this.name, required this.isAdmin}) : super(key: key);
+  OurFAQ(
+      {Key? key,
+      required this.token,
+      required this.name,
+      required this.isAdmin})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -151,6 +156,10 @@ class OurFAQ extends StatelessWidget {
                           ),
                           hintText: "  What can we help you with?",
                           border: InputBorder.none),
+                      onSubmitted: (value) async {
+                        APICall.askQuestionRequest(token, fieldText.text);
+                        fieldText.clear();
+                      },
                     ),
                   ),
                 ),
