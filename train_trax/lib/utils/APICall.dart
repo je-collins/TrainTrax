@@ -398,6 +398,25 @@ class APICall {
     return "failure";
   }
 
+  static Future<String> getQuestionsAnswerRequest(
+      String token, String qusetion) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_questions_answers");
+
+    var response = await http.post(url, headers: <String, String>{
+      "JSON": "application/json",
+    }, body: {
+      "token": token,
+      "qusetion": qusetion,
+    });
+
+    //print(response.statusCode);
+    //print(response.body);
+
+    if (response.statusCode == 200) return "success";
+
+    return "failure";
+  }
+
   static Future<String> addFavoriteRequest(
       String token, String articleid) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/add_favorite");

@@ -1,5 +1,6 @@
 //import 'dart:html';
 import 'package:flutter/material.dart';
+import 'package:train_trax/utils/APICall.dart';
 import 'package:train_trax/utils/urls.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
@@ -92,9 +93,48 @@ class OurSelfDirected extends StatelessWidget {
                     ),
                   ),
                 ),
+
                 SizedBox(
-                  height: 40.0,
+                  height: 20.0,
                 ),
+                Container(
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Theme.of(context).secondaryHeaderColor),
+                        ),
+                        onPressed: () {
+                          launch(fieldText.text);
+                        },
+                        child: const Text('Search'),
+                      ),
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Theme.of(context).secondaryHeaderColor),
+                        ),
+                        onPressed: () {
+                          launch("http://www.google.com/search?q=" +
+                              fieldText.text);
+                        },
+                        child: const Text('Search Google'),
+                      ),
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(
+                              Theme.of(context).secondaryHeaderColor),
+                        ),
+                        onPressed: () {
+                          APICall.addArticleRequest(
+                              token, fieldText.text);
+                            fieldText.clear();
+                        },
+                        child: const Text('Add'),
+                      ),
+                    ])),
 
                 //USED BY OTHERS list
                 Container(

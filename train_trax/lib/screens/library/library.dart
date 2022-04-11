@@ -209,26 +209,7 @@ class OurLibrary extends StatelessWidget {
                                                       child: Padding(
                                                         padding: EdgeInsets.symmetric(horizontal: 100),
                                                         child: Text(
-                                                          "Favorite",
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 20.0,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      onPressed: () {
-                                                        //delete[i] = true;
-                                                        //Navigator.pop(context, delete);
-                                                        //APICall.addFavoriteRequest(token, articleid);
-                                                      },
-                                                    ),
-
-                                                    RaisedButton(
-                                                      child: Padding(
-                                                        padding: EdgeInsets.symmetric(horizontal: 100),
-                                                        child: Text(
-                                                          "Download",
+                                                          "Add",
                                                           style: TextStyle(
                                                             color: Colors.white,
                                                             fontWeight: FontWeight.bold,
@@ -239,9 +220,47 @@ class OurLibrary extends StatelessWidget {
                                                       onPressed: () {
                                                         //delete[i] = false;
                                                         //Navigator.pop(context, delete);
-                                                        //APICall.addDownloadRequest(token, articleid);
+                                                        APICall.addArticleRequest(token, articles[i]);
                                                       },
-                                                    )
+                                                    ),
+
+                                                    // RaisedButton(
+                                                    //   child: Padding(
+                                                    //     padding: EdgeInsets.symmetric(horizontal: 100),
+                                                    //     child: Text(
+                                                    //       "Favorite",
+                                                    //       style: TextStyle(
+                                                    //         color: Colors.white,
+                                                    //         fontWeight: FontWeight.bold,
+                                                    //         fontSize: 20.0,
+                                                    //       ),
+                                                    //     ),
+                                                    //   ),
+                                                    //   onPressed: () {
+                                                    //     //delete[i] = true;
+                                                    //     //Navigator.pop(context, delete);
+                                                    //     //APICall.addFavoriteRequest(token, articleid);
+                                                    //   },
+                                                    // ),
+
+                                                    // RaisedButton(
+                                                    //   child: Padding(
+                                                    //     padding: EdgeInsets.symmetric(horizontal: 100),
+                                                    //     child: Text(
+                                                    //       "Download",
+                                                    //       style: TextStyle(
+                                                    //         color: Colors.white,
+                                                    //         fontWeight: FontWeight.bold,
+                                                    //         fontSize: 20.0,
+                                                    //       ),
+                                                    //     ),
+                                                    //   ),
+                                                    //   onPressed: () {
+                                                    //     //delete[i] = false;
+                                                    //     //Navigator.pop(context, delete);
+                                                    //     //APICall.addDownloadRequest(token, articleid);
+                                                    //   },
+                                                    // )
                                                     //if(delete)
 
                                                   ],

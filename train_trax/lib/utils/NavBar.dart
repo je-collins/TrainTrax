@@ -142,7 +142,7 @@ class NavBar {
             },
           ),
 
-          //SELF-DIRECTED
+          //ADD RESOURCES
           if(currentPage == "ADD RESOURCES")
           FlatButton(
             textColor: Colors.yellow,
@@ -160,6 +160,29 @@ class NavBar {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context)=>OurAddResources(token: tokn, name: name,),
+                ),
+              );
+            },
+          ),
+
+          //ADMIN FAQ
+          if(currentPage == "ADMIN FAQ")
+          FlatButton(
+            textColor: Colors.yellow,
+            child: Text("ADMIN FAQ"),
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            onPressed: () {
+            },
+          ),
+          if(currentPage != "ADMIN FAQ")
+          FlatButton(
+            textColor: Colors.white,
+            child: Text("ADMIN FAQ"),
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context)=>OurAdminFAQ(token: tokn, name: name,),
                 ),
               );
             },

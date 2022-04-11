@@ -12,7 +12,7 @@ class OurAdminFAQ extends StatelessWidget {
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('My Personal Journal');
   final fieldText = TextEditingController();
-  String currentPage = "FAQ";
+  String currentPage = "ADMIN FAQ";
   String name ='John Smith';
   TextEditingController answerController = TextEditingController();
   var _hover = false;
