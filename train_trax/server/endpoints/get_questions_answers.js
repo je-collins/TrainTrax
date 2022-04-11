@@ -18,12 +18,8 @@ export default async (request, response) => {
 	if (user === undefined) return json.badToken().send();
 
 	// Retrieve data
-	const questions = Question.getQuestions();
-	const answers = Question.getAnswers();
-
-	console.log('DEBUG get_questions_answers endpoint');
-	console.log(typeof questions);
-	console.log(typeof answers);
+	const questions = await Question.getQuestions();
+	const answers = await Question.getAnswers();
 
 	// Build data
 	for (const question of questions) {
