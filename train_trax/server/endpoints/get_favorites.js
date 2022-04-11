@@ -5,8 +5,9 @@ export default async (request, response) => {
 	const { token } = request.body;
 
 	// Create return JSON structure
-	const json = new Json(response, 'results');
+	const json = new Json(response, 'results', 'completed');
 	json.set('results', []);
+	json.set('completed', []);
 
 	// Check if one or more fields is not declared
 	const undef = [];
@@ -20,10 +21,15 @@ export default async (request, response) => {
 	// Query database for favorited articles and return
 	const articles = await Article.getFavoritesFromUser(user.user_id);
 	for (const row of articles) {
-		json.get('results').push({
+		const article = {
 			article_id: row.article_id,
-			article: row.article
-		});
+			article: row.article,
+			start_time: row.start_time,
+			complete_time: row.complete_time
+		};
+
+		json.get('results').push(article);
+		if (row.complete_time !== null) json.get('completed').push(article);
 	}
 	return json.send();
 };
