@@ -33,6 +33,7 @@ export default async (request, response) => {
 
 		// Add object to json
 		json.get('questions').push({
+			'question_id': question.question_id,
 			'question': question.question,
 			'answers': ans
 		});
