@@ -69,6 +69,6 @@ export default async (request, response) => {
 
     // Count of completed / count of all
     const complete = team_articles.filter(({complete_time}) => complete_time !== null).length
-    json.set('completion_rate') = complete / team_articles.length;
+    json.set('completion_rate', complete / team_articles.length);
 	return json.send();
 };
