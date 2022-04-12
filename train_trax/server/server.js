@@ -57,11 +57,13 @@ import add_starred from './endpoints/add_starred.js';
 app.post('/api/add_starred_article', add_starred(false));
 app.post('/api/add_starred_domain', add_starred(true));
 
-// User info endpoints
-import get_user_info from './endpoints/get_user_info.js';
+// Info endpoints
 import get_users from './endpoints/get_users.js';
-app.post('/api/get_user_info', get_user_info);
+import get_user_info from './endpoints/get_user_info.js';
+import get_team_info from './endpoints/get_team_info.js';
 app.post('/api/get_users', get_users);
+app.post('/api/get_user_info', get_user_info);
+app.post('/api/get_team_info', get_team_info);
 
 // Stats-related endpoints
 import get_user_stats from './endpoints/get_user_stats.js';
