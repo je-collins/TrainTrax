@@ -18,9 +18,10 @@ class OurLibrary extends StatelessWidget {
   String name = 'John Smith';
   String token;
   List articles;
+  List allArticles;
   bool isAdmin = false;
 
-  OurLibrary({Key? key, required this.token, required this.articles, required this.name, required this.isAdmin}) : super(key: key);
+  OurLibrary({Key? key, required this.token, required this.articles, required this.name, required this.isAdmin, required this.allArticles}) : super(key: key);
 
 
 
@@ -95,6 +96,69 @@ class OurLibrary extends StatelessWidget {
                           ),
                           hintText: 'Search...',
                           border: InputBorder.none),
+                          onSubmitted: (value) async {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => 
+                              Dialog(
+                                child: Center(
+                                  child: Wrap(
+                                    alignment: WrapAlignment.center,
+                                    children: <Widget>[
+                                                Padding(
+                                                  padding: EdgeInsets.all(15.0),
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    height: 6*24,
+                                                    child: RichText(
+                                                      text: TextSpan(
+                                                        children: [
+                                                          if(allArticles.contains(fieldText.text))
+                                                            TextSpan(
+                                                            style: TextStyle(
+                                                              color: Theme.of(context).secondaryHeaderColor,
+                                                              fontSize: 15.0,
+                                                              fontWeight: FontWeight.normal,
+                                                            ),
+                                                            text: fieldText.text+" is in the database",
+                                                            ),
+                                                          if(!allArticles.contains(fieldText.text))
+                                                          TextSpan(
+                                                            style: TextStyle(
+                                                              color: Theme.of(context).secondaryHeaderColor,
+                                                              fontSize: 15.0,
+                                                              fontWeight: FontWeight.normal,
+                                                            ),
+                                                            text: fieldText.text+" is not the database",
+                                                            ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ),
+                                                ),
+
+                                                if(allArticles.contains(fieldText.text))
+                                                  RaisedButton(
+                                                    child: Padding(
+                                                      padding: EdgeInsets.symmetric(horizontal: 100),
+                                                      child: Text(
+                                                        "Add",
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: 20.0,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    onPressed: () {
+                                                      APICall.addArticleRequest(token, fieldText.text);
+                                                    },
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
+                                        ));
+                      },
                     ),
                   ),
                 ),
@@ -182,8 +246,6 @@ class OurLibrary extends StatelessWidget {
                                                         ),
                                                       ),
                                                       onPressed: () {
-                                                        //delete[i] = false;
-                                                        //Navigator.pop(context, delete);
                                                         APICall.addArticleRequest(token, articles[i]);
                                                       },
                                                     ),
@@ -232,7 +294,6 @@ class OurLibrary extends StatelessWidget {
                                               ],
                                             ),
                                           ),
-                                          //if(delete)
                                         ));
                                         
                                   }
@@ -243,51 +304,13 @@ class OurLibrary extends StatelessWidget {
                       ],
                     ),
                   ),
-                  //
+                  
 
                 SizedBox(
                   height: 40.0,
                 ),
 
-                //USED BY OTHERS list
-                /*
-                Container(
-                  child: Text(
-                    "USED BY OTHERS",
-                    style: TextStyle(
-                      color: Theme.of(context).secondaryHeaderColor,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                for (var i = 0; i < 5; i++)
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                style: TextStyle(
-                                  color: Theme.of(context).secondaryHeaderColor,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                text: "\u2022 ",
-                              ),
-                              Urls.createUrl(
-                                  url: 'https://www.youtube.com/',
-                                  txt: 'Testing',
-                                  context: context),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  */
+               
               ],
             ),
           ),
