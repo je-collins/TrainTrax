@@ -13,18 +13,33 @@ class OurSelfDirected extends StatelessWidget {
   Widget customSearchBar = const Text('My Personal Journal');
   final fieldText = TextEditingController();
   String currentPage = "SELF-DIRECTED";
-  String name ='John Smith';
+  String name = 'John Smith';
   String token;
   var searches;
   var names;
   bool isAdmin = false;
-  OurSelfDirected({Key? key, required this.token, required this.name, required this.isAdmin, required articles}) : super(key: key);
+  List articles;
+
+  OurSelfDirected(
+      {Key? key,
+      required this.token,
+      required this.name,
+      required this.isAdmin,
+      required this.articles})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
-    searches = ['https://www.youtube.com/', 
-                'https://www.navy.mil/',];
-    names = ['youtube', 
-              'navy website',];
+    searches = [
+      'https://www.youtube.com/',
+      'https://www.navy.mil/',
+    ];
+    names = [
+      'youtube',
+      'navy website',
+    ];
+
+    int len = articles.length;
+
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +102,8 @@ class OurSelfDirected extends StatelessWidget {
                           hintText: 'Search...',
                           border: InputBorder.none),
                       onSubmitted: (value) async {
-                        await launch("http://www.google.com/search?q="+fieldText.text);
+                        await launch(
+                            "http://www.google.com/search?q=" + fieldText.text);
                         //await Urls._launchUrl("http://www.google.com/search?");
                       },
                     ),
@@ -128,9 +144,8 @@ class OurSelfDirected extends StatelessWidget {
                               Theme.of(context).secondaryHeaderColor),
                         ),
                         onPressed: () {
-                          APICall.addArticleRequest(
-                              token, fieldText.text);
-                            fieldText.clear();
+                          APICall.addArticleRequest(token, fieldText.text);
+                          fieldText.clear();
                         },
                         child: const Text('Add'),
                       ),
@@ -139,7 +154,7 @@ class OurSelfDirected extends StatelessWidget {
                 //USED BY OTHERS list
                 Container(
                   child: Text(
-                    "MOST RECENTLY SEARCHED",
+                    "MY ARTICLES",
                     style: TextStyle(
                       color: Theme.of(context).secondaryHeaderColor,
                       fontSize: 15.0,
@@ -147,7 +162,7 @@ class OurSelfDirected extends StatelessWidget {
                     ),
                   ),
                 ),
-                for (var i = 0; i < searches.length; i++)
+                for (var i = 0; i < len; i++)
                   Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,8 +179,8 @@ class OurSelfDirected extends StatelessWidget {
                                 text: "\u2022 ",
                               ),
                               Urls.createUrl(
-                                  url: searches[i],
-                                  txt: names[i],
+                                  url: articles[i]["article"],
+                                  txt: articles[i]["article"],
                                   context: context),
                             ],
                           ),
