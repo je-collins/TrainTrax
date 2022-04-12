@@ -22,7 +22,7 @@ export default async (request, response) => {
 	// Get team info
 	const team = await Team.getTeam(team_id);
 	if (team === undefined) return json.error(Json.STATUS_BAD_INFO, 'Invalid Team', 'The given team does not exist.').send();
-	if (admin.user_id !== team.administrator) return json.notAdmin().send();
+	if (user.user_id !== team.administrator) return json.notAdmin().send();
 
 	// Get stats for user
 	json.set('stats', await get_stats(await Team.getUsersFromTeam(team_id), true));
