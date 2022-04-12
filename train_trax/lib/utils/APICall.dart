@@ -165,6 +165,26 @@ class APICall {
     return response;
   }
 
+  static Future<List> getUsers(String token) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_users");
+
+    var response = await http.post(url, headers: <String, String>{
+      "JSON": "application/json",
+    }, body: {
+      "token": token
+    });
+
+    //print(response.statusCode);
+    //print(response.body);
+
+    //if(response.statusCode == 200)
+    //return jsonDecode(response.body);
+    var decoded = json.decode(response.body);
+    var users = decoded["users"];
+
+    return users;
+  }
+
   static Future<String> getUserName({
     required String tokn,
     required BuildContext context,
@@ -479,23 +499,34 @@ class APICall {
   }
 
   //flutter run -d web-server
-  static Future<String> test(String token, String team_id) async {
+  static Future<List> getTeamStatsRequest(String token, int team_id) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_team_stats");
 
-    Map<String, String> queryParams = {'token': token, 'team_id': team_id};
-
-    final finalUrl = url.replace(queryParameters: queryParams);
-    var response = await http.get(url, headers: <String, String>{
+    var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
+    }, body: {
+      "token": token,
+      "team_id": team_id
     });
 
-    var body = jsonDecode(response.body);
-    print(body['total_articles_started']);
-    //print(response.body);
+    var decode = jsonDecode(response.body);
 
-    if (response.statusCode == 200) return "success";
+    return decode["stats"];
+  }
 
-    return "failure";
+  static Future<List> getTeamInfoRequest(String token, int team_id) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_team_info");
+
+    var response = await http.post(url, headers: <String, String>{
+      "JSON": "application/json",
+    }, body: {
+      "token": token,
+      "team_id": team_id
+    });
+
+    var decode = jsonDecode(response.body);
+
+    return decode["results"];
   }
 
   static Future<String> addArticleRequest(String token, String article) async {
