@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -213,6 +215,30 @@ class APICall {
     return file["message"];
   }
 
+  static Future<List> getAllArticleRequest(String token) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_all_articles");
+
+    var response = await http.post(url, headers: <String, String>{
+      "JSON": "application/json",
+    }, body: {
+      "token": token
+    });
+
+    //print(response.statusCode);
+    //jsonDecode(response.body);
+    //print(response.body);
+
+    //if(response.statusCode == 200)
+      //return "success";
+     var file = jsonDecode(response.body);
+    
+    if(response.statusCode == 200)
+      return file["results"];
+    
+    return file["message"];
+
+  }
+
   //works
   static Future<http.Response> getStarredArticleRequest(String token) async {
     Uri url =
@@ -279,7 +305,7 @@ class APICall {
     return "failure";
   }
 
-  static Future<String> deleteTeamRequest(String token, String teamid) async {
+  static Future<String> deleteTeamRequest(String token, int teamid) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/delete_team");
 
     var response = await http.post(url, headers: <String, String>{
@@ -316,7 +342,7 @@ class APICall {
   }
 
   static Future<String> addMemberRequest(
-      String token, String teamid, String memberid) async {
+      String token, int teamid, String memberid) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/add_member");
 
     var response = await http.post(url, headers: <String, String>{
@@ -336,7 +362,7 @@ class APICall {
   }
 
   static Future<String> deleteMemberRequest(
-      String token, String teamid, String memberid) async {
+      String token, int teamid, String memberid) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/delete_member");
 
     var response = await http.post(url, headers: <String, String>{
@@ -356,7 +382,7 @@ class APICall {
   }
 
   static Future<String> answerQuestionRequest(
-      String token, String qid, String answer) async {
+      String token, int qid, String answer) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/answer_question");
 
     var response = await http.post(url, headers: <String, String>{

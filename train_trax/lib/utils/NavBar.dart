@@ -248,10 +248,13 @@ class NavBar {
   }) async {
     try {
       Response _returnString;
+      List allArticles;
       var token;
 
       _returnString =
           (await APICall.getStarredArticleRequest(tokn)) as Response;
+      allArticles =
+          (await APICall.getAllArticleRequest(tokn)) as List;
       token = jsonDecode(_returnString.body);
 
       if (_returnString.statusCode == 200) {
@@ -264,6 +267,7 @@ class NavBar {
               articles: token["results"],
               name: name,
               isAdmin: isAdmin,
+              allArticles: allArticles,
             ),
           ),
           (route) => false,
