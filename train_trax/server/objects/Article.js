@@ -40,7 +40,7 @@ export default class Article {
 
 	// Modify User Favorites
 	static async setFavorite(article_id, favorite) {
-		return DB.query('UPDATE articles SET is_favorite = $1 WHERE article_id = $3;', [favorite, article_id]);
+		return DB.query('UPDATE articles SET is_favorite = $1 WHERE article_id = $3;', [favorite, String(article_id)]);
 	}
 
 	// Get User Favorites
