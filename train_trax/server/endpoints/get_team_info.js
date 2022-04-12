@@ -22,18 +22,17 @@ export default async (request, response) => {
 	if (!user.administrator) return json.notAdmin().send();
 
     // Get user_ids of all team members
-    const user_ids = await Team.getMembersFromTeam(team_id);
-
-    let team_articles = await Article.getArticlesFromUsers(user_ids);
+    const users = await Team.getUsersFromTeam(team_id);
 
     // Filter all articles by start time
+    let team_articles = await Article.getArticlesFromUsers(users.map(u => u.user_id));
     team_articles.sort(function(a, b) { return a.start_time - b.start_time;})
 
     // Get articles for each team member
-    for (const id of user_ids) {
+    for (const u of users) {
         const list = [];
         for (const article of team_articles) {
-            if (article.user_id === id) {
+            if (article.user_id === u.user_id) {
                 list.push({
                     'article_id': article.article_id,
                     'article': article.article
@@ -42,7 +41,8 @@ export default async (request, response) => {
             if (list.length === 5) break;
         }
         json.get('member_articles').push({
-            'user_id': id,
+            'user_id': u.user_id,
+			'name': u.name,
             'articles': list
         });        
     }
