@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:html';
 
+import 'package:http/http.dart';
 import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:train_trax/screens/login/login.dart';
@@ -9,9 +11,15 @@ class OurSettingsForm extends StatelessWidget {
   String token;
   String name;
   bool isAdmin = false;
-  String email ='';
+  String email = '';
 
-  OurSettingsForm({Key? key, required this.token, required this.name, required this.isAdmin, required this.email}) : super(key: key);
+  OurSettingsForm(
+      {Key? key,
+      required this.token,
+      required this.name,
+      required this.isAdmin,
+      required this.email})
+      : super(key: key);
 
   void _changePassword({
     required String token,
@@ -23,18 +31,20 @@ class OurSettingsForm extends StatelessWidget {
       String _returnString;
       if (password == passwordConfirm) {
         _returnString = await APICall.resetPasswordRequest(token, password);
+        Response token2 =
+            await APICall.getStarredArticleRequest(token) as Response;
+        var resultList = jsonDecode(token2.body);
 
         if (_returnString == "success") {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => 
-              OurHome(
+              builder: (context) => OurHome(
                 token: token,
                 name: name,
-                isAdmin: isAdmin
+                isAdmin: isAdmin,
+                articles: resultList["results"],
               ),
-            
             ),
             (route) => false,
           );

@@ -4,6 +4,7 @@ import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
 import 'package:train_trax/utils/urls.dart';
+import 'package:flutter/gestures.dart';
 
 class OurHome extends StatelessWidget {
   String currentPage = "HOME";
@@ -16,28 +17,20 @@ class OurHome extends StatelessWidget {
   var recommended;
   var namesRecommended;
   bool isAdmin;
+  List articles;
 
-  OurHome({Key? key, required this.token, required this.name, required this.isAdmin}) : super(key: key);
+  OurHome(
+      {Key? key,
+      required this.token,
+      required this.name,
+      required this.isAdmin,
+      required this.articles})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    searches = [
-      'https://www.youtube.com/',
-      'https://www.navy.mil/',
-      'https://en.wikipedia.org/wiki/Sharable_Content_Object_Reference_Model'
-    ];
-    names = ['youtube', 'navy website', 'SCORM Reference'];
-    toBeComplete = [
-      'https://www.youtube.com/watch?v=JSIXnw3hoOg',
-      'https://scorm.com/scorm-explained/one-minute-scorm-overview/',
-    ];
-    namestoBe = ['cmi5 Youtube', 'SCORM Explained'];
-    recommended = [
-      'https://www.youtube.com/watch?v=JSIXnw3hoOg',
-      'https://scorm.com/scorm-explained/one-minute-scorm-overview/',
-    ];
-    namesRecommended = ['cmi5 Youtube', 'SCORM Explained'];
-    
+    int len = articles.length;
+
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -77,7 +70,95 @@ class OurHome extends StatelessWidget {
                     ),
                   ),
                 ),
-
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    text: "Total Articles Started:"),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    text: "Average Articles Started:"),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    text: "Average Articles Completed:"),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    text: "Total Articles Completed"),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
@@ -93,7 +174,7 @@ class OurHome extends StatelessWidget {
                   ),
                 ),
 
-                for (var i = 0; i < recommended.length; i++)
+                for (var i = 0; i < 5; i++)
                   Container(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,12 +188,104 @@ class OurHome extends StatelessWidget {
                                   fontSize: 15.0,
                                   fontWeight: FontWeight.normal,
                                 ),
-                                text: "\u2022 ",
+                                text: "",
                               ),
-                              Urls.createUrl(
-                                  url: recommended[i],
-                                  txt: namesRecommended[i],
-                                  context: context),
+                              TextSpan(
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor,
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.normal,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                  //name of article
+                                  text: articles[i],
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              Dialog(
+                                                child: Center(
+                                                  child: Wrap(
+                                                    alignment:
+                                                        WrapAlignment.center,
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding: EdgeInsets.all(
+                                                            15.0),
+                                                        child: Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height: 6 * 24,
+                                                            child: RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  Urls.createUrl(
+                                                                      url: articles[
+                                                                          i],
+                                                                      txt: articles[
+                                                                          i],
+                                                                      context:
+                                                                          context),
+                                                                ],
+                                                              ),
+                                                            )),
+                                                      ),
+                                                      Wrap(
+                                                        spacing: 20.0,
+                                                        children: [
+                                                          RaisedButton(
+                                                            child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          100),
+                                                              child: Text(
+                                                                "Favorite",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {},
+                                                          ),
+                                                          RaisedButton(
+                                                            child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          100),
+                                                              child: Text(
+                                                                "Download",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {},
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ));
+                                    }),
                             ],
                           ),
                         )
@@ -135,33 +308,6 @@ class OurHome extends StatelessWidget {
                   ),
                 ),
 
-                for (var i = 0; i < toBeComplete.length; i++)
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                style: TextStyle(
-                                  color: Theme.of(context).secondaryHeaderColor,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                text: "\u2022 ",
-                              ),
-                              Urls.createUrl(
-                                  url: toBeComplete[i],
-                                  txt: namestoBe[i],
-                                  context: context),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
@@ -176,33 +322,6 @@ class OurHome extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                for (var i = 0; i < searches.length; i++)
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                style: TextStyle(
-                                  color: Theme.of(context).secondaryHeaderColor,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                text: "\u2022 ",
-                              ),
-                              Urls.createUrl(
-                                  url: searches[i],
-                                  txt: names[i],
-                                  context: context),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
               ],
             ),
           )

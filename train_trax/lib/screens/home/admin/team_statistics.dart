@@ -3,14 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
+import 'package:train_trax/utils/urls.dart';
 
 class OurTeamStatistics extends StatelessWidget {
   String currentPage = "TEAM STATS";
-  String name ='John Smith';
+  String name = 'John Smith';
   String token;
   bool isAdmin = true;
 
-  OurTeamStatistics({Key? key, required this.token, required this.name}) : super(key: key);
+  OurTeamStatistics({Key? key, required this.token, required this.name})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,58 +48,109 @@ class OurTeamStatistics extends StatelessWidget {
                 const SizedBox(
                   height: 25.0,
                 ),
-
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
+                      child: Center(
                         child: Text(
-                          "MOST RECENTLY VIEWED",
+                          "OVERALL STATISTICS",
                           style: TextStyle(
                             color: Theme.of(context).secondaryHeaderColor,
-                            fontSize: 15.0,
+                            fontSize: 20.0,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      Container(
-                        child: Text(
-                          "(%) OF MEMBERS COMPLETED",
-                          style: TextStyle(
-                            color: Theme.of(context).secondaryHeaderColor,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                    ),
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    text: "Total Articles Started:"),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                    ]),
-
-                for (var i = 0; i < 5; i++)
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        child: Text(
-                          "testing",
-                          style: TextStyle(
-                            color: Theme.of(context).secondaryHeaderColor,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
+                    ),
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    text: "Average Articles Started:"),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                      Container(
-                        child: Text(
-                          "%",
-                          style: TextStyle(
-                            color: Theme.of(context).secondaryHeaderColor,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
+                    ),
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    text: "Average Articles Completed:"),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    Container(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                    style: TextStyle(
+                                      color: Theme.of(context)
+                                          .secondaryHeaderColor,
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    text: "Total Articles Completed"),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(
                   height: 20.0,
                 ),

@@ -31,13 +31,21 @@ class OurLoginForm extends StatelessWidget {
       var nameTk = json.decode(_returnStringName.body);
       var name = nameTk["name"];
       var isAdmin = nameTk["administrator"];
+      Response token2 =
+          await APICall.getStarredArticleRequest(token) as Response;
+      var resultList = jsonDecode(token2.body);
 
       //tkn["token"] != ""
       if (_returnString == "success") {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => OurHome(token: token, name: name,isAdmin: isAdmin,),
+            builder: (context) => OurHome(
+              token: token,
+              name: name,
+              isAdmin: isAdmin,
+              articles: resultList["results"],
+            ),
           ),
           (route) => false,
         );

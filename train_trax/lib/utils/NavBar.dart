@@ -43,6 +43,7 @@ class NavBar {
                       token: tokn,
                       name: name,
                       isAdmin: isAdmin,
+                      articles: [],
                     ),
                   ),
                 );
@@ -223,6 +224,7 @@ class NavBar {
               token: tokn,
               name: name,
               isAdmin: isAdmin,
+              articles: token["results"],
             ),
           ),
           (route) => false,
@@ -253,8 +255,7 @@ class NavBar {
 
       _returnString =
           (await APICall.getStarredArticleRequest(tokn)) as Response;
-      allArticles =
-          (await APICall.getAllArticleRequest(tokn)) as List;
+      allArticles = (await APICall.getAllArticleRequest(tokn)) as List;
       token = jsonDecode(_returnString.body);
 
       if (_returnString.statusCode == 200) {
