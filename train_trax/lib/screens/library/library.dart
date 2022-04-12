@@ -19,54 +19,18 @@ class OurLibrary extends StatelessWidget {
   String token;
   List articles;
   bool isAdmin = false;
-  //required this.articles
 
   OurLibrary({Key? key, required this.token, required this.articles, required this.name, required this.isAdmin}) : super(key: key);
 
-  Widget createListView(BuildContext context, String token) {
-    //List values = snapshot.data;
-    //if(snapshot.data != null)
-      //values = snapshot.data;
-
-    //return new ListView.builder()
-    return new FutureBuilder(
-        //itemCount: 5,
-        //itemBuilder: (BuildContext context, int index) 
-        //itemBuilder: (BuildContext context, int index)
-
-        future: APICall.getStarredArticleRequest(token),
-        builder: (context, snapshot){
-          if (snapshot.hasData) {
-              final articles = snapshot.data as List;
-              return ListView.builder(
-                  itemCount: articles.length,
-                  itemBuilder: (context, index) {
-                    return new Column(
-                      children: <Widget>[
-                        new Text(
-                          'working',),
-
-                        new Divider(height: 2.0,),
-                      ],
-                    );
-                    //Text(articles[index]);
-                  });
-            } else if (snapshot.hasError) {
-              // handle error here
-              return Text('${snapshot.error}');
-            } else {
-              return CircularProgressIndicator(); // displays while loading data
-            }
-          }
-          
-    );
-  }
 
 
   @override
   Widget build(BuildContext context) {
-    
-  int len=articles.length;
+    articles.shuffle();
+    int len=articles.length;
+    if(len>10){
+      len=10;
+    }
 
     
     return Scaffold(
