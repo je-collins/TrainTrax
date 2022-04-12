@@ -128,6 +128,7 @@ class OurAddResources extends StatelessWidget {
                         onPressed: () {
                           APICall.addStarredArticleRequest(
                               token, fieldText.text);
+                          fieldText.clear;
                         },
                         child: const Text('Add'),
                       ),
