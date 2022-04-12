@@ -16,102 +16,116 @@ class ProfileBar extends StatelessWidget {
     currentPage = current;
   }
 
-  static Wrap createProfileBar(BuildContext context, String currentPage, String tokn, String name, bool isAdmin){
+  static Wrap createProfileBar(BuildContext context, String currentPage,
+      String tokn, String name, bool isAdmin) {
     return Wrap(
-        alignment: WrapAlignment.end,
-        children: <Widget>[
-          
-          //DOWNLOAD
-          if (currentPage == "DOWNLOAD")
-            IconButton(
-              color: Colors.yellow,
-              icon: const Icon(Icons.download),
-              onPressed: () {},
-            ),
-          if (currentPage != "DOWNLOAD")
-            IconButton(
-              icon: const Icon(Icons.download),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => OurDownload(token: tokn, name: name, isAdmin: isAdmin,),
+      alignment: WrapAlignment.end,
+      children: <Widget>[
+        //DOWNLOAD
+        if (currentPage == "DOWNLOAD")
+          IconButton(
+            color: Colors.yellow,
+            icon: const Icon(Icons.download),
+            onPressed: () {},
+          ),
+        if (currentPage != "DOWNLOAD")
+          IconButton(
+            icon: const Icon(Icons.download),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => OurDownload(
+                    token: tokn,
+                    name: name,
+                    isAdmin: isAdmin,
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
+          ),
 
-          //FAQ
-          if (currentPage == "FAQ")
-            IconButton(
-              color: Colors.yellow,
-              icon: const Icon(Icons.help),
-              onPressed: () {},
-            ),
-          if (currentPage != "FAQ")
-            IconButton(
-              icon: const Icon(Icons.help),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => OurFAQ(token: tokn, name: name, isAdmin: isAdmin,),
+        //FAQ
+        if (currentPage == "FAQ")
+          IconButton(
+            color: Colors.yellow,
+            icon: const Icon(Icons.help),
+            onPressed: () {},
+          ),
+        if (currentPage != "FAQ")
+          IconButton(
+            icon: const Icon(Icons.help),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => OurFAQ(
+                    token: tokn,
+                    name: name,
+                    isAdmin: isAdmin,
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
+          ),
 
-          //FAVORITE
-          if (currentPage == "FAVORITE")
-            IconButton(
-              color: Colors.yellow,
-              icon: const Icon(Icons.favorite),
-              onPressed: () {},
-            ),
-          if (currentPage != "FAVORITE")
-            IconButton(
-              icon: const Icon(Icons.favorite),
-              onPressed: () {
-                _toFavorites(context: context, 
-                          tokn: tokn,
-                          name: name, 
-                          isAdmin: isAdmin,);
-              },
-            ),
+        //FAVORITE
+        if (currentPage == "FAVORITE")
+          IconButton(
+            color: Colors.yellow,
+            icon: const Icon(Icons.favorite),
+            onPressed: () {},
+          ),
+        if (currentPage != "FAVORITE")
+          IconButton(
+            icon: const Icon(Icons.favorite),
+            onPressed: () {
+              _toFavorites(
+                context: context,
+                tokn: tokn,
+                name: name,
+                isAdmin: isAdmin,
+              );
+            },
+          ),
 
-          //SETTINGS
-          if (currentPage == "SETTINGS")
-            IconButton(
-              color: Colors.yellow,
-              icon: const Icon(Icons.settings),
-              onPressed: () {},
-            ),
-          if (currentPage != "SETTINGS")
-            IconButton(
-              icon: const Icon(Icons.settings),
-              onPressed: () {
-                _toSettings(context: context, tokn: tokn, name: name, isAdmin: isAdmin);
-              },
-            ),
+        //SETTINGS
+        if (currentPage == "SETTINGS")
+          IconButton(
+            color: Colors.yellow,
+            icon: const Icon(Icons.settings),
+            onPressed: () {},
+          ),
+        if (currentPage != "SETTINGS")
+          IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              _toSettings(
+                  context: context, tokn: tokn, name: name, isAdmin: isAdmin);
+            },
+          ),
 
-          //ADMINISTRATION
-          if (isAdmin && currentPage == "ADMINISTRATION")
-            IconButton(
-              color: Colors.yellow,
-              icon: const Icon(Icons.admin_panel_settings),
-              onPressed: () {},
-            ),
-          if (isAdmin && currentPage != "ADMINISTRATION")
-            IconButton(
-              icon: const Icon(Icons.admin_panel_settings),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => OurTeamStatistics(token: tokn, name: name,),
+        //ADMINISTRATION
+        if (isAdmin && currentPage == "ADMINISTRATION")
+          IconButton(
+            color: Colors.yellow,
+            icon: const Icon(Icons.admin_panel_settings),
+            onPressed: () {},
+          ),
+        if (isAdmin && currentPage != "ADMINISTRATION")
+          IconButton(
+            icon: const Icon(Icons.admin_panel_settings),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => OurTeamStatistics(
+                    token: tokn,
+                    name: name,
                   ),
-                );
-              },
-            ),
-        ],
-      );
+                ),
+              );
+            },
+          ),
+      ],
+    );
   }
 
   Widget build(BuildContext context) {
@@ -156,13 +170,18 @@ class ProfileBar extends StatelessWidget {
 
       _returnString = (await APICall.getFavoritesRequest(tokn)) as Response;
       token = jsonDecode(_returnString.body);
-          
+
       if (_returnString.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             //articles: token["results"]
-            builder: (context) => OurFavorite(token: tokn,  articles: token["results"], name: name, isAdmin: isAdmin,),
+            builder: (context) => OurFavorite(
+              token: tokn,
+              articles: token["results"],
+              name: name,
+              isAdmin: isAdmin,
+            ),
           ),
           (route) => false,
         );
@@ -191,13 +210,18 @@ class ProfileBar extends StatelessWidget {
 
       _returnString = (await APICall.getUserInfo(tokn)) as Response;
       token = jsonDecode(_returnString.body);
-          
+
       if (_returnString.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             //articles: token["results"]
-            builder: (context) => OurSettings(token: tokn,  email: token["email"], name: name, isAdmin: isAdmin,),
+            builder: (context) => OurSettings(
+              token: tokn,
+              email: token["email"],
+              name: name,
+              isAdmin: isAdmin,
+            ),
           ),
           (route) => false,
         );

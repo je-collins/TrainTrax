@@ -3,6 +3,7 @@ import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
 import 'package:train_trax/utils/APICall.dart';
+import 'package:train_trax/utils/urls.dart';
 
 class OurFavorite extends StatelessWidget {
   String currentPage = "FAVORITE";
@@ -11,23 +12,18 @@ class OurFavorite extends StatelessWidget {
   List articles;
   bool isAdmin = false;
 
-  Future<String> parseFavorites({required String token}) async {
-    try {
-      List _returnString;
-
-      //_returnString = await APICall.getFavoritesRequest(token);
-
-      return '';
-    } catch (e) {
-      print(e);
-    }
-    throw (e) {};
-  }
-
-  OurFavorite({Key? key, required this.token, required this.articles, required this.name, required this.isAdmin}) : super(key: key);
+  OurFavorite(
+      {Key? key,
+      required this.token,
+      required this.articles,
+      required this.name,
+      required this.isAdmin})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    int len = articles.length;
+
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -63,31 +59,50 @@ class OurFavorite extends StatelessWidget {
                     ),
                   ),
                 ),
-                for (var i = 0; i < 5; i++)
-                  Row(
-                    children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                    for (var i = 0; i < len; i++)
                       Container(
-                        child: IconButton(
-                          icon: Icon(Icons.favorite),
-                          color: Theme.of(context).secondaryHeaderColor,
-                          onPressed: () {},
+                        child: Wrap(
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(Icons.favorite),
+                              color: Theme.of(context).secondaryHeaderColor,
+                              onPressed: () {
+                                APICall.removeFavoriteRequest(
+                                    token, articles[i]["article_id"]);
+                              },
+                            ),
+                            Padding(
+                              padding: EdgeInsets.all(13),
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      style: TextStyle(
+                                        color: Theme.of(context)
+                                            .secondaryHeaderColor,
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                    Urls.createUrl(
+                                        url: articles[i]["article"],
+                                        txt: articles[i]["article"],
+                                        context: context),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                      const SizedBox(
-                        width: 5.0,
-                      ),
-                      Container(
-                        child: Text(
-                          "testing",
-                          style: TextStyle(
-                            color: Theme.of(context).secondaryHeaderColor,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
+                  ],
+                )
               ],
             ),
           )

@@ -15,8 +15,6 @@ class OurSelfDirected extends StatelessWidget {
   String currentPage = "SELF-DIRECTED";
   String name = 'John Smith';
   String token;
-  var searches;
-  var names;
   bool isAdmin = false;
   List articles;
 
@@ -29,15 +27,6 @@ class OurSelfDirected extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    searches = [
-      'https://www.youtube.com/',
-      'https://www.navy.mil/',
-    ];
-    names = [
-      'youtube',
-      'navy website',
-    ];
-
     int len = articles.length;
 
     return Scaffold(

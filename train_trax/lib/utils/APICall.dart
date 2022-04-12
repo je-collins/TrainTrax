@@ -22,7 +22,7 @@ class APICall {
 
     //dummy@email.com
     //12345
-    
+
     //print(response.statusCode);
     //print(response.body);
 
@@ -37,17 +37,18 @@ class APICall {
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
-        },
-    body: {"email": email, 
-            "password": password});
-            //"email": "ebtran8745@gmail.com", 
-            //"password": "tran"
-            //cd .\train_trax\
-            //flutter run -d web-server
-            //token last an hour
-            
-    //if (response.statusCode == 200) 
-      //return "success";
+    }, body: {
+      "email": email,
+      "password": password
+    });
+    //"email": "ebtran8745@gmail.com",
+    //"password": "tran"
+    //cd .\train_trax\
+    //flutter run -d web-server
+    //token last an hour
+
+    //if (response.statusCode == 200)
+    //return "success";
     //var token = jsonDecode(response.body);
 
     //return token["token"];
@@ -162,7 +163,6 @@ class APICall {
     return response;
   }
 
-  
   static Future<String> getUserName({
     required String tokn,
     required BuildContext context,
@@ -173,7 +173,7 @@ class APICall {
 
       _returnString = (await getUserStats(tokn)) as Response;
       token = jsonDecode(_returnString.data);
-          
+
       if (_returnString.statusCode == 200) {
         return token["stats"]["users"][0]["name"];
       } else {
@@ -191,7 +191,6 @@ class APICall {
     }
   }
 
-  
   static Future<List> getArticleRequest(String token) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_articles");
 
@@ -206,54 +205,51 @@ class APICall {
     //print(response.body);
 
     //if(response.statusCode == 200)
-      //return "success";
-     var file = jsonDecode(response.body);
-    
-    if(response.statusCode == 200)
-      return file["results"];
-    
-    return file["message"];
+    //return "success";
+    var file = jsonDecode(response.body);
 
+    if (response.statusCode == 200) return file["results"];
+
+    return file["message"];
   }
 
   //works
-  static Future<http.Response> getStarredArticleRequest(String token) async{
-    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_starred_articles");
-    
-    var response = await http.post(url,
-    headers: <String, String>{
+  static Future<http.Response> getStarredArticleRequest(String token) async {
+    Uri url =
+        Uri.parse("https://train-trax.herokuapp.com/api/get_starred_articles");
+
+    var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
-        },
-    body: {"token": token
-        });
+    }, body: {
+      "token": token
+    });
 
     //print(response.statusCode);
     //print(response.body);
-    
+
     //if(response.statusCode == 200)
-      //return "success";
+    //return "success";
 
     //return jsonDecode(response.body);
     var file = jsonDecode(response.body);
-    
+
     //if(response.statusCode == 200)
-      //return file["results"];
-    
+    //return file["results"];
+
     //return file["message"];
     return response;
-
   }
 
   //works
-  static Future<List> getStarredDomainsRequest(String token) async{
-    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_starred_domains");
-    
-    var response = await http.post(url,
-    headers: <String, String>{
+  static Future<List> getStarredDomainsRequest(String token) async {
+    Uri url =
+        Uri.parse("https://train-trax.herokuapp.com/api/get_starred_domains");
+
+    var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
-        },
-    body: {"token": token
-        });
+    }, body: {
+      "token": token
+    });
 
     //print(response.statusCode);
     //print(response.body);
@@ -400,7 +396,8 @@ class APICall {
 
   static Future<String> getQuestionsAnswerRequest(
       String token, String qusetion) async {
-    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_questions_answers");
+    Uri url =
+        Uri.parse("https://train-trax.herokuapp.com/api/get_questions_answers");
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
@@ -437,7 +434,7 @@ class APICall {
   }
 
   static Future<String> removeFavoriteRequest(
-      String token, String articleid) async {
+      String token, int articleid) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/remove_favorite");
 
     var response = await http.post(url, headers: <String, String>{
@@ -490,18 +487,18 @@ class APICall {
     //print(response.body);
 
     //if(response.statusCode == 200)
-      //return "success";
-     var file = jsonDecode(response.body);
-    
-    if(response.statusCode == 200)
-      return "success";
-    
-    return "failure";
+    //return "success";
+    var file = jsonDecode(response.body);
 
+    if (response.statusCode == 200) return "success";
+
+    return "failure";
   }
 
-  static Future<String> addStarredArticleRequest(String token, String article) async {
-    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/add_starred_article");
+  static Future<String> addStarredArticleRequest(
+      String token, String article) async {
+    Uri url =
+        Uri.parse("https://train-trax.herokuapp.com/api/add_starred_article");
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
@@ -515,18 +512,18 @@ class APICall {
     //print(response.body);
 
     //if(response.statusCode == 200)
-      //return "success";
-     var file = jsonDecode(response.body);
-    
-    if(response.statusCode == 200)
-      return "success";
-    
-    return "failure";
+    //return "success";
+    var file = jsonDecode(response.body);
 
+    if (response.statusCode == 200) return "success";
+
+    return "failure";
   }
 
-  static Future<String> addStarredDomainRequest(String token, String domain) async {
-    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/add_starred_domain");
+  static Future<String> addStarredDomainRequest(
+      String token, String domain) async {
+    Uri url =
+        Uri.parse("https://train-trax.herokuapp.com/api/add_starred_domain");
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
@@ -540,13 +537,11 @@ class APICall {
     //print(response.body);
 
     //if(response.statusCode == 200)
-      //return "success";
-     var file = jsonDecode(response.body);
-    
-    if(response.statusCode == 200)
-      return "success";
-    
-    return "failure";
+    //return "success";
+    var file = jsonDecode(response.body);
 
+    if (response.statusCode == 200) return "success";
+
+    return "failure";
   }
 }
