@@ -9,8 +9,9 @@ class OurSettingsForm extends StatelessWidget {
   String token;
   String name;
   bool isAdmin = false;
+  String email ='';
 
-  OurSettingsForm({Key? key, required this.token, required this.name, required this.isAdmin}) : super(key: key);
+  OurSettingsForm({Key? key, required this.token, required this.name, required this.isAdmin, required this.email}) : super(key: key);
 
   void _changePassword({
     required String token,
@@ -93,7 +94,7 @@ class OurSettingsForm extends StatelessWidget {
                   text: '   Email:  ',
                 ),
                 TextSpan(
-                  text: 'john.smith@usnavy.com',
+                  text: email,
                 ),
               ],
               style: TextStyle(color: Colors.black),
@@ -103,20 +104,6 @@ class OurSettingsForm extends StatelessWidget {
             height: 5.0,
           ),
 
-          //Password
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: '   Password:  ',
-                ),
-                TextSpan(
-                  text: '*************',
-                ),
-              ],
-              style: TextStyle(color: Colors.black),
-            ),
-          ),
           const SizedBox(
             height: 20.0,
           ),

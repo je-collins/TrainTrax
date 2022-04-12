@@ -88,11 +88,7 @@ class ProfileBar extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.settings),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => OurSettings(token: tokn, name: name, isAdmin: isAdmin),
-                  ),
-                );
+                _toSettings(context: context, tokn: tokn, name: name, isAdmin: isAdmin);
               },
             ),
 
@@ -167,6 +163,41 @@ class ProfileBar extends StatelessWidget {
           MaterialPageRoute(
             //articles: token["results"]
             builder: (context) => OurFavorite(token: tokn,  articles: token["results"], name: name, isAdmin: isAdmin,),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static void _toSettings({
+    required String tokn,
+    required String name,
+    required BuildContext context,
+    required bool isAdmin,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await APICall.getUserInfo(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+          
+      if (_returnString.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            //articles: token["results"]
+            builder: (context) => OurSettings(token: tokn,  email: token["email"], name: name, isAdmin: isAdmin,),
           ),
           (route) => false,
         );

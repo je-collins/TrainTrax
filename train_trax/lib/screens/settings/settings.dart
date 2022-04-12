@@ -9,8 +9,9 @@ class OurSettings extends StatelessWidget {
   String name ='John Smith';
   String token;
   bool isAdmin = false;
+  String email = '';
 
-  OurSettings({Key? key, required this.token, required this.name, required this.isAdmin}) : super(key: key);
+  OurSettings({Key? key, required this.token, required this.name, required this.isAdmin, required this.email }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class OurSettings extends StatelessWidget {
                 const SizedBox(
                   height: 20.0,
                 ),
-                OurSettingsForm(token: token, name: name, isAdmin: isAdmin),
+                OurSettingsForm(token: token, name: name, isAdmin: isAdmin, email: email,),
               ],
             ),
           )
