@@ -433,4 +433,42 @@ class NavBar {
       print(e);
     }
   }
+
+  static void _toAdminFAQ({
+    required String tokn,
+    required String name,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString =
+          (await APICall.getStarredArticleRequest(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+
+      if (_returnString.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            //articles: token["results"]
+            builder: (context) => OurAddResources(
+              token: tokn,
+              name: name,
+            ),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }
