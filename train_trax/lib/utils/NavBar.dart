@@ -37,16 +37,8 @@ class NavBar {
               child: Text("HOME"),
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => OurHome(
-                      token: tokn,
-                      name: name,
-                      isAdmin: isAdmin,
-                      articles: [],
-                    ),
-                  ),
-                );
+                _toHome(
+                    tokn: tokn, name: name, context: context, isAdmin: isAdmin);
               },
             ),
 
@@ -214,6 +206,8 @@ class NavBar {
       _returnString =
           (await APICall.getStarredArticleRequest(tokn)) as Response;
       token = jsonDecode(_returnString.body);
+      Response userStat = await APICall.getUserStats(token) as Response;
+      var stats = jsonDecode(userStat.body);
 
       if (_returnString.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
@@ -225,6 +219,7 @@ class NavBar {
               name: name,
               isAdmin: isAdmin,
               articles: token["results"],
+              userStats: stats["stats"],
             ),
           ),
           (route) => false,

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -236,7 +234,8 @@ class APICall {
   }
 
   static Future<List> getAllArticleRequest(String token) async {
-    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_all_articles");
+    Uri url =
+        Uri.parse("https://train-trax.herokuapp.com/api/get_all_articles");
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
@@ -249,14 +248,12 @@ class APICall {
     //print(response.body);
 
     //if(response.statusCode == 200)
-      //return "success";
-     var file = jsonDecode(response.body);
-    
-    if(response.statusCode == 200)
-      return file["results"];
-    
-    return file["message"];
+    //return "success";
+    var file = jsonDecode(response.body);
 
+    if (response.statusCode == 200) return file["results"];
+
+    return file["message"];
   }
 
   //works

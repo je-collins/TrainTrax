@@ -34,6 +34,8 @@ class OurLoginForm extends StatelessWidget {
       Response token2 =
           await APICall.getStarredArticleRequest(token) as Response;
       var resultList = jsonDecode(token2.body);
+      Response userStat = await APICall.getUserStats(token) as Response;
+      var stats = jsonDecode(userStat.body);
 
       //tkn["token"] != ""
       if (_returnString == "success") {
@@ -45,6 +47,7 @@ class OurLoginForm extends StatelessWidget {
               name: name,
               isAdmin: isAdmin,
               articles: resultList["results"],
+              userStats: stats["stats"],
             ),
           ),
           (route) => false,
