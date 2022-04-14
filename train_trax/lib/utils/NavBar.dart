@@ -104,14 +104,7 @@ class NavBar {
                 child: Text("MANAGE TEAMS"),
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => OurAdminTeamMang(
-                        token: tokn,
-                        name: name,
-                      ),
-                    ),
-                  );
+                  _toManageTeams(context: context, name: name, tokn: tokn );
                 }),
 
           //LIBRARY
@@ -334,7 +327,8 @@ class NavBar {
             //articles: token["results"]
             builder: (context) => OurAdminTeamMang(
               token: tokn,
-              name: name,
+              name: name, 
+              listOfTeams: null,
             ),
           ),
           (route) => false,

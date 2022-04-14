@@ -489,7 +489,7 @@ class APICall {
   }
 
   //flutter run -d web-server
-  static Future<List> getTeamStatsRequest(String token, int team_id) async {
+  static Future<http.Response> getTeamStatsRequest(String token, int team_id) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_team_stats");
 
     var response = await http.post(url, headers: <String, String>{
@@ -501,10 +501,10 @@ class APICall {
 
     var decode = jsonDecode(response.body);
 
-    return decode["stats"];
+    return response;
   }
 
-  static Future<List> getTeamInfoRequest(String token, int team_id) async {
+  static Future<http.Response> getTeamInfoRequest(String token, int team_id) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_team_info");
 
     var response = await http.post(url, headers: <String, String>{
@@ -516,7 +516,7 @@ class APICall {
 
     var decode = jsonDecode(response.body);
 
-    return decode["results"];
+    return response;
   }
 
   static Future<String> addArticleRequest(String token, String article) async {

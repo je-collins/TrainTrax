@@ -26,6 +26,8 @@ class OurAdminTeamMang extends StatelessWidget {
   var _hover = false;
   var teamateNum =0;
   bool isAdmin =true;
+  var listOfTeams;
+  var numTeams = 0;
 
   String token;
   List<bool>  delete = [false, 
@@ -35,7 +37,7 @@ class OurAdminTeamMang extends StatelessWidget {
                           false,
                           false];
 
-  OurAdminTeamMang({Key? key, required this.token, required this.name}) : super(key: key);
+  OurAdminTeamMang({Key? key, required this.token, required this.name, required this.listOfTeams}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
