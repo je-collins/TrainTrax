@@ -1,4 +1,4 @@
-import { Json, Question, User } from '../objects/Objects.js';
+import { Constants, Json, Question, User } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
