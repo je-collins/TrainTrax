@@ -8,7 +8,7 @@ export default class Question {
     }
     
     static async addAnswer(question_id, user_id, answer) {
-		return DB.query('INSERT INTO answers(question_id, user_id, question) VALUES($1, $2, $3)', [question_id, user_id, answer]);
+		return DB.query('INSERT INTO answers(question_id, user_id, answer) VALUES($1, $2, $3)', [question_id, user_id, answer]);
 	}
 
 	// Select
