@@ -446,7 +446,7 @@ class NavBar {
             builder: (context) => OurAdminFAQ(
               token: tokn,
               name: name,
-              listOfQ: listOfQ,
+              listOfQ: listOfQ["questions"],
             ),
           ),
           (route) => false,

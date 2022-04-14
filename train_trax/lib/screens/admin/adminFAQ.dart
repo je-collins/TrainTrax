@@ -21,7 +21,7 @@ class OurAdminFAQ extends StatelessWidget {
   // List<String> listOfM = ['John Smith', 
   //                         'John Smith',
   //                         'John Smith'];
-  var numQuest = 3;
+  var numQuest = 0;
 
   //works
   String token;
@@ -32,6 +32,7 @@ class OurAdminFAQ extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //name = token;
+    numQuest = listOfQ.length;
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -129,7 +130,7 @@ class OurAdminFAQ extends StatelessWidget {
                   Wrap(
                     children: <Widget>[
                       //QUESTIONS
-                      //if(listOfQ[i]["answers"])
+                      if(listOfQ[i]["answers"] == [])
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         width: 500.0,
@@ -145,7 +146,7 @@ class OurAdminFAQ extends StatelessWidget {
                                 text: "\u2022 ",
                               ),
                               TextSpan(
-                                text: listOfQ[i]["answers"],
+                                text: listOfQ[i]["question"],
                                 style: TextStyle(
                                   color: Theme.of(context).primaryColorDark,
                                   fontSize: 15.0,
@@ -158,6 +159,7 @@ class OurAdminFAQ extends StatelessWidget {
                       ),
 
                       //MEMBER
+                      //if(listOfQ[i]["answers"] == [])
                       // Container(
                       //   width: 300.0,
                       //   child: Text(
@@ -174,6 +176,7 @@ class OurAdminFAQ extends StatelessWidget {
                       // ),
 
                       //ANSWER BUTTON
+                      if(listOfQ[i]["answers"] == [])
                       Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         child: RaisedButton(
@@ -244,9 +247,9 @@ class OurAdminFAQ extends StatelessWidget {
                                         ),
                                         onPressed: () {
                                           //send response
-                                          //APICall.answerQuestionRequest(token, qid, answerController.text);
-                                          answerController.clear();
+                                          APICall.answerQuestionRequest(token, listOfQ[i]["question_id"], answerController.text);
                                           Navigator.pop(context, answerController.text);
+                                          answerController.clear();
                                         },
                                       ),
                                     ],

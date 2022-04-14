@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-//import 'dart:ffi';
-
-=======
->>>>>>> c5818bccde40241e63f7195618e981abb13cccbf
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -431,7 +426,7 @@ class APICall {
       "JSON": "application/json",
     }, body: {
       "token": token,
-      "qusetion": qusetion,
+      "question_text": qusetion,
     });
 
     //print(response.statusCode);
