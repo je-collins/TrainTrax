@@ -199,8 +199,9 @@ class NavBar {
       _returnString =
           (await APICall.getStarredArticleRequest(tokn)) as Response;
       token = jsonDecode(_returnString.body);
-      Response userStat = await APICall.getUserStats(token) as Response;
+      Response userStat = await APICall.getUserStats(tokn) as Response;
       var stats = jsonDecode(userStat.body);
+      List myArticles = (await APICall.getArticleRequest(tokn)) as List;
 
       if (_returnString.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
@@ -208,12 +209,12 @@ class NavBar {
           MaterialPageRoute(
             //articles: token["results"]
             builder: (context) => OurHome(
-              token: tokn,
-              name: name,
-              isAdmin: isAdmin,
-              articles: token["results"],
-              userStats: stats["stats"],
-            ),
+                token: tokn,
+                name: name,
+                isAdmin: isAdmin,
+                articles: token["results"],
+                userStats: stats["stats"],
+                myArticles: myArticles),
           ),
           (route) => false,
         );
@@ -435,8 +436,7 @@ class NavBar {
     try {
       Response _returnList;
 
-      _returnList =
-          (await APICall.getQuestionsAnswerRequest(tokn)as Response);
+      _returnList = (await APICall.getQuestionsAnswerRequest(tokn) as Response);
       var listOfQ = jsonDecode(_returnList.body);
 
       if (_returnList != null) {

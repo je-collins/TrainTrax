@@ -36,6 +36,7 @@ class OurSettingsForm extends StatelessWidget {
         var resultList = jsonDecode(token2.body);
         Response userStat = await APICall.getUserStats(token) as Response;
         var stats = jsonDecode(userStat.body);
+        List myArticles = (await APICall.getArticleRequest(token)) as List;
 
         if (_returnString == "success") {
           Navigator.pushAndRemoveUntil(
@@ -47,6 +48,7 @@ class OurSettingsForm extends StatelessWidget {
                 isAdmin: isAdmin,
                 articles: resultList["results"],
                 userStats: stats["stats"],
+                myArticles: myArticles,
               ),
             ),
             (route) => false,

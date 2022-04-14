@@ -437,8 +437,7 @@ class APICall {
     return "failure";
   }
 
-  static Future<http.Response> getQuestionsAnswerRequest(
-      String token) async {
+  static Future<http.Response> getQuestionsAnswerRequest(String token) async {
     Uri url =
         Uri.parse("https://train-trax.herokuapp.com/api/get_questions_answers");
 

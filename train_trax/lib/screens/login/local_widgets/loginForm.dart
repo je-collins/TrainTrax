@@ -36,6 +36,7 @@ class OurLoginForm extends StatelessWidget {
       var resultList = jsonDecode(token2.body);
       Response userStat = await APICall.getUserStats(token) as Response;
       var stats = jsonDecode(userStat.body);
+      List myArticles = (await APICall.getArticleRequest(token)) as List;
 
       //tkn["token"] != ""
       if (_returnString == "success") {
@@ -43,12 +44,12 @@ class OurLoginForm extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => OurHome(
-              token: token,
-              name: name,
-              isAdmin: isAdmin,
-              articles: resultList["results"],
-              userStats: stats["stats"],
-            ),
+                token: token,
+                name: name,
+                isAdmin: isAdmin,
+                articles: resultList["results"],
+                userStats: stats["stats"],
+                myArticles: myArticles),
           ),
           (route) => false,
         );
