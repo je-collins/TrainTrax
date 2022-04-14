@@ -186,14 +186,7 @@ class NavBar {
               child: Text("ADMIN FAQ"),
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => OurAdminFAQ(
-                      token: tokn,
-                      name: name,
-                    ),
-                  ),
-                );
+                _toAdminFAQ(tokn: tokn, name: name, context: context);
               },
             ),
         ],
@@ -445,21 +438,20 @@ class NavBar {
     required BuildContext context,
   }) async {
     try {
-      Response _returnString;
-      var token;
+      Response _returnList;
 
-      _returnString =
-          (await APICall.getStarredArticleRequest(tokn)) as Response;
-      token = jsonDecode(_returnString.body);
+      _returnList =
+          (await APICall.getQuestionsAnswerRequest(tokn)as Response);
+      var listOfQ = jsonDecode(_returnList.body);
 
-      if (_returnString.statusCode == 200) {
+      if (_returnList != null) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
-            builder: (context) => OurAddResources(
+            builder: (context) => OurAdminFAQ(
               token: tokn,
               name: name,
+              listOfQ: listOfQ,
             ),
           ),
           (route) => false,
@@ -467,7 +459,7 @@ class NavBar {
       } else {
         Scaffold.of(context).showSnackBar(
           SnackBar(
-            content: Text(token["message"]),
+            content: Text("failed to load questions"),
             duration: Duration(seconds: 3),
           ),
         );

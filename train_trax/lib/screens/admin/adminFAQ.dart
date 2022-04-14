@@ -17,19 +17,17 @@ class OurAdminFAQ extends StatelessWidget {
   TextEditingController answerController = TextEditingController();
   var _hover = false;
   int maxLine = 8;
-  List<String> listOfQ = ['How can we claim credit for the Cybersecurity class?', 
-                          'Can regular users add a link  to the Library?',
-                          'How do I know which courses I have completed?'];
-  List<String> listOfM = ['John Smith', 
-                          'John Smith',
-                          'John Smith'];
+  var listOfQ;
+  // List<String> listOfM = ['John Smith', 
+  //                         'John Smith',
+  //                         'John Smith'];
   var numQuest = 3;
 
   //works
   String token;
   bool isAdmin = true;
 
-  OurAdminFAQ({Key? key, required this.token, required this.name}) : super(key: key);
+  OurAdminFAQ({Key? key, required this.token, required this.name, required this.listOfQ}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -106,20 +104,20 @@ class OurAdminFAQ extends StatelessWidget {
                       ),
 
                       //MEMBER
-                      Container(
-                        width: 300.0,
-                        child: Text(
-                          "MEMBER",
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.visible,
-                          softWrap: true,
-                          style: TextStyle(
-                            color: Theme.of(context).secondaryHeaderColor,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+                      // Container(
+                      //   width: 300.0,
+                      //   child: Text(
+                      //     "MEMBER",
+                      //     textAlign: TextAlign.center,
+                      //     overflow: TextOverflow.visible,
+                      //     softWrap: true,
+                      //     style: TextStyle(
+                      //       color: Theme.of(context).secondaryHeaderColor,
+                      //       fontSize: 15.0,
+                      //       fontWeight: FontWeight.bold,
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                 ),
 
@@ -131,6 +129,7 @@ class OurAdminFAQ extends StatelessWidget {
                   Wrap(
                     children: <Widget>[
                       //QUESTIONS
+                      //if(listOfQ[i]["answers"])
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         width: 500.0,
@@ -146,7 +145,7 @@ class OurAdminFAQ extends StatelessWidget {
                                 text: "\u2022 ",
                               ),
                               TextSpan(
-                                text: listOfQ[i],
+                                text: listOfQ[i]["answers"],
                                 style: TextStyle(
                                   color: Theme.of(context).primaryColorDark,
                                   fontSize: 15.0,
@@ -159,20 +158,20 @@ class OurAdminFAQ extends StatelessWidget {
                       ),
 
                       //MEMBER
-                      Container(
-                        width: 300.0,
-                        child: Text(
-                          listOfM[i],
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.visible,
-                          softWrap: true,
-                          style: TextStyle(
-                            color: Theme.of(context).primaryColorDark,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.normal,
-                           ),
-                        ),
-                      ),
+                      // Container(
+                      //   width: 300.0,
+                      //   child: Text(
+                      //     listOfM[i],
+                      //     textAlign: TextAlign.center,
+                      //     overflow: TextOverflow.visible,
+                      //     softWrap: true,
+                      //     style: TextStyle(
+                      //       color: Theme.of(context).primaryColorDark,
+                      //       fontSize: 15.0,
+                      //       fontWeight: FontWeight.normal,
+                      //      ),
+                      //   ),
+                      // ),
 
                       //ANSWER BUTTON
                       Container(
