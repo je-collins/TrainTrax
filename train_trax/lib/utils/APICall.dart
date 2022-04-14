@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-//import 'dart:ffi';
-
-=======
->>>>>>> c5818bccde40241e63f7195618e981abb13cccbf
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -442,8 +437,7 @@ class APICall {
     return "failure";
   }
 
-  static Future<http.Response> getQuestionsAnswerRequest(
-      String token) async {
+  static Future<http.Response> getQuestionsAnswerRequest(String token) async {
     Uri url =
         Uri.parse("https://train-trax.herokuapp.com/api/get_questions_answers");
 

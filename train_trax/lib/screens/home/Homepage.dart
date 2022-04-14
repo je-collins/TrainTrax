@@ -19,19 +19,22 @@ class OurHome extends StatelessWidget {
   bool isAdmin;
   List articles;
   var userStats;
+  List myArticles;
 
-  OurHome({
-    Key? key,
-    required this.token,
-    required this.name,
-    required this.isAdmin,
-    required this.articles,
-    required this.userStats,
-  }) : super(key: key);
+  OurHome(
+      {Key? key,
+      required this.token,
+      required this.name,
+      required this.isAdmin,
+      required this.articles,
+      required this.userStats,
+      required this.myArticles})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     int len = articles.length;
+    int leng = myArticles.length;
 
     return Scaffold(
       body: Row(
@@ -187,7 +190,7 @@ class OurHome extends StatelessWidget {
                 for (var i = 0; i < 5; i++)
                   Container(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         RichText(
                           text: TextSpan(
@@ -318,10 +321,10 @@ class OurHome extends StatelessWidget {
                   ),
                 ),
 
-                /*     for (var i = 0; i < leng; i++)
+                for (var i = 0; i < leng; i++)
                   Container(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         RichText(
                           text: TextSpan(
@@ -343,7 +346,7 @@ class OurHome extends StatelessWidget {
                                     decoration: TextDecoration.underline,
                                   ),
                                   //name of article
-                                  text: myArticles["results"][i]["article"],
+                                  text: myArticles[i]["article"],
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () async {
                                       showDialog(
@@ -369,10 +372,10 @@ class OurHome extends StatelessWidget {
                                                                       TextSpan(
                                                                     children: [
                                                                       Urls.createUrl(
-                                                                          url: myArticles["results"][i]
+                                                                          url: myArticles[i]
                                                                               [
                                                                               "article"],
-                                                                          txt: myArticles["results"][i]
+                                                                          txt: myArticles[i]
                                                                               [
                                                                               "article"],
                                                                           context:
@@ -443,7 +446,7 @@ class OurHome extends StatelessWidget {
                       ],
                     ),
                   ),
-*/
+
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
