@@ -18,14 +18,16 @@ class OurHome extends StatelessWidget {
   var namesRecommended;
   bool isAdmin;
   List articles;
+  var userStats;
 
-  OurHome(
-      {Key? key,
-      required this.token,
-      required this.name,
-      required this.isAdmin,
-      required this.articles})
-      : super(key: key);
+  OurHome({
+    Key? key,
+    required this.token,
+    required this.name,
+    required this.isAdmin,
+    required this.articles,
+    required this.userStats,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +89,9 @@ class OurHome extends StatelessWidget {
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    text: "Total Articles Started:"),
+                                    text: "Total Articles Started: " +
+                                        userStats["total_articles_started"]
+                                            .toString()),
                               ],
                             ),
                           )
@@ -108,7 +112,9 @@ class OurHome extends StatelessWidget {
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    text: "Average Articles Started:"),
+                                    text: "Average Articles Started: " +
+                                        userStats["average_articles_started"]
+                                            .toString()),
                               ],
                             ),
                           )
@@ -129,7 +135,9 @@ class OurHome extends StatelessWidget {
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    text: "Average Articles Completed:"),
+                                    text: "Average Articles Completed: " +
+                                        userStats["average_articles_completed"]
+                                            .toString()),
                               ],
                             ),
                           )
@@ -150,7 +158,9 @@ class OurHome extends StatelessWidget {
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    text: "Total Articles Completed"),
+                                    text: "Total Articles Completed: " +
+                                        userStats["total_articles_completed"]
+                                            .toString()),
                               ],
                             ),
                           )
@@ -308,6 +318,132 @@ class OurHome extends StatelessWidget {
                   ),
                 ),
 
+                /*     for (var i = 0; i < leng; i++)
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                style: TextStyle(
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                text: "",
+                              ),
+                              TextSpan(
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor,
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.normal,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                  //name of article
+                                  text: myArticles["results"][i]["article"],
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      showDialog(
+                                          context: context,
+                                          builder:
+                                              (BuildContext context) => Dialog(
+                                                    child: Center(
+                                                      child: Wrap(
+                                                        alignment: WrapAlignment
+                                                            .center,
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    15.0),
+                                                            child: Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                height: 6 * 24,
+                                                                child: RichText(
+                                                                  text:
+                                                                      TextSpan(
+                                                                    children: [
+                                                                      Urls.createUrl(
+                                                                          url: myArticles["results"][i]
+                                                                              [
+                                                                              "article"],
+                                                                          txt: myArticles["results"][i]
+                                                                              [
+                                                                              "article"],
+                                                                          context:
+                                                                              context),
+                                                                    ],
+                                                                  ),
+                                                                )),
+                                                          ),
+                                                          Wrap(
+                                                            spacing: 20.0,
+                                                            children: [
+                                                              RaisedButton(
+                                                                child: Padding(
+                                                                  padding: EdgeInsets
+                                                                      .symmetric(
+                                                                          horizontal:
+                                                                              100),
+                                                                  child: Text(
+                                                                    "Favorite",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          20.0,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                onPressed:
+                                                                    () {},
+                                                              ),
+                                                              RaisedButton(
+                                                                child: Padding(
+                                                                  padding: EdgeInsets
+                                                                      .symmetric(
+                                                                          horizontal:
+                                                                              100),
+                                                                  child: Text(
+                                                                    "Download",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          20.0,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                onPressed:
+                                                                    () {},
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ));
+                                    }),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+*/
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
