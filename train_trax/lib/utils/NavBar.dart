@@ -317,18 +317,18 @@ class NavBar {
       var token;
 
       _returnString =
-          (await APICall.getStarredArticleRequest(tokn)) as Response;
+          (await APICall.getUserInfo(tokn)) as Response;
       token = jsonDecode(_returnString.body);
 
-      if (_returnString.statusCode == 200) {
+      if (_returnString.statusCode != 200) {
+        //Response _returnTeam = (await APICall.getTeamInfoRequest(tokn, token["teams_admin"]["team_id"])) as Response;
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
             builder: (context) => OurAdminTeamMang(
               token: tokn,
               name: name, 
-              listOfTeams: null,
+              listOfTeams: [],
             ),
           ),
           (route) => false,
@@ -336,7 +336,7 @@ class NavBar {
       } else {
         Scaffold.of(context).showSnackBar(
           SnackBar(
-            content: Text(token["message"]),
+            content: Text(token.toString()),
             duration: Duration(seconds: 3),
           ),
         );

@@ -266,14 +266,7 @@ class APICall {
     }, body: {
       "token": token
     });
-
-    //print(response.statusCode);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return "success";
-
-    //return jsonDecode(response.body);
+    
     var file = jsonDecode(response.body);
 
     //if(response.statusCode == 200)
@@ -399,7 +392,7 @@ class APICall {
   }
 
   static Future<String> answerQuestionRequest(
-      String token, int qid, String answer) async {
+      String token, String qid, String answer) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/answer_question");
 
     var response = await http.post(url, headers: <String, String>{

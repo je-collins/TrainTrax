@@ -130,7 +130,7 @@ class OurAdminFAQ extends StatelessWidget {
                   Wrap(
                     children: <Widget>[
                       //QUESTIONS
-                      if(listOfQ[i]["answers"] == [])
+                      if(listOfQ[i]["answers"].length == 0)
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         width: 500.0,
@@ -159,7 +159,7 @@ class OurAdminFAQ extends StatelessWidget {
                       ),
 
                       //MEMBER
-                      //if(listOfQ[i]["answers"] == [])
+                      //if(listOfQ[i]["answers"].length == 0)
                       // Container(
                       //   width: 300.0,
                       //   child: Text(
@@ -176,7 +176,7 @@ class OurAdminFAQ extends StatelessWidget {
                       // ),
 
                       //ANSWER BUTTON
-                      if(listOfQ[i]["answers"] == [])
+                      if(listOfQ[i]["answers"].length == 0)
                       Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         child: RaisedButton(
@@ -247,7 +247,7 @@ class OurAdminFAQ extends StatelessWidget {
                                         ),
                                         onPressed: () {
                                           //send response
-                                          APICall.answerQuestionRequest(token, listOfQ[i]["question_id"], answerController.text);
+                                          APICall.answerQuestionRequest(token, listOfQ[i]["question_id"].toString(), answerController.text);
                                           Navigator.pop(context, answerController.text);
                                           answerController.clear();
                                         },

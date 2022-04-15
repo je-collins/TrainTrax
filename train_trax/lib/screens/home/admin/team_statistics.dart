@@ -1,4 +1,3 @@
-import 'package:train_trax/screens/home/admin/admin_widgets/admin_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
