@@ -188,7 +188,8 @@ class NavBar {
       Response userStat = await APICall.getUserStats(tokn) as Response;
       var stats = jsonDecode(userStat.body);
       List myArticles = (await APICall.getArticleRequest(tokn)) as List;
-      List completedArticles = (await APICall.getArticleRequest(tokn)) as List;
+      List completedArticles =
+          (await APICall.getCompleteArticleRequest(tokn)) as List;
 
       if (_returnString.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
