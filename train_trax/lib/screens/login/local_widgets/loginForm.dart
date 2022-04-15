@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart';
@@ -37,6 +38,8 @@ class OurLoginForm extends StatelessWidget {
       Response userStat = await APICall.getUserStats(token) as Response;
       var stats = jsonDecode(userStat.body);
       List myArticles = (await APICall.getArticleRequest(token)) as List;
+      List completedArticles =
+          (await APICall.getCompleteArticleRequest(token)) as List;
 
       //tkn["token"] != ""
       if (_returnString == "success") {
@@ -44,12 +47,14 @@ class OurLoginForm extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => OurHome(
-                token: token,
-                name: name,
-                isAdmin: isAdmin,
-                articles: resultList["results"],
-                userStats: stats["stats"],
-                myArticles: myArticles),
+              token: token,
+              name: name,
+              isAdmin: isAdmin,
+              articles: resultList["results"],
+              userStats: stats["stats"],
+              myArticles: myArticles,
+              completedArticles: completedArticles,
+            ),
           ),
           (route) => false,
         );

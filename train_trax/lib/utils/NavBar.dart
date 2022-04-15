@@ -188,6 +188,7 @@ class NavBar {
       Response userStat = await APICall.getUserStats(tokn) as Response;
       var stats = jsonDecode(userStat.body);
       List myArticles = (await APICall.getArticleRequest(tokn)) as List;
+      List completedArticles = (await APICall.getArticleRequest(tokn)) as List;
 
       if (_returnString.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
@@ -200,7 +201,8 @@ class NavBar {
                 isAdmin: isAdmin,
                 articles: token["results"],
                 userStats: stats["stats"],
-                myArticles: myArticles),
+                myArticles: myArticles,
+                completedArticles: completedArticles),
           ),
           (route) => false,
         );
