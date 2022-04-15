@@ -9,8 +9,13 @@ class OurTeamStatistics extends StatelessWidget {
   String name = 'John Smith';
   String token;
   bool isAdmin = true;
+  var teamStats;
 
-  OurTeamStatistics({Key? key, required this.token, required this.name})
+  OurTeamStatistics(
+      {Key? key,
+      required this.token,
+      required this.name,
+      required this.teamStats})
       : super(key: key);
 
   @override
@@ -78,7 +83,10 @@ class OurTeamStatistics extends StatelessWidget {
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    text: "Total Articles Started:"),
+                                    text: "Total Articles Started: " +
+                                        teamStats["stats"]
+                                                ["total_articles_started"]
+                                            .toString()),
                               ],
                             ),
                           )
@@ -99,7 +107,10 @@ class OurTeamStatistics extends StatelessWidget {
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    text: "Average Articles Started:"),
+                                    text: "Average Articles Started: " +
+                                        teamStats["stats"]
+                                                ["average_articles_started"]
+                                            .toString()),
                               ],
                             ),
                           )
@@ -120,7 +131,10 @@ class OurTeamStatistics extends StatelessWidget {
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    text: "Average Articles Completed:"),
+                                    text: "Average Articles Completed: " +
+                                        teamStats["stats"]
+                                                ["average_articles_completed"]
+                                            .toString()),
                               ],
                             ),
                           )
@@ -141,7 +155,10 @@ class OurTeamStatistics extends StatelessWidget {
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    text: "Total Articles Completed"),
+                                    text: "Total Articles Completed: " +
+                                        teamStats["stats"]
+                                                ["total_articles_completed"]
+                                            .toString()),
                               ],
                             ),
                           )

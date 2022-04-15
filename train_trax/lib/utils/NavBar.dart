@@ -104,7 +104,7 @@ class NavBar {
                 child: Text("MANAGE TEAMS"),
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 onPressed: () {
-                  _toManageTeams(context: context, name: name, tokn: tokn );
+                  _toManageTeams(context: context, name: name, tokn: tokn);
                 }),
 
           //LIBRARY
@@ -121,14 +121,7 @@ class NavBar {
               child: Text("TEAM STATS"),
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => OurTeamStatistics(
-                      token: tokn,
-                      name: name,
-                    ),
-                  ),
-                );
+                _toTeamStats(tokn: tokn, name: name, context: context);
               },
             ),
 
@@ -195,6 +188,8 @@ class NavBar {
       Response userStat = await APICall.getUserStats(tokn) as Response;
       var stats = jsonDecode(userStat.body);
       List myArticles = (await APICall.getArticleRequest(tokn)) as List;
+      List completedArticles =
+          (await APICall.getCompleteArticleRequest(tokn)) as List;
 
       if (_returnString.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
@@ -207,7 +202,8 @@ class NavBar {
                 isAdmin: isAdmin,
                 articles: token["results"],
                 userStats: stats["stats"],
-                myArticles: myArticles),
+                myArticles: myArticles,
+                completedArticles: completedArticles),
           ),
           (route) => false,
         );
@@ -327,8 +323,8 @@ class NavBar {
           MaterialPageRoute(
             builder: (context) => OurAdminTeamMang(
               token: tokn,
-              name: name, 
-              listOfTeams: [],
+              name: name,
+              listOfTeams: null,
             ),
           ),
           (route) => false,
@@ -355,9 +351,10 @@ class NavBar {
       Response _returnString;
       var token;
 
-      _returnString =
-          (await APICall.getStarredArticleRequest(tokn)) as Response;
+      _returnString = (await APICall.getUserInfo(tokn)) as Response;
       token = jsonDecode(_returnString.body);
+      Response _userStats = (await APICall.getUserStats(tokn)) as Response;
+      var userstats = jsonDecode(_userStats.body);
 
       if (_returnString.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
@@ -365,9 +362,7 @@ class NavBar {
           MaterialPageRoute(
             //articles: token["results"]
             builder: (context) => OurTeamStatistics(
-              token: tokn,
-              name: name,
-            ),
+                token: tokn, name: name, teamStats: userstats),
           ),
           (route) => false,
         );

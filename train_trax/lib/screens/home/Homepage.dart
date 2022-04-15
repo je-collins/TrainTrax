@@ -20,6 +20,7 @@ class OurHome extends StatelessWidget {
   List articles;
   var userStats;
   List myArticles;
+  List completedArticles;
 
   OurHome(
       {Key? key,
@@ -28,13 +29,15 @@ class OurHome extends StatelessWidget {
       required this.isAdmin,
       required this.articles,
       required this.userStats,
-      required this.myArticles})
+      required this.myArticles,
+      required this.completedArticles})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     int len = articles.length;
     int leng = myArticles.length;
+    int lengt = completedArticles.length;
 
     return Scaffold(
       body: Row(
@@ -291,6 +294,28 @@ class OurHome extends StatelessWidget {
                                                               ),
                                                             ),
                                                             onPressed: () {},
+                                                          ),
+                                                          RaisedButton(
+                                                            child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          100),
+                                                              child: Text(
+                                                                "Mark as Completed",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {},
                                                           )
                                                         ],
                                                       ),
@@ -346,99 +371,119 @@ class OurHome extends StatelessWidget {
                                     decoration: TextDecoration.underline,
                                   ),
                                   //name of article
+
                                   text: myArticles[i]["article"],
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () async {
                                       showDialog(
                                           context: context,
-                                          builder:
-                                              (BuildContext context) => Dialog(
-                                                    child: Center(
-                                                      child: Wrap(
-                                                        alignment: WrapAlignment
-                                                            .center,
-                                                        children: <Widget>[
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsets.all(
-                                                                    15.0),
-                                                            child: Container(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .center,
-                                                                height: 6 * 24,
-                                                                child: RichText(
-                                                                  text:
-                                                                      TextSpan(
-                                                                    children: [
-                                                                      Urls.createUrl(
-                                                                          url: myArticles[i]
-                                                                              [
-                                                                              "article"],
-                                                                          txt: myArticles[i]
-                                                                              [
-                                                                              "article"],
-                                                                          context:
-                                                                              context),
-                                                                    ],
-                                                                  ),
-                                                                )),
-                                                          ),
-                                                          Wrap(
-                                                            spacing: 20.0,
-                                                            children: [
-                                                              RaisedButton(
-                                                                child: Padding(
-                                                                  padding: EdgeInsets
-                                                                      .symmetric(
-                                                                          horizontal:
-                                                                              100),
-                                                                  child: Text(
-                                                                    "Favorite",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          20.0,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                onPressed:
-                                                                    () {},
+                                          builder: (BuildContext context) =>
+                                              Dialog(
+                                                child: Center(
+                                                  child: Wrap(
+                                                    alignment:
+                                                        WrapAlignment.center,
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding: EdgeInsets.all(
+                                                            15.0),
+                                                        child: Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height: 6 * 24,
+                                                            child: RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  Urls.createUrl(
+                                                                      url: myArticles[
+                                                                              i]
+                                                                          [
+                                                                          "article"],
+                                                                      txt: myArticles[
+                                                                              i]
+                                                                          [
+                                                                          "article"],
+                                                                      context:
+                                                                          context),
+                                                                ],
                                                               ),
-                                                              RaisedButton(
-                                                                child: Padding(
-                                                                  padding: EdgeInsets
-                                                                      .symmetric(
-                                                                          horizontal:
-                                                                              100),
-                                                                  child: Text(
-                                                                    "Download",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontSize:
-                                                                          20.0,
-                                                                    ),
-                                                                  ),
+                                                            )),
+                                                      ),
+                                                      Wrap(
+                                                        spacing: 20.0,
+                                                        children: [
+                                                          RaisedButton(
+                                                            child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          100),
+                                                              child: Text(
+                                                                "Favorite",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      20.0,
                                                                 ),
-                                                                onPressed:
-                                                                    () {},
-                                                              )
-                                                            ],
+                                                              ),
+                                                            ),
+                                                            onPressed: () {},
                                                           ),
+                                                          RaisedButton(
+                                                            child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          100),
+                                                              child: Text(
+                                                                "Download",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {},
+                                                          ),
+                                                          RaisedButton(
+                                                            child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          100),
+                                                              child: Text(
+                                                                "Mark as Completed",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {},
+                                                          )
                                                         ],
                                                       ),
-                                                    ),
-                                                  ));
+                                                    ],
+                                                  ),
+                                                ),
+                                              ));
                                     }),
                             ],
                           ),
@@ -461,6 +506,152 @@ class OurHome extends StatelessWidget {
                     ),
                   ),
                 ),
+
+                for (var i = 0; i < lengt; i++)
+                  Container(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                style: TextStyle(
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                text: "",
+                              ),
+                              TextSpan(
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor,
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.normal,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                  //name of article
+
+                                  text: completedArticles[i]["article"],
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              Dialog(
+                                                child: Center(
+                                                  child: Wrap(
+                                                    alignment:
+                                                        WrapAlignment.center,
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding: EdgeInsets.all(
+                                                            15.0),
+                                                        child: Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height: 6 * 24,
+                                                            child: RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  Urls.createUrl(
+                                                                      url: completedArticles[
+                                                                              i]
+                                                                          [
+                                                                          "articles"],
+                                                                      txt: completedArticles[
+                                                                              i]
+                                                                          [
+                                                                          "articles"],
+                                                                      context:
+                                                                          context),
+                                                                ],
+                                                              ),
+                                                            )),
+                                                      ),
+                                                      Wrap(
+                                                        spacing: 20.0,
+                                                        children: [
+                                                          RaisedButton(
+                                                            child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          100),
+                                                              child: Text(
+                                                                "Favorite",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {},
+                                                          ),
+                                                          RaisedButton(
+                                                            child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          100),
+                                                              child: Text(
+                                                                "Download",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {},
+                                                          ),
+                                                          RaisedButton(
+                                                            child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          100),
+                                                              child: Text(
+                                                                "Mark as Completed",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {},
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ));
+                                    }),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
               ],
             ),
           )

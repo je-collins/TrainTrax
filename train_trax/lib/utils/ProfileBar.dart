@@ -114,14 +114,7 @@ class ProfileBar extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.admin_panel_settings),
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => OurTeamStatistics(
-                    token: tokn,
-                    name: name,
-                  ),
-                ),
-              );
+              _toTeamStats(tokn: tokn, name: name, context: context);
             },
           ),
       ],
@@ -182,6 +175,43 @@ class ProfileBar extends StatelessWidget {
               name: name,
               isAdmin: isAdmin,
             ),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static void _toTeamStats({
+    required String tokn,
+    required String name,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await APICall.getUserInfo(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+      Response _userStats = (await APICall.getUserStats(tokn)) as Response;
+      var userstats = jsonDecode(_userStats.body);
+
+      if (_returnString.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            //articles: token["results"]
+            builder: (context) => OurTeamStatistics(
+                token: tokn, name: name, teamStats: userstats),
           ),
           (route) => false,
         );
