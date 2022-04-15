@@ -5,8 +5,9 @@ export default async (request, response) => {
 	const { token } = request.body;
 
 	// Create return JSON structure
-	const json = new Json(response, 'results', 'completed');
+	const json = new Json(response, 'results', 'started', 'completed');
 	json.set('results', []);
+	json.set('started', []);
 	json.set('completed', []);
 
 	// Check if one or more fields is not declared
@@ -29,7 +30,7 @@ export default async (request, response) => {
 		};
 
 		json.get('results').push(article);
-		if (row.complete_time !== null) json.get('completed').push(article);
+		json.get(row.complete_time === null ? 'started' : 'completed').push(article);
 	}
 	return json.send();
 };
