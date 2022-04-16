@@ -5,7 +5,10 @@ export default async (request, response) => {
 	const { token } = request.body;
 
 	// Create return JSON structure
-	const json = new Json(response, 'results');
+	const json = new Json(response, 'results', 'started', 'completed');
+	json.set('results', []);
+	json.set('started', []);
+	json.set('completed', []);
 
 	// Check if one or more fields is not declared
 	const undef = [];
@@ -16,8 +19,18 @@ export default async (request, response) => {
 	const user = await User.fromToken(token);
 	if (user === undefined) return json.badToken().send();
 
-    // Retrieve and send all articles
-	const articles = await Article.getArticles();
-	for (const row of articles) json.get('results').push(row.article);
+    // Retrieve all articles
+	const articles = await Article.getUserArticles(user.user_id);
+	for (const row of articles) {
+		const article = {
+			article_id: row.article_id,
+			article: row.article,
+			start_time: row.start_time,
+			complete_time: row.complete_time
+		};
+
+		json.get('results').push(article);
+		json.get(row.complete_time === null ? 'started' : 'completed').push(article);
+	}
 	return json.send();
 };

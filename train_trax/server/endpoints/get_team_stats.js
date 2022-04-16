@@ -6,7 +6,7 @@ export default async (request, response) => {
 	const { token, team_id } = request.body;
 
 	// Create return JSON structure
-	const json = new Json('stats', response);
+	const json = new Json(response, 'stats');
 
 	// Check if one or more fields is not declared
 	const undef = [];
@@ -22,10 +22,10 @@ export default async (request, response) => {
 	// Get team info
 	const team = await Team.getTeam(team_id);
 	if (team === undefined) return json.error(Json.STATUS_BAD_INFO, 'Invalid Team', 'The given team does not exist.').send();
-	if (admin.user_id !== team.administrator) return json.notAdmin().send();
+	if (user.user_id !== team.administrator) return json.notAdmin().send();
 
 	// Get stats for user
-	json.set('stats', get_stats(await Team.getUsersFromTeam(team_id)));
+	json.set('stats', await get_stats(await Team.getUsersFromTeam(team_id), true));
 
 	// Send information
 	return json.send();

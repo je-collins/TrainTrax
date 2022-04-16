@@ -11,7 +11,7 @@ export default (isStart) => async (request, response) => {
 	const undef = [];
 	if (token === undefined) undef.push('token');
 	if (article_id === undefined) undef.push('article_id');
-	if (time === undefined) undef.push('time');
+	if (isStart && time === undefined) undef.push('time');
 	if (undef.length > 0) return json.badPayload(undef).send();
 
 	// Retrieve user data
@@ -23,6 +23,6 @@ export default (isStart) => async (request, response) => {
     if (article === undefined || article.user_id !== user.user_id) return json.badArticle().send();
 
     // Update Article information
-    await (isStart ? Article.setStart : Article.setEnd)(article_id, new Date(time).toISOString());
+    await (isStart ? Article.setStart : Article.setEnd)(article_id, new Date(time ?? new Date()).toISOString());
 	return json.send();
 };

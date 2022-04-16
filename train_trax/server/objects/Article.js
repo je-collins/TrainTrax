@@ -4,11 +4,11 @@ export default class Article {
 
 	// Modify User Starred Articles
 	static async addStarred(user_id, article, is_domain) {
-		return DB.query('INSERT INTO starred_articles(user_id, article, is_domain) VALUES($1, $2, $3);', user_id, article, is_domain);
+		return DB.query('INSERT INTO starred_articles(user_id, article, is_domain) VALUES($1, $2, $3);', [user_id, article, is_domain]);
 	}
 
 	static async removeStarred(article_id) {
-		return DB.query('DELETE FROM starred_articles WHERE article_id = $1;', article_id);
+		return DB.query('DELETE FROM starred_articles WHERE article_id = $1;', [article_id]);
 	}
 
 	// Get All Starred Articles
@@ -40,7 +40,7 @@ export default class Article {
 
 	// Modify User Favorites
 	static async setFavorite(article_id, favorite) {
-		return DB.query('UPDATE articles SET is_favorite = $1 WHERE article_id = $3;', [favorite, article_id]);
+		return DB.query('UPDATE articles SET is_favorite = $1 WHERE article_id = $2;', [favorite, article_id]);
 	}
 
 	// Get User Favorites
@@ -74,12 +74,16 @@ export default class Article {
 		return DB.query('SELECT * FROM articles WHERE user_id = $1 AND complete_time IS NOT NULL;', [user_id]);
 	}
 
-	static async getUserArticles() {
-		return DB.query('SELECT * FROM articles;');
+	static async getUserArticles(user_id) {
+		return DB.query('SELECT * FROM articles WHERE user_id = $1;', [user_id]);
 	}
 
 	// Insert
-	static async add(user_id, article) {
-		return DB.query('INSERT INTO articles(user_id, article, is_favorite) VALUES($1, $2, FALSE);', [user_id, article]);
+	static async add(user_id, article, start_time) {
+		if (start_time === undefined) {
+			return DB.query('INSERT INTO articles(user_id, article, is_favorite) VALUES($1, $2, FALSE);', [user_id, article]);
+		} else {
+			return DB.query('INSERT INTO articles(user_id, article, start_time, is_favorite) VALUES($1, $2, $3, FALSE);', [user_id, article, start_time]);
+		}
 	}
 }

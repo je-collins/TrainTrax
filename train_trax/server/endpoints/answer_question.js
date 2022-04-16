@@ -1,4 +1,4 @@
-import { Json, Question, User } from '../objects/Objects.js';
+import { Constants, Json, Question, User } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -13,6 +13,10 @@ export default async (request, response) => {
 	if (question_id === undefined) undef.push('question_id');
 	if (answer_text === undefined) undef.push('answer_text');
 	if (undef.length > 0) return json.badPayload(undef).send();
+
+	// Check if one or more fields are too long
+	if (answer_text.length > Constants.DB_ANSWER_MAX_LENGTH) undef.push('answer_text');
+	if (undef.length > 0) return json.badData(undef).send();
 
 	// Retrieve user data
 	const user = await User.fromToken(token);

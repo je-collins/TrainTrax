@@ -6,7 +6,7 @@ export default async (request, response) => {
 	const { token } = request.body;
 
 	// Create return JSON structure
-	const json = new Json('stats', response);
+	const json = new Json(response, 'stats');
 
 	// Check if one or more fields is not declared
 	const undef = [];
@@ -18,7 +18,7 @@ export default async (request, response) => {
 	if (user === undefined) return json.badToken().send();
 
 	// Get stats for user
-	json.set('stats', get_stats([user]));
+	json.set('stats', await get_stats([user], true));
 
 	// Send information
 	return json.send();

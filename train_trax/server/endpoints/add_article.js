@@ -1,8 +1,8 @@
-import { Constants, Json, Team, User } from '../objects/Objects.js';
+import { Article, Constants, Json, User } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
-	const { token, team_name } = request.body;
+	const { token, article } = request.body;
 
 	// Create return JSON structure
 	const json = new Json(response);
@@ -10,19 +10,18 @@ export default async (request, response) => {
 	// Check if one or more fields is not declared
 	const undef = [];
 	if (token === undefined) undef.push('token');
-	if (team_name === undefined) undef.push('team_name');
+	if (article === undefined) undef.push('article');
 	if (undef.length > 0) return json.badPayload(undef).send();
 
 	// Check if one or more fields are too long
-	if (team_name.length > Constants.DB_TEAM_NAME_MAX_LENGTH) undef.push('team_name');
+	if (article.length > Constants.DB_ARTICLE_MAX_LENGTH) undef.push('article');
 	if (undef.length > 0) return json.badData(undef).send();
 
 	// Retrieve user data
-	const admin = await User.fromToken(token);
-	if (admin === undefined) return json.badToken().send();
-	if (!admin.administrator) return json.notAdmin().send();
+	const user = await User.fromToken(token);
+	if (user === undefined) return json.badToken().send();
 
-	// Create team
-	await Team.addTeam(admin.user_id, team_name);
+	// Add article to DB
+	await Article.add(user.user_id, article, new Date().toISOString());
 	return json.send();
 };

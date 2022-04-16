@@ -5,7 +5,7 @@ export default async (request, response) => {
 	const { token } = request.body;
 
 	// Create return JSON structure
-	const json = new Json('questions', response);
+	const json = new Json(response, 'questions');
 	json.set('questions', []);
 
 	// Check if one or more fields is not declared
@@ -18,8 +18,8 @@ export default async (request, response) => {
 	if (user === undefined) return json.badToken().send();
 
 	// Retrieve data
-	const questions = Question.getQuestions();
-	const answers = Question.getAnswers();
+	const questions = await Question.getQuestions();
+	const answers = await Question.getAnswers();
 
 	// Build data
 	for (const question of questions) {
@@ -33,6 +33,7 @@ export default async (request, response) => {
 
 		// Add object to json
 		json.get('questions').push({
+			'question_id': question.question_id,
 			'question': question.question,
 			'answers': ans
 		});

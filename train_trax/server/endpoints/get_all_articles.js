@@ -1,12 +1,12 @@
-import { Json, User } from '../objects/Objects.js';
-import get_stats from './get_stats.js';
+import { Article, Json, User } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
 	const { token } = request.body;
 
 	// Create return JSON structure
-	const json = new Json(response, 'stats');
+	const json = new Json(response, 'results');
+	json.set('results', []);
 
 	// Check if one or more fields is not declared
 	const undef = [];
@@ -17,9 +17,8 @@ export default async (request, response) => {
 	const user = await User.fromToken(token);
 	if (user === undefined) return json.badToken().send();
 
-	// Get stats for user
-	json.set('stats', await get_stats(await User.getUsers(), false));
-
-	// Send information
+    // Retrieve all articles
+	const articles = await Article.getArticles();
+	for (const row of articles) json.get('results').push(row.article);
 	return json.send();
 };

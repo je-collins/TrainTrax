@@ -1,4 +1,4 @@
-import { Json, Mailer, User } from '../objects/Objects.js';
+import { Constants, Json, Mailer, User } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -14,6 +14,12 @@ export default async (request, response) => {
 	if (name === undefined) undef.push('name');
 	if (phone_number === undefined) undef.push('phone_number');
 	if (undef.length > 0) return json.badPayload(undef).send();
+
+	// Check if one or more fields are too long
+	if (email.length > Constants.DB_EMAIL_MAX_LENGTH) undef.push('email');
+	if (name.length > Constants.DB_NAME_MAX_LENGTH) undef.push('name');
+	if (phone_number.length > Constants.DB_PHONE_NUMBER_MAX_LENGTH) undef.push('phone_number');
+	if (undef.length > 0) return json.badData(undef).send();
 
 	// If email exists, return duplicate email
 	if (await User.fromEmail(email) !== undefined) return json.error(Json.STATUS_BAD_INFO, 'Duplicate email', 'A user with the given email already exists.').send();

@@ -1,6 +1,6 @@
 import { Article, User } from '../objects/Objects.js';
 
-export default async (users) => {
+export default async (users, sendNames) => {
 	
 	// Get list of user ids
 	const user_ids = users.map(u => u.user_id);
@@ -15,8 +15,17 @@ export default async (users) => {
 		}
 	}
 
+	const user_list = [];
+	for (const user of users) {
+		user_list.push({
+			user_id: user.user_id,
+			name: user.name
+		});
+	}
+
 	// Return statistics
 	return {
+		'users': sendNames ? user_list : [],
 		'total_articles_started': articles_started,
 		'total_articles_completed': articles_completed,
 		'average_articles_started': articles_started / users.length,

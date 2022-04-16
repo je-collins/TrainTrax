@@ -35,18 +35,35 @@ app.post('/api/reset_password', reset_password);
 import get_articles from './endpoints/get_articles.js';
 import get_favorites from './endpoints/get_favorites.js';
 import get_starred from './endpoints/get_starred.js';
+import get_all_articles from './endpoints/get_all_articles.js';
 app.post('/api/get_articles', get_articles);
 app.post('/api/get_favorites', get_favorites);
 app.post('/api/get_starred_articles', get_starred(false));
 app.post('/api/get_starred_domains', get_starred(true));
+app.post('/api/get_all_articles', get_all_articles);
 
-// Modify Articles/Domains endpoints
+// Modify User Articles endpoints
+import add_article from './endpoints/add_article.js';
+import set_article_time from './endpoints/set_article_time.js';
 import set_favorite from './endpoints/set_favorite.js';
-import add_starred from './endpoints/add_starred.js';
+app.post('/api/add_article', add_article);
+app.post('/api/set_article_start_time', set_article_time(true));
+app.post('/api/set_article_end_time', set_article_time(false));
 app.post('/api/add_favorite', set_favorite(true));
 app.post('/api/remove_favorite', set_favorite(false));
+
+// Modify Starred Articles/Domains endpoints
+import add_starred from './endpoints/add_starred.js';
 app.post('/api/add_starred_article', add_starred(false));
 app.post('/api/add_starred_domain', add_starred(true));
+
+// Info endpoints
+import get_users from './endpoints/get_users.js';
+import get_user_info from './endpoints/get_user_info.js';
+import get_team_info from './endpoints/get_team_info.js';
+app.post('/api/get_users', get_users);
+app.post('/api/get_user_info', get_user_info);
+app.post('/api/get_team_info', get_team_info);
 
 // Stats-related endpoints
 import get_user_stats from './endpoints/get_user_stats.js';
