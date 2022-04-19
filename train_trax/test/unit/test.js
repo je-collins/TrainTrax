@@ -1581,5 +1581,5 @@ describe('Train Trax API', () => {
                 expect(res.body.questions).toBeInstanceOf(Array);
             });
         });
-    })
+    });
 });
