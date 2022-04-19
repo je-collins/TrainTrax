@@ -9,6 +9,7 @@ export default async (request, response) => {
 	json.set('member_articles', []);
 	json.set('team_articles', []);
 	json.set('team_completed', []);
+    json.set('completion_rate', 0.0);
 
 	// Check if one or more fields is not declared
 	const undef = [];
@@ -69,6 +70,8 @@ export default async (request, response) => {
 
     // Count of completed / count of all
     const complete = team_articles.filter(({complete_time}) => complete_time !== null).length
-    json.set('completion_rate', complete / team_articles.length);
+    if(!Number.isNaN(complete / team_articles.length)) {
+        json.set('completion_rate', complete / team_articles.length);
+    }
 	return json.send();
 };

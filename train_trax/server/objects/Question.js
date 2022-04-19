@@ -16,7 +16,12 @@ export default class Question {
 		return DB.query('SELECT * FROM questions;');
 	}
 
+	static async getQuestionsFromId(user_id) {
+		return DB.query('SELECT * FROM questions where user_id = $1;', [user_id]);
+	}
+
 	static async getAnswers() {
 		return DB.query('SELECT * FROM answers;');
 	}
+	
 }

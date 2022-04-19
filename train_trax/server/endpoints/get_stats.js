@@ -28,7 +28,7 @@ export default async (users, sendNames) => {
 		'users': sendNames ? user_list : [],
 		'total_articles_started': articles_started,
 		'total_articles_completed': articles_completed,
-		'average_articles_started': articles_started / users.length,
-		'average_articles_completed': articles_completed / users.length
+		'average_articles_started': (Number.isNaN(articles_started / users.length) ? 0 : articles_started / users.length),
+		'average_articles_completed': (Number.isNaN(articles_completed / users.length) ? 0 : articles_completed / users.length)
 	};
 }
