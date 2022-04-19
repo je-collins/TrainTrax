@@ -20,7 +20,7 @@ export default async (request, response) => {
 	if (user === undefined) return json.badToken().send();
 
     // Retrieve all articles
-	const articles = await Article.getUserArticles(user.user_id);
+	const articles = await Article.getArticlesFromUser(user.user_id);
 	for (const row of articles) {
 		const article = {
 			article_id: row.article_id,
