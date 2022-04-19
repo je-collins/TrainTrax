@@ -66,17 +66,53 @@ describe('Train Trax API', () => {
             });
         });
 
-        // describe('given good info', () => {
-        //     it('should return bad payload', async () => {
-        //         const payload = {
-        //             'email': true_payload.email,
-        //             'password': true_payload.password,
-        //             'name': true_payload.name,
-        //             'phone_number': true_payload.phone_number
-        //         };
-        //         await supertest(app).post('/api/register').send(payload).expect(Json.STATUS_SUCCESS);
-        //     });
-        // });
+        describe('given the email is too long', () => {
+            it('should return bad payload', async () => {
+                const payload = {
+                    'email': '11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',
+                    'password': 'badPassword',
+                    'name': 'John',
+                    'phone_number': ''
+                };
+                await supertest(app).post('/api/register').send(payload).expect(Json.STATUS_BAD_PAYLOAD);
+            });
+        });
+
+        describe('given the name is too long', () => {
+            it('should return bad payload', async () => {
+                const payload = {
+                    'email': 'fake@email.com',
+                    'password': 'pass',
+                    'name': '11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111',
+                    'phone_number': ''
+                };
+                await supertest(app).post('/api/register').send(payload).expect(Json.STATUS_BAD_PAYLOAD);
+            });
+        });
+
+        describe('given the phone number is too long', () => {
+            it('should return bad payload', async () => {
+                const payload = {
+                    'email': 'fake@email.com',
+                    'password': 'badPassword',
+                    'name': 'John',
+                    'phone_number': '111111111111111111111'
+                };
+                await supertest(app).post('/api/register').send(payload).expect(Json.STATUS_BAD_PAYLOAD);
+            });
+        });
+
+        describe('given good info', () => {
+            it('should return bad payload', async () => {
+                const payload = {
+                    'email': true_payload.email,
+                    'password': true_payload.password,
+                    'name': true_payload.name,
+                    'phone_number': true_payload.phone_number
+                };
+                await supertest(app).post('/api/register').send(payload).expect(Json.STATUS_SUCCESS);
+            });
+        });
 
         describe('given existing email', () => {
             it('should return bad info', async () => {
@@ -236,15 +272,25 @@ describe('Train Trax API', () => {
             });
         });
 
-        // describe('given got info', () => {
-        //     it('should return succes message', async () => {
-        //         const payload = {
-        //             'token': true_payload.token,
-        //             'article': 'https://en.wikipedia.org/wiki/The_Minute_Man'
-        //         };
-        //         await supertest(app).post('/api/add_article').send(payload).expect(Json.STATUS_SUCCESS);
-        //     });
-        // });
+        describe('given the article is too long', () => {
+            it('should return bad payload', async () => {
+                const payload = {
+                    'token': true_payload.token,
+                    'article': '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+                };
+                await supertest(app).post('/api/register').send(payload).expect(Json.STATUS_BAD_PAYLOAD);
+            });
+        });
+
+        describe('given got info', () => {
+            it('should return succes message', async () => {
+                const payload = {
+                    'token': true_payload.token,
+                    'article': 'https://en.wikipedia.org/wiki/The_Minute_Man'
+                };
+                await supertest(app).post('/api/add_article').send(payload).expect(Json.STATUS_SUCCESS);
+            });
+        });
     });
     
     // Get Articles/Domains endpoints 
@@ -707,6 +753,16 @@ describe('Train Trax API', () => {
             });
         });
 
+        describe('given the article is too long', () => {
+            it('should return bad payload', async () => {
+                const payload = {
+                    'token': true_payload.token,
+                    'article': '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+                };
+                await supertest(app).post('/api/register').send(payload).expect(Json.STATUS_BAD_PAYLOAD);
+            });
+        });
+
         describe('given the user is not an admin', () => {
             it('should return bad permission', async () => {
                 const payload = {
@@ -756,6 +812,16 @@ describe('Train Trax API', () => {
                     'article': ''
                 };
                 await supertest(app).post('/api/add_starred_domain').send(payload).expect(Json.STATUS_BAD_CREDENTIALS);
+            });
+        });
+
+        describe('given the article is too long', () => {
+            it('should return bad payload', async () => {
+                const payload = {
+                    'token': true_payload.token,
+                    'article': '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+                };
+                await supertest(app).post('/api/register').send(payload).expect(Json.STATUS_BAD_PAYLOAD);
             });
         });
 
@@ -812,27 +878,37 @@ describe('Train Trax API', () => {
             });
         });
 
-        // describe('given the user is not an admin', () => {
-        //     it('should return bad permission', async () => {
-        //         const payload = {
-        //             'token': true_payload.token,
-        //             'team_name': 'test team'
-        //         };
-        //         await supertest(app).post('/api/create_team').send(payload).expect(Json.STATUS_BAD_PERMISSION);
-        //     });
-        // });
+        describe('given the team name is too long', () => {
+            it('should return bad payload', async () => {
+                const payload = {
+                    'token': true_payload.token,
+                    'team_name': '11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+                };
+                await supertest(app).post('/api/register').send(payload).expect(Json.STATUS_BAD_PAYLOAD);
+            });
+        });
 
-        // describe('given good info', () => {
-        //     it('should return success message', async () => {
-        //         await DB.query('UPDATE users SET administrator = true WHERE user_id = $1', [true_payload.user_id]);
-        //         const payload = {
-        //             'token': true_payload.token,
-        //             'team_name': 'test team'
-        //         };
-        //         await supertest(app).post('/api/create_team').send(payload).expect(Json.STATUS_SUCCESS);
-        //         await DB.query('UPDATE users SET administrator = false WHERE user_id = $1', [true_payload.user_id]);
-        //     });
-        // });
+        describe('given the user is not an admin', () => {
+            it('should return bad permission', async () => {
+                const payload = {
+                    'token': true_payload.token,
+                    'team_name': 'test team'
+                };
+                await supertest(app).post('/api/create_team').send(payload).expect(Json.STATUS_BAD_PERMISSION);
+            });
+        });
+
+        describe('given good info', () => {
+            it('should return success message', async () => {
+                await DB.query('UPDATE users SET administrator = true WHERE user_id = $1', [true_payload.user_id]);
+                const payload = {
+                    'token': true_payload.token,
+                    'team_name': 'test team'
+                };
+                await supertest(app).post('/api/create_team').send(payload).expect(Json.STATUS_SUCCESS);
+                await DB.query('UPDATE users SET administrator = false WHERE user_id = $1', [true_payload.user_id]);
+            });
+        });
     });
     
     // Info endpoints
@@ -1461,16 +1537,26 @@ describe('Train Trax API', () => {
             });
         });
 
-        // describe('given good info', () => {
-        //     it('should question is asked', async () => {
-        //         const payload = {
-        //             'token': true_payload.token,
-        //             'question_text': 'test question'
-        //         };
-        //         const res = await supertest(app).post('/api/ask_question').send(payload);
-        //         expect(res.statusCode).toBe(Json.STATUS_SUCCESS);
-        //     });
-        // });
+        describe('given the question is too long', () => {
+            it('should return bad payload', async () => {
+                const payload = {
+                    'token': true_payload.token,
+                    'question_text': '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+                };
+                await supertest(app).post('/api/register').send(payload).expect(Json.STATUS_BAD_PAYLOAD);
+            });
+        });
+
+        describe('given good info', () => {
+            it('should question is asked', async () => {
+                const payload = {
+                    'token': true_payload.token,
+                    'question_text': 'test question'
+                };
+                const res = await supertest(app).post('/api/ask_question').send(payload);
+                expect(res.statusCode).toBe(Json.STATUS_SUCCESS);
+            });
+        });
     });
 
     describe('test answer question endpoint', () => {
@@ -1515,6 +1601,17 @@ describe('Train Trax API', () => {
             });
         });
 
+        describe('given the answer is too long', () => {
+            it('should return bad payload', async () => {
+                const payload = {
+                    'token': true_payload.token,
+                    'question_id': 1,
+                    'answer_text': '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+                };
+                await supertest(app).post('/api/register').send(payload).expect(Json.STATUS_BAD_PAYLOAD);
+            });
+        });
+
         describe('given a bad question_id', () => {
             it('should return bad credentials', async () => {
                 const payload = {
@@ -1537,21 +1634,21 @@ describe('Train Trax API', () => {
             });
         });
 
-        // describe('given good info', () => {
-        //     it('should answer a question', async () => {
-        //         await DB.query('UPDATE users SET administrator = true WHERE user_id = $1', [true_payload.user_id]);
-        //         const question = await Question.getQuestionsFromId(true_payload.user_id);
-        //         true_payload.question_id = question[0].question_id;
-        //         const payload = {
-        //             'token': true_payload.token,
-        //             'question_id': true_payload.question_id,
-        //             'answer_text': 'test answer'
-        //         };
-        //         const res = await supertest(app).post('/api/answer_question').send(payload);
-        //         expect(res.statusCode).toBe(Json.STATUS_SUCCESS);
-        //         await DB.query('UPDATE users SET administrator = false WHERE user_id = $1', [true_payload.user_id]);
-        //     });
-        // });
+        describe('given good info', () => {
+            it('should answer a question', async () => {
+                await DB.query('UPDATE users SET administrator = true WHERE user_id = $1', [true_payload.user_id]);
+                const question = await Question.getQuestionsFromId(true_payload.user_id);
+                true_payload.question_id = question[0].question_id;
+                const payload = {
+                    'token': true_payload.token,
+                    'question_id': true_payload.question_id,
+                    'answer_text': 'test answer'
+                };
+                const res = await supertest(app).post('/api/answer_question').send(payload);
+                expect(res.statusCode).toBe(Json.STATUS_SUCCESS);
+                await DB.query('UPDATE users SET administrator = false WHERE user_id = $1', [true_payload.user_id]);
+            });
+        });
     });
 
     describe('test get question and endpoint', () => {
@@ -1580,6 +1677,13 @@ describe('Train Trax API', () => {
                 expect(res.statusCode).toBe(Json.STATUS_SUCCESS);
                 expect(res.body.questions).toBeInstanceOf(Array);
             });
+        });
+    });
+
+    // Disbaling testing account
+    describe('set account to disables', () => {
+        it('should set email and password to disabled', async () => {
+            await DB.query('UPDATE users SET email = $1, password = $1 WHERE user_id = $2', ['disabled', true_payload.user_id]);
         });
     });
 });
