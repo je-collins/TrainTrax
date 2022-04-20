@@ -19,8 +19,7 @@ class ProfileBar extends StatelessWidget {
     currentPage = current;
   }
 
-  static Wrap createProfileBar(BuildContext context, String currentPage,
-      String tokn, String name, bool isAdmin) {
+  static Wrap createProfileBar(BuildContext context, String currentPage, String tokn, String name, bool isAdmin) {
     return Wrap(
       alignment: WrapAlignment.end,
       children: <Widget>[
@@ -35,8 +34,7 @@ class ProfileBar extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.download),
             onPressed: () {
-              _toDownloads(
-                  tokn: tokn, name: name, context: context, isAdmin: isAdmin);
+              _toDownloads(tokn: tokn, name: name, context: context, isAdmin: isAdmin);
             },
           ),
 
@@ -94,8 +92,7 @@ class ProfileBar extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.settings),
             onPressed: () {
-              _toSettings(
-                  context: context, tokn: tokn, name: name, isAdmin: isAdmin);
+              _toSettings(context: context, tokn: tokn, name: name, isAdmin: isAdmin);
             },
           ),
 
@@ -206,8 +203,7 @@ class ProfileBar extends StatelessWidget {
           context,
           MaterialPageRoute(
             //articles: token["results"]
-            builder: (context) => OurTeamStatistics(
-                token: tokn, name: name, teamStats: userstats),
+            builder: (context) => OurTeamStatistics(token: tokn, name: name, teamStats: userstats),
           ),
           (route) => false,
         );
@@ -271,33 +267,16 @@ class ProfileBar extends StatelessWidget {
     required bool isAdmin,
   }) async {
     try {
-      Response _returnString;
-      var token;
+      List downloadedFiles = (await APICall.getDownloadedFiles());
 
-      _returnString = (await APICall.getUserInfo(tokn)) as Response;
-      token = jsonDecode(_returnString.body);
-
-      if (_returnString.statusCode == 200) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            //articles: token["results"]
-            builder: (context) => OurDownload(
-              token: tokn,
-              name: name,
-              isAdmin: isAdmin,
-            ),
-          ),
-          (route) => false,
-        );
-      } else {
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text(token["message"]),
-            duration: Duration(seconds: 3),
-          ),
-        );
-      }
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          //articles: token["results"]
+          builder: (context) => OurDownload(token: tokn, name: name, isAdmin: isAdmin, downloadedFiles: downloadedFiles),
+        ),
+        (route) => false,
+      );
     } catch (e) {
       print(e);
     }

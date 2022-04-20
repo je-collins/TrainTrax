@@ -17,26 +17,13 @@ class OurDownload extends StatelessWidget {
   String name = 'John Smith';
   String token;
   bool isAdmin = false;
+  List downloadedFiles;
 
-  OurDownload({Key? key, required this.token, required this.name, required this.isAdmin}) : super(key: key);
-
-  double progress = 0;
-
-  // Track if the PDF was downloaded here.
-  bool didDownloadPDF = false;
-
-  Future<List<String>> getDownloadedFiles(Dio dio, String url, String savePath) async {
-    Directory? dir = await getExternalStorageDirectory();
-    if (dir == null) {
-      return [];
-    }
-
-    await for (var file in dir.list(recursive: false, followLinks: false)) {}
-    return [];
-  }
+  OurDownload({Key? key, required this.token, required this.name, required this.isAdmin, required this.downloadedFiles}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    int len = downloadedFiles.length;
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -71,20 +58,29 @@ class OurDownload extends StatelessWidget {
                     ),
                   ),
                 ),
-                Row(
-                  children: [
-                    Container(
-                      child: IconButton(
-                        icon: Icon(Icons.download),
-                        color: Theme.of(context).secondaryHeaderColor,
-                        onPressed: () {},
+                for (int i = 0; i < len; i++)
+                  Row(
+                    children: [
+                      Container(
+                        child: IconButton(
+                          icon: Icon(Icons.file_copy),
+                          color: Theme.of(context).secondaryHeaderColor,
+                          onPressed: () {},
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 5.0,
-                    ),
-                  ],
-                )
+                      const SizedBox(
+                        width: 5.0,
+                      ),
+                      Text(
+                        downloadedFiles[i],
+                        style: TextStyle(
+                          color: Theme.of(context).secondaryHeaderColor,
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  )
               ],
             ),
           )
