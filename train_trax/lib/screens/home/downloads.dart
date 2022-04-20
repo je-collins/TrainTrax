@@ -5,13 +5,21 @@ import 'package:train_trax/widgets/TopBar.dart';
 
 class OurDownload extends StatelessWidget {
   String currentPage = "DOWNLOAD";
-  String name ='John Smith';
+  String name = 'John Smith';
   String token;
-  bool isAdmin = false; 
+  bool isAdmin = false;
+  List downloads;
 
-  OurDownload({Key? key, required this.token, required this.name, required this.isAdmin}) : super(key: key);
+  OurDownload(
+      {Key? key,
+      required this.token,
+      required this.name,
+      required this.isAdmin,
+      required this.downloads})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
+    int len = downloads.length;
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +55,7 @@ class OurDownload extends StatelessWidget {
                     ),
                   ),
                 ),
-                for (var i = 0; i < 5; i++)
+                for (var i = 0; i < len; i++)
                   Row(
                     children: [
                       Container(
@@ -62,7 +70,7 @@ class OurDownload extends StatelessWidget {
                       ),
                       Container(
                         child: Text(
-                          "testing",
+                          downloads[i].toString(),
                           style: TextStyle(
                             color: Theme.of(context).secondaryHeaderColor,
                             fontSize: 15.0,

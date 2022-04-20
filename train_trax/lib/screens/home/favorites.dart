@@ -73,8 +73,8 @@ class OurFavorite extends StatelessWidget {
                               icon: Icon(Icons.favorite),
                               color: Theme.of(context).secondaryHeaderColor,
                               onPressed: () {
-                                APICall.removeFavoriteRequest(
-                                    token, articles[i]["article_id"]);
+                                APICall.removeFavoriteRequest(token,
+                                    articles[i]["article_id"].toString());
                               },
                             ),
                             Padding(

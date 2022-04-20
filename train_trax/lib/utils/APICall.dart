@@ -233,6 +233,28 @@ class APICall {
     return file["message"];
   }
 
+  static Future<List> getStartedArticleRequest(String token) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_articles");
+
+    var response = await http.post(url, headers: <String, String>{
+      "JSON": "application/json",
+    }, body: {
+      "token": token
+    });
+
+    //print(response.statusCode);
+    //jsonDecode(response.body);
+    //print(response.body);
+
+    //if(response.statusCode == 200)
+    //return "success";
+    var file = jsonDecode(response.body);
+
+    if (response.statusCode == 200) return file["started"];
+
+    return file["message"];
+  }
+
   static Future<List> getCompleteArticleRequest(String token) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_articles");
 
@@ -288,7 +310,7 @@ class APICall {
     }, body: {
       "token": token
     });
-    
+
     var file = jsonDecode(response.body);
 
     //if(response.statusCode == 200)
@@ -485,8 +507,28 @@ class APICall {
   }
 
   static Future<String> removeFavoriteRequest(
-      String token, int articleid) async {
+      String token, String articleid) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/remove_favorite");
+
+    var response = await http.post(url, headers: <String, String>{
+      "JSON": "application/json",
+    }, body: {
+      "token": token,
+      "article_id": articleid,
+    });
+
+    //print(response.statusCode);
+    //print(response.body);
+
+    if (response.statusCode == 200) return "success";
+
+    return "failure";
+  }
+
+  static Future<String> setEndTimeRequest(
+      String token, String articleid) async {
+    Uri url =
+        Uri.parse("https://train-trax.herokuapp.com/api/set_article_end_time");
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
