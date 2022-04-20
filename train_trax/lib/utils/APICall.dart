@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
+import 'package:pspdfkit_flutter/src/main.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 class APICall {
   static Future<String> loginRequest(String email, String password) async {
@@ -36,8 +41,7 @@ class APICall {
     return decoded["token"];
   }
 
-  static Future<String> registerRequest(
-      String email, String password, String phone, String name) async {
+  static Future<String> registerRequest(String email, String password, String phone, String name) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/register");
 
     var response = await http.post(url, headers: <String, String>{
@@ -72,8 +76,7 @@ class APICall {
     return "failure";
   }
 
-  static Future<String> resetPasswordRequest(
-      String token, String password) async {
+  static Future<String> resetPasswordRequest(String token, String password) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/reset_password");
 
     var response = await http.post(url, headers: <String, String>{
@@ -208,8 +211,7 @@ class APICall {
   }
 
   static Future<List> getAllArticleRequest(String token) async {
-    Uri url =
-        Uri.parse("https://train-trax.herokuapp.com/api/get_all_articles");
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_all_articles");
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
@@ -225,8 +227,7 @@ class APICall {
   }
 
   static Future<http.Response> getStarredArticleRequest(String token) async {
-    Uri url =
-        Uri.parse("https://train-trax.herokuapp.com/api/get_starred_articles");
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_starred_articles");
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
@@ -238,8 +239,7 @@ class APICall {
   }
 
   static Future<List> getStarredDomainsRequest(String token) async {
-    Uri url =
-        Uri.parse("https://train-trax.herokuapp.com/api/get_starred_domains");
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_starred_domains");
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
@@ -295,8 +295,7 @@ class APICall {
     return response;
   }
 
-  static Future<String> addMemberRequest(
-      String token, int teamid, String memberid) async {
+  static Future<String> addMemberRequest(String token, int teamid, String memberid) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/add_member");
 
     var response = await http.post(url, headers: <String, String>{
@@ -312,8 +311,7 @@ class APICall {
     return "failure";
   }
 
-  static Future<String> deleteMemberRequest(
-      String token, int teamid, String memberid) async {
+  static Future<String> deleteMemberRequest(String token, int teamid, String memberid) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/delete_member");
 
     var response = await http.post(url, headers: <String, String>{
@@ -329,8 +327,7 @@ class APICall {
     return "failure";
   }
 
-  static Future<String> answerQuestionRequest(
-      String token, String qid, String answer) async {
+  static Future<String> answerQuestionRequest(String token, String qid, String answer) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/answer_question");
 
     var response = await http.post(url, headers: <String, String>{
@@ -346,8 +343,7 @@ class APICall {
     return "failure";
   }
 
-  static Future<String> askQuestionRequest(
-      String token, String qusetion) async {
+  static Future<String> askQuestionRequest(String token, String qusetion) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/ask_question");
 
     var response = await http.post(url, headers: <String, String>{
@@ -363,8 +359,7 @@ class APICall {
   }
 
   static Future<http.Response> getQuestionsAnswerRequest(String token) async {
-    Uri url =
-        Uri.parse("https://train-trax.herokuapp.com/api/get_questions_answers");
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_questions_answers");
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
@@ -375,8 +370,7 @@ class APICall {
     return response;
   }
 
-  static Future<String> addFavoriteRequest(
-      String token, String articleid) async {
+  static Future<String> addFavoriteRequest(String token, String articleid) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/add_favorite");
 
     var response = await http.post(url, headers: <String, String>{
@@ -391,8 +385,7 @@ class APICall {
     return "failure";
   }
 
-  static Future<String> removeFavoriteRequest(
-      String token, String articleid) async {
+  static Future<String> removeFavoriteRequest(String token, String articleid) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/remove_favorite");
 
     var response = await http.post(url, headers: <String, String>{
@@ -407,10 +400,8 @@ class APICall {
     return "failure";
   }
 
-  static Future<String> setEndTimeRequest(
-      String token, String articleid) async {
-    Uri url =
-        Uri.parse("https://train-trax.herokuapp.com/api/set_article_end_time");
+  static Future<String> setEndTimeRequest(String token, String articleid) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/set_article_end_time");
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
@@ -424,8 +415,8 @@ class APICall {
     return "failure";
   }
 
-  static Future<http.Response> getTeamStatsRequest(
-      String token, int team_id) async {
+  //flutter run -d web-server
+  static Future<http.Response> getTeamStatsRequest(String token, int team_id) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_team_stats");
 
     var response = await http.post(url, headers: <String, String>{
@@ -440,8 +431,7 @@ class APICall {
     return response;
   }
 
-  static Future<http.Response> getTeamInfoRequest(
-      String token, String team_id) async {
+  static Future<http.Response> getTeamInfoRequest(String token, int team_id) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_team_info");
 
     var response = await http.post(url, headers: <String, String>{
@@ -473,10 +463,8 @@ class APICall {
     return "failure";
   }
 
-  static Future<String> addStarredArticleRequest(
-      String token, String article) async {
-    Uri url =
-        Uri.parse("https://train-trax.herokuapp.com/api/add_starred_article");
+  static Future<String> addStarredArticleRequest(String token, String article) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/add_starred_article");
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
@@ -492,10 +480,8 @@ class APICall {
     return "failure";
   }
 
-  static Future<String> addStarredDomainRequest(
-      String token, String domain) async {
-    Uri url =
-        Uri.parse("https://train-trax.herokuapp.com/api/add_starred_domain");
+  static Future<String> addStarredDomainRequest(String token, String domain) async {
+    Uri url = Uri.parse("https://train-trax.herokuapp.com/api/add_starred_domain");
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
@@ -509,5 +495,21 @@ class APICall {
     if (response.statusCode == 200) return "success";
 
     return "failure";
+  }
+
+  static Future<List<String>> getDownloadedFiles() async {
+    Directory? dir = await getExternalStorageDirectory();
+    if (dir == null) {
+      return [];
+    }
+
+    List<String> files = [];
+
+    await for (FileSystemEntity file in dir.list(recursive: false, followLinks: false)) {
+      if (file is File) {
+        files.add(basename(file.path));
+      }
+    }
+    return files;
   }
 }

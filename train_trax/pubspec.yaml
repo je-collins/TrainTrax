@@ -39,7 +39,8 @@ dependencies:
   dio: ^4.0.4
   path_provider: ^2.0.9
   android_path_provider: ^0.3.0
-
+  pspdfkit_flutter: ^3.2.2
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
