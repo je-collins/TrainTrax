@@ -187,7 +187,8 @@ class NavBar {
       token = jsonDecode(_returnString.body);
       Response userStat = await APICall.getUserStats(tokn) as Response;
       var stats = jsonDecode(userStat.body);
-      List myArticles = (await APICall.getArticleRequest(tokn)) as List;
+      List startedArticles =
+          (await APICall.getStartedArticleRequest(tokn)) as List;
       List completedArticles =
           (await APICall.getCompleteArticleRequest(tokn)) as List;
 
@@ -202,7 +203,7 @@ class NavBar {
                 isAdmin: isAdmin,
                 articles: token["results"],
                 userStats: stats["stats"],
-                myArticles: myArticles,
+                startedArticles: startedArticles,
                 completedArticles: completedArticles),
           ),
           (route) => false,
@@ -312,8 +313,7 @@ class NavBar {
       Response _returnString;
       var token;
 
-      _returnString =
-          (await APICall.getUserInfo(tokn)) as Response;
+      _returnString = (await APICall.getUserInfo(tokn)) as Response;
       token = jsonDecode(_returnString.body);
       Response _returnTeam = (await APICall.getTeamInfoRequest(tokn, token["teams_admin"][0]["team_id"].toString())) as Response;
 

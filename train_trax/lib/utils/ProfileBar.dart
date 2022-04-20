@@ -2,6 +2,10 @@ import 'dart:convert';
 import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:android_path_provider/android_path_provider.dart';
+import 'package:path_provider/path_provider.dart';
+
 import 'package:http/http.dart';
 import 'package:train_trax/screens/home/downloads.dart';
 import 'package:train_trax/screens/home/faq.dart';
@@ -33,15 +37,8 @@ class ProfileBar extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.download),
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => OurDownload(
-                    token: tokn,
-                    name: name,
-                    isAdmin: isAdmin,
-                  ),
-                ),
-              );
+              _toDownloads(
+                  tokn: tokn, name: name, context: context, isAdmin: isAdmin);
             },
           ),
 
@@ -253,6 +250,47 @@ class ProfileBar extends StatelessWidget {
               name: name,
               isAdmin: isAdmin,
             ),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static void _toDownloads({
+    required String tokn,
+    required String name,
+    required BuildContext context,
+    required bool isAdmin,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await APICall.getUserInfo(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+
+      List _downloadsDirectory = (await getDownloadsDirectory()) as List;
+
+      if (_downloadsDirectory != null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            //articles: token["results"]
+            builder: (context) => OurDownload(
+                token: tokn,
+                name: name,
+                isAdmin: isAdmin,
+                downloads: _downloadsDirectory),
           ),
           (route) => false,
         );

@@ -19,7 +19,7 @@ class OurHome extends StatelessWidget {
   bool isAdmin;
   List articles;
   var userStats;
-  List myArticles;
+  List startedArticles;
   List completedArticles;
 
   OurHome(
@@ -29,14 +29,14 @@ class OurHome extends StatelessWidget {
       required this.isAdmin,
       required this.articles,
       required this.userStats,
-      required this.myArticles,
+      required this.startedArticles,
       required this.completedArticles})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     int len = articles.length;
-    int leng = myArticles.length;
+    int leng = startedArticles.length;
     int lengt = completedArticles.length;
 
     return Scaffold(
@@ -258,7 +258,7 @@ class OurHome extends StatelessWidget {
                                                                       horizontal:
                                                                           100),
                                                               child: Text(
-                                                                "Favorite",
+                                                                "Add",
                                                                 style:
                                                                     TextStyle(
                                                                   color: Colors
@@ -271,52 +271,16 @@ class OurHome extends StatelessWidget {
                                                                 ),
                                                               ),
                                                             ),
-                                                            onPressed: () {},
+                                                            onPressed: () {
+                                                              APICall
+                                                                  .addArticleRequest(
+                                                                      token,
+                                                                      articles[
+                                                                          i]);
+                                                              Navigator.pop(
+                                                                  context);
+                                                            },
                                                           ),
-                                                          RaisedButton(
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          100),
-                                                              child: Text(
-                                                                "Download",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      20.0,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            onPressed: () {},
-                                                          ),
-                                                          RaisedButton(
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          100),
-                                                              child: Text(
-                                                                "Mark as Completed",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      20.0,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            onPressed: () {},
-                                                          )
                                                         ],
                                                       ),
                                                     ],
@@ -345,7 +309,6 @@ class OurHome extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 for (var i = 0; i < leng; i++)
                   Container(
                     child: Column(
@@ -372,118 +335,138 @@ class OurHome extends StatelessWidget {
                                   ),
                                   //name of article
 
-                                  text: myArticles[i]["article"],
+                                  text: startedArticles[i]["article"],
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () async {
                                       showDialog(
                                           context: context,
-                                          builder: (BuildContext context) =>
-                                              Dialog(
-                                                child: Center(
-                                                  child: Wrap(
-                                                    alignment:
-                                                        WrapAlignment.center,
-                                                    children: <Widget>[
-                                                      Padding(
-                                                        padding: EdgeInsets.all(
-                                                            15.0),
-                                                        child: Container(
-                                                            alignment: Alignment
-                                                                .center,
-                                                            height: 6 * 24,
-                                                            child: RichText(
-                                                              text: TextSpan(
-                                                                children: [
-                                                                  Urls.createUrl(
-                                                                      url: myArticles[
-                                                                              i]
-                                                                          [
-                                                                          "article"],
-                                                                      txt: myArticles[
-                                                                              i]
-                                                                          [
-                                                                          "article"],
-                                                                      context:
-                                                                          context),
-                                                                ],
-                                                              ),
-                                                            )),
-                                                      ),
-                                                      Wrap(
-                                                        spacing: 20.0,
-                                                        children: [
-                                                          RaisedButton(
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          100),
-                                                              child: Text(
-                                                                "Favorite",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      20.0,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            onPressed: () {},
+                                          builder:
+                                              (BuildContext context) => Dialog(
+                                                    child: Center(
+                                                      child: Wrap(
+                                                        alignment: WrapAlignment
+                                                            .center,
+                                                        children: <Widget>[
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    15.0),
+                                                            child: Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                height: 6 * 24,
+                                                                child: RichText(
+                                                                  text:
+                                                                      TextSpan(
+                                                                    children: [
+                                                                      Urls.createUrl(
+                                                                          url: startedArticles[i]
+                                                                              [
+                                                                              "article"],
+                                                                          txt: startedArticles[i]
+                                                                              [
+                                                                              "article"],
+                                                                          context:
+                                                                              context),
+                                                                    ],
+                                                                  ),
+                                                                )),
                                                           ),
-                                                          RaisedButton(
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          100),
-                                                              child: Text(
-                                                                "Download",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      20.0,
+                                                          Wrap(
+                                                            spacing: 20.0,
+                                                            children: [
+                                                              RaisedButton(
+                                                                child: Padding(
+                                                                  padding: EdgeInsets
+                                                                      .symmetric(
+                                                                          horizontal:
+                                                                              100),
+                                                                  child: Text(
+                                                                    "Favorite",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          20.0,
+                                                                    ),
+                                                                  ),
                                                                 ),
+                                                                onPressed: () {
+                                                                  APICall.addFavoriteRequest(
+                                                                      token,
+                                                                      startedArticles[i]
+                                                                              [
+                                                                              "article_id"]
+                                                                          .toString());
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
                                                               ),
-                                                            ),
-                                                            onPressed: () {},
+                                                              RaisedButton(
+                                                                child: Padding(
+                                                                  padding: EdgeInsets
+                                                                      .symmetric(
+                                                                          horizontal:
+                                                                              100),
+                                                                  child: Text(
+                                                                    "Download",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          20.0,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                onPressed:
+                                                                    () {},
+                                                              ),
+                                                              RaisedButton(
+                                                                child: Padding(
+                                                                  padding: EdgeInsets
+                                                                      .symmetric(
+                                                                          horizontal:
+                                                                              100),
+                                                                  child: Text(
+                                                                    "Mark as Completed",
+                                                                    style:
+                                                                        TextStyle(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontSize:
+                                                                          20.0,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                onPressed: () {
+                                                                  APICall.setEndTimeRequest(
+                                                                      token,
+                                                                      startedArticles[i]
+                                                                              [
+                                                                              "article_id"]
+                                                                          .toString());
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                },
+                                                              )
+                                                            ],
                                                           ),
-                                                          RaisedButton(
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                      horizontal:
-                                                                          100),
-                                                              child: Text(
-                                                                "Mark as Completed",
-                                                                style:
-                                                                    TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize:
-                                                                      20.0,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            onPressed: () {},
-                                                          )
                                                         ],
                                                       ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ));
+                                                    ),
+                                                  ));
                                     }),
                             ],
                           ),
