@@ -262,12 +262,14 @@ class ProfileBar extends StatelessWidget {
   }) async {
     try {
       List downloadedFiles = (await APICall.getDownloadedFiles());
+      Directory? location = (await getExternalStorageDirectory());
+      String? actualLocation = location?.path;
 
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
           //articles: token["results"]
-          builder: (context) => OurDownload(token: tokn, name: name, isAdmin: isAdmin, downloadedFiles: downloadedFiles),
+          builder: (context) => OurDownload(token: tokn, name: name, isAdmin: isAdmin, downloadedFiles: downloadedFiles, location: actualLocation!),
         ),
         (route) => false,
       );

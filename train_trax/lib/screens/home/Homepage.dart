@@ -31,7 +31,6 @@ class OurHome extends StatelessWidget {
 
   double progress = 0;
   static const List<String> supportedFileExtensions = ['.pdf', '.txt', '.md', '.rtf'];
-  bool didDownloadPDF = false;
 
   // This method uses Dio to download a file from the given URL
   // and saves the file to the provided `savePath`.
@@ -387,17 +386,13 @@ class OurHome extends StatelessWidget {
                                                             ),
                                                             onPressed: !safe
                                                                 ? null
-                                                                : () {
-                                                                    didDownloadPDF
-                                                                        ? null
-                                                                        : () async {
-                                                                            Directory? tempDir = await getExternalStorageDirectory();
-                                                                            if (tempDir != null) {
-                                                                              String fileName = imageUrl.contains('/') ? imageUrl.substring(imageUrl.lastIndexOf('/') + 1) : imageUrl;
-                                                                              download(Dio(), imageUrl, tempDir.path + '/' + fileName);
-                                                                              print(tempDir.path);
-                                                                            }
-                                                                          };
+                                                                : () async {
+                                                                    Directory? tempDir = await getExternalStorageDirectory();
+                                                                    if (tempDir != null) {
+                                                                      String fileName = imageUrl.contains('/') ? imageUrl.substring(imageUrl.lastIndexOf('/') + 1) : imageUrl;
+                                                                      download(Dio(), imageUrl, tempDir.path + '/' + fileName);
+                                                                      print(tempDir.path);
+                                                                    }
                                                                   },
                                                           ),
                                                           RaisedButton(
@@ -524,20 +519,6 @@ class OurHome extends StatelessWidget {
                                                             ),
                                                             onPressed: () {},
                                                           ),
-                                                          RaisedButton(
-                                                            child: Padding(
-                                                              padding: EdgeInsets.symmetric(horizontal: 100),
-                                                              child: Text(
-                                                                "Mark as Completed",
-                                                                style: TextStyle(
-                                                                  color: Colors.white,
-                                                                  fontWeight: FontWeight.bold,
-                                                                  fontSize: 20.0,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            onPressed: () {},
-                                                          )
                                                         ],
                                                       ),
                                                     ],
