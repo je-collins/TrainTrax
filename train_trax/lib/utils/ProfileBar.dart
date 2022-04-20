@@ -27,13 +27,13 @@ class ProfileBar extends StatelessWidget {
       alignment: WrapAlignment.end,
       children: <Widget>[
         //DOWNLOAD
-        if (currentPage == "DOWNLOAD")
+        if (!kIsWeb && currentPage == "DOWNLOAD")
           IconButton(
             color: Colors.yellow,
             icon: const Icon(Icons.download),
             onPressed: () {},
           ),
-        if (currentPage != "DOWNLOAD")
+        if (!kIsWeb && currentPage != "DOWNLOAD")
           IconButton(
             icon: const Icon(Icons.download),
             onPressed: () {
@@ -53,15 +53,7 @@ class ProfileBar extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.help),
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => OurFAQ(
-                    token: tokn,
-                    name: name,
-                    isAdmin: isAdmin,
-                  ),
-                ),
-              );
+              _toFAQ(tokn: tokn, name: name, context: context, isAdmin: isAdmin);
             },
           ),
 
@@ -298,6 +290,44 @@ class ProfileBar extends StatelessWidget {
         Scaffold.of(context).showSnackBar(
           SnackBar(
             content: Text(token["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static void _toFAQ({
+    required String tokn,
+    required String name,
+    required bool isAdmin,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnList;
+
+      _returnList = (await APICall.getQuestionsAnswerRequest(tokn) as Response);
+      var listOfQ = jsonDecode(_returnList.body);
+
+      if (_returnList != null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OurFAQ(
+              token: tokn,
+              name: name,
+              listOfQ: listOfQ["questions"], 
+              isAdmin: isAdmin,
+            ),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text("failed to load questions"),
             duration: Duration(seconds: 3),
           ),
         );

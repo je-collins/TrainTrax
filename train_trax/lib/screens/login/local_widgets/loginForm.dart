@@ -22,7 +22,6 @@ class OurLoginForm extends StatelessWidget {
     try {
       String _returnString;
       String token;
-      //String _returnStringName = 'John Smith';
       Response _returnStringName;
 
       _returnString = await APICall.loginRequest(email, password);

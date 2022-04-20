@@ -130,7 +130,6 @@ class OurAdminFAQ extends StatelessWidget {
                   Wrap(
                     children: <Widget>[
                       //QUESTIONS
-                      if(listOfQ[i]["answers"].length == 0)
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         width: 500.0,
@@ -176,7 +175,7 @@ class OurAdminFAQ extends StatelessWidget {
                       // ),
 
                       //ANSWER BUTTON
-                      if(listOfQ[i]["answers"].length == 0)
+                      //if(listOfQ[i]["answers"].length == 0)
                       Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         child: RaisedButton(
