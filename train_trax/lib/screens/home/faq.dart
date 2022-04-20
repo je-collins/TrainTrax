@@ -9,16 +9,19 @@ class OurFAQ extends StatelessWidget {
   final fieldText = TextEditingController();
   String token;
   bool isAdmin;
+  var listOfQ;
 
   OurFAQ(
       {Key? key,
       required this.token,
       required this.name,
-      required this.isAdmin})
+      required this.isAdmin,
+      required this.listOfQ})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    num numQuest = listOfQ.length;
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +48,7 @@ class OurFAQ extends StatelessWidget {
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
                   child: Center(
                     child: Text(
-                      "FREQUENTLY ASKED QUESTIONS",
+                      "RECENTLY ASKED QUESTIONS",
                       style: TextStyle(
                         color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 25.0,
@@ -54,74 +57,74 @@ class OurFAQ extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
-                  child: Text("\u2022 " + "How can I access my user stats?",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-                Container(
-                  child: Text(
-                      " Reference your personal user stats on the Homepage.",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.normal,
-                      )),
-                ),
-                Container(
-                  child: Text("\u2022 " + "How can I access my team stats?",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-                Container(
-                  child: Text(" Team stats are only visible to administrators.",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.normal,
-                      )),
-                ),
-                Container(
-                  child: Text("\u2022 " + "How can I change my password?",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-                Wrap(children: [
-                  Text(
-                      " Users can change their password either by using the Forgot Password page or visiting the Settings page within the application.",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.normal,
-                      )),
-                ]),
-                Container(
-                  child: Text(
-                      "\u2022 " + "What should I do if I have more questions?",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-                Container(
-                  child: Text(
-                      " Reference the box below to ask your administrator.",
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.normal,
-                      )),
-                ),
+
+                for(var i=0; i<numQuest; i++) 
+                  Wrap(
+                    children: <Widget>[
+                      if(listOfQ[i]["answers"].length != 0)
+                      Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                          //QUESTIONS
+                          RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                style: TextStyle(
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                text: "\u2022 ",
+                              ),
+                              TextSpan(
+                                text: listOfQ[i]["question"],
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColorDark,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        //ANSWERS
+                        for(int j=0; j<listOfQ[i]["answers"].length; j++)
+                        RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                style: TextStyle(
+                                  color: Theme.of(context).secondaryHeaderColor,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                                text: "   ",
+                              ),
+                              TextSpan(
+                                text: listOfQ[i]["answers"][j],
+                                style: TextStyle(
+                                  color: Theme.of(context).primaryColorDark,
+                                  fontSize: 15.0,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          ],
+                        ),
+                      ),
+                      
+                    ],
+                  ),
+
                 Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),

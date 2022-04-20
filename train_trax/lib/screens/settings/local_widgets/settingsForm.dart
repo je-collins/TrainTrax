@@ -1,6 +1,4 @@
 import 'dart:convert';
-//import 'dart:html';
-
 import 'package:http/http.dart';
 import 'package:train_trax/screens/home/Homepage.dart';
 import 'package:flutter/material.dart';
@@ -178,7 +176,7 @@ class OurSettingsForm extends StatelessWidget {
             height: 20.0,
           ),
 
-          //add sign out button
+          //sign out button
           Center(
             child: RaisedButton(
               child: Padding(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Profile extends StatelessWidget{
+class Profile {
   String? name = null;
 
   void setPage(String? pname){
@@ -17,7 +17,6 @@ class Profile extends StatelessWidget{
       child: Padding(
         padding: EdgeInsets.all(5.0),
         child: Wrap(
-          //alignment: WrapAlignment.center,
           children: <Widget>[
             Icon(
               Icons.person,
@@ -47,7 +46,6 @@ class Profile extends StatelessWidget{
                 if(thridlline)
                   Text(
                     'Pride, Honor, Integrity',
-                    //TextAlign: ,
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -59,36 +57,6 @@ class Profile extends StatelessWidget{
 
           ],
         ),
-      ),
-    );
-  }
-
-  Widget build(BuildContext context) {
-    return Container(
-      child: Wrap(
-        alignment: WrapAlignment.end,
-        children: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.download),
-            onPressed: () {
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.help),
-            onPressed: () {
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.favorite),
-            onPressed: () {
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-            },
-          ),
-        ],
       ),
     );
   }

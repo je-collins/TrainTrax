@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:path_provider/path_provider.dart';
-
 import 'package:http/http.dart';
 import 'package:train_trax/screens/home/downloads.dart';
 import 'package:train_trax/screens/home/faq.dart';
@@ -24,13 +25,13 @@ class ProfileBar extends StatelessWidget {
       alignment: WrapAlignment.end,
       children: <Widget>[
         //DOWNLOAD
-        if (currentPage == "DOWNLOAD")
+        if (!kIsWeb && currentPage == "DOWNLOAD")
           IconButton(
             color: Colors.yellow,
             icon: const Icon(Icons.download),
             onPressed: () {},
           ),
-        if (currentPage != "DOWNLOAD")
+        if (!kIsWeb && currentPage != "DOWNLOAD")
           IconButton(
             icon: const Icon(Icons.download),
             onPressed: () {
@@ -49,15 +50,7 @@ class ProfileBar extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.help),
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => OurFAQ(
-                    token: tokn,
-                    name: name,
-                    isAdmin: isAdmin,
-                  ),
-                ),
-              );
+              _toFAQ(tokn: tokn, name: name, context: context, isAdmin: isAdmin);
             },
           ),
 
@@ -97,13 +90,13 @@ class ProfileBar extends StatelessWidget {
           ),
 
         //ADMINISTRATION
-        if (isAdmin && currentPage == "ADMINISTRATION")
+        if (kIsWeb && isAdmin && currentPage == "ADMINISTRATION")
           IconButton(
             color: Colors.yellow,
             icon: const Icon(Icons.admin_panel_settings),
             onPressed: () {},
           ),
-        if (isAdmin && currentPage != "ADMINISTRATION")
+        if (kIsWeb && isAdmin && currentPage != "ADMINISTRATION")
           IconButton(
             icon: const Icon(Icons.admin_panel_settings),
             onPressed: () {
@@ -161,7 +154,6 @@ class ProfileBar extends StatelessWidget {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
             builder: (context) => OurFavorite(
               token: tokn,
               articles: token["results"],
@@ -237,7 +229,6 @@ class ProfileBar extends StatelessWidget {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
             builder: (context) => OurSettings(
               token: tokn,
               email: token["email"],
@@ -268,7 +259,6 @@ class ProfileBar extends StatelessWidget {
   }) async {
     try {
       List downloadedFiles = (await APICall.getDownloadedFiles());
-
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
@@ -277,6 +267,44 @@ class ProfileBar extends StatelessWidget {
         ),
         (route) => false,
       );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static void _toFAQ({
+    required String tokn,
+    required String name,
+    required bool isAdmin,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnList;
+
+      _returnList = (await APICall.getQuestionsAnswerRequest(tokn) as Response);
+      var listOfQ = jsonDecode(_returnList.body);
+
+      if (_returnList != null) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OurFAQ(
+              token: tokn,
+              name: name,
+              listOfQ: listOfQ["questions"], 
+              isAdmin: isAdmin,
+            ),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text("failed to load questions"),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
     } catch (e) {
       print(e);
     }

@@ -196,7 +196,6 @@ class NavBar {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
             builder: (context) => OurHome(
                 token: tokn,
                 name: name,
@@ -241,7 +240,6 @@ class NavBar {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
             builder: (context) => OurLibrary(
               token: tokn,
               articles: token["results"],
@@ -281,7 +279,6 @@ class NavBar {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
             builder: (context) => OurSelfDirected(
               token: tokn,
               articles: _returnString,
@@ -315,9 +312,9 @@ class NavBar {
 
       _returnString = (await APICall.getUserInfo(tokn)) as Response;
       token = jsonDecode(_returnString.body);
+      Response _returnTeam = (await APICall.getTeamInfoRequest(tokn, token["teams_admin"][0]["team_id"].toString())) as Response;
 
-      if (_returnString.statusCode != 200) {
-        //Response _returnTeam = (await APICall.getTeamInfoRequest(tokn, token["teams_admin"]["team_id"])) as Response;
+      if (_returnString.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -360,7 +357,6 @@ class NavBar {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
             builder: (context) => OurTeamStatistics(
                 token: tokn, name: name, teamStats: userstats),
           ),
@@ -396,7 +392,6 @@ class NavBar {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
             builder: (context) => OurAddResources(
               token: tokn,
               name: name,

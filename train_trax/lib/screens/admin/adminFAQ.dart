@@ -18,12 +18,8 @@ class OurAdminFAQ extends StatelessWidget {
   var _hover = false;
   int maxLine = 8;
   var listOfQ;
-  // List<String> listOfM = ['John Smith', 
-  //                         'John Smith',
-  //                         'John Smith'];
   var numQuest = 0;
 
-  //works
   String token;
   bool isAdmin = true;
 
@@ -31,7 +27,6 @@ class OurAdminFAQ extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //name = token;
     numQuest = listOfQ.length;
     return Scaffold(
       body: Column(
@@ -103,22 +98,6 @@ class OurAdminFAQ extends StatelessWidget {
                           ),
                         ),
                       ),
-
-                      //MEMBER
-                      // Container(
-                      //   width: 300.0,
-                      //   child: Text(
-                      //     "MEMBER",
-                      //     textAlign: TextAlign.center,
-                      //     overflow: TextOverflow.visible,
-                      //     softWrap: true,
-                      //     style: TextStyle(
-                      //       color: Theme.of(context).secondaryHeaderColor,
-                      //       fontSize: 15.0,
-                      //       fontWeight: FontWeight.bold,
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                 ),
 
@@ -130,7 +109,6 @@ class OurAdminFAQ extends StatelessWidget {
                   Wrap(
                     children: <Widget>[
                       //QUESTIONS
-                      if(listOfQ[i]["answers"].length == 0)
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         width: 500.0,
@@ -158,25 +136,7 @@ class OurAdminFAQ extends StatelessWidget {
                         ),
                       ),
 
-                      //MEMBER
-                      //if(listOfQ[i]["answers"].length == 0)
-                      // Container(
-                      //   width: 300.0,
-                      //   child: Text(
-                      //     listOfM[i],
-                      //     textAlign: TextAlign.center,
-                      //     overflow: TextOverflow.visible,
-                      //     softWrap: true,
-                      //     style: TextStyle(
-                      //       color: Theme.of(context).primaryColorDark,
-                      //       fontSize: 15.0,
-                      //       fontWeight: FontWeight.normal,
-                      //      ),
-                      //   ),
-                      // ),
-
                       //ANSWER BUTTON
-                      if(listOfQ[i]["answers"].length == 0)
                       Container(
                         padding: const EdgeInsets.only(left: 10.0),
                         child: RaisedButton(
@@ -217,17 +177,9 @@ class OurAdminFAQ extends StatelessWidget {
                                               ),
                                             ),
                                             keyboardType: TextInputType.multiline,
-                                            maxLines: 6,// when user presses enter it will adapt to it
+                                            maxLines: 6,
                                           ),
                                         ),
-                                        /*
-                                        TextField(
-                                        
-                                          keyboardType: TextInputType.multiline,
-                                          minLines: 1,//Normal textInputField will be displayed
-                                          maxLines: 5,// when user presses enter it will adapt to it
-                                        ),
-                                        */
                                       ),
                                       SizedBox(
                                         height: 20.0,
@@ -259,18 +211,6 @@ class OurAdminFAQ extends StatelessWidget {
                           },
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0))
-                         
-                          /*
-                          TextFormField(
-                            controller: answerController,
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
-                              obscureText: true,
-                            );
-                          SizedBox(
-                            height: 20.0,
-                          );
-                          */
                         ),
                       ),
                     ],
