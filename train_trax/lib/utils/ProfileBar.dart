@@ -277,18 +277,16 @@ class ProfileBar extends StatelessWidget {
       _returnString = (await APICall.getUserInfo(tokn)) as Response;
       token = jsonDecode(_returnString.body);
 
-      List _downloadsDirectory = (await getDownloadsDirectory()) as List;
-
-      if (_downloadsDirectory != null) {
+      if (_returnString.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             //articles: token["results"]
             builder: (context) => OurDownload(
-                token: tokn,
-                name: name,
-                isAdmin: isAdmin,
-                downloads: _downloadsDirectory),
+              token: tokn,
+              name: name,
+              isAdmin: isAdmin,
+            ),
           ),
           (route) => false,
         );

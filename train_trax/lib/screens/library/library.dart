@@ -9,6 +9,8 @@ import 'package:train_trax/widgets/TopBar.dart';
 import 'package:train_trax/utils/APICall.dart';
 import 'package:train_trax/utils/urls.dart';
 
+import '../../widgets/Navigation.dart';
+
 class OurLibrary extends StatelessWidget {
   Icon customIcon = const Icon(Icons.search);
   Widget customSearchBar = const Text('My Personal Journal');
@@ -21,19 +23,23 @@ class OurLibrary extends StatelessWidget {
   List allArticles;
   bool isAdmin = false;
 
-  OurLibrary({Key? key, required this.token, required this.articles, required this.name, required this.isAdmin, required this.allArticles}) : super(key: key);
-
-
+  OurLibrary(
+      {Key? key,
+      required this.token,
+      required this.articles,
+      required this.name,
+      required this.isAdmin,
+      required this.allArticles})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     articles.shuffle();
-    int len=articles.length;
-    if(len>10){
-      len=10;
+    int len = articles.length;
+    if (len > 10) {
+      len = 10;
     }
 
-    
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -96,68 +102,79 @@ class OurLibrary extends StatelessWidget {
                           ),
                           hintText: 'Search...',
                           border: InputBorder.none),
-                          onSubmitted: (value) async {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context) => 
-                              Dialog(
-                                child: Center(
-                                  child: Wrap(
-                                    alignment: WrapAlignment.center,
-                                    children: <Widget>[
-                                                Padding(
-                                                  padding: EdgeInsets.all(15.0),
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    height: 6*24,
-                                                    child: RichText(
-                                                      text: TextSpan(
-                                                        children: [
-                                                          if(allArticles.contains(fieldText.text))
-                                                            TextSpan(
-                                                            style: TextStyle(
-                                                              color: Theme.of(context).secondaryHeaderColor,
-                                                              fontSize: 15.0,
-                                                              fontWeight: FontWeight.normal,
-                                                            ),
-                                                            text: fieldText.text+" is in the database",
-                                                            ),
-                                                          if(!allArticles.contains(fieldText.text))
-                                                          TextSpan(
-                                                            style: TextStyle(
-                                                              color: Theme.of(context).secondaryHeaderColor,
-                                                              fontSize: 15.0,
-                                                              fontWeight: FontWeight.normal,
-                                                            ),
-                                                            text: fieldText.text+" is not the database",
-                                                            ),
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ),
-                                                ),
-
-                                                if(allArticles.contains(fieldText.text))
-                                                  RaisedButton(
-                                                    child: Padding(
-                                                      padding: EdgeInsets.symmetric(horizontal: 100),
-                                                      child: Text(
-                                                        "Add",
+                      onSubmitted: (value) async {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) => Dialog(
+                                  child: Center(
+                                    child: Wrap(
+                                      alignment: WrapAlignment.center,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: EdgeInsets.all(15.0),
+                                          child: Container(
+                                              alignment: Alignment.center,
+                                              height: 6 * 24,
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  children: [
+                                                    if (allArticles.contains(
+                                                        fieldText.text))
+                                                      TextSpan(
                                                         style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontWeight: FontWeight.bold,
-                                                          fontSize: 20.0,
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .secondaryHeaderColor,
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
                                                         ),
+                                                        text: fieldText.text +
+                                                            " is in the database",
                                                       ),
-                                                    ),
-                                                    onPressed: () {
-                                                      APICall.addArticleRequest(token, fieldText.text);
-                                                    },
-                                                  ),
-                                              ],
+                                                    if (!allArticles.contains(
+                                                        fieldText.text))
+                                                      TextSpan(
+                                                        style: TextStyle(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .secondaryHeaderColor,
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
+                                                        text: fieldText.text +
+                                                            " is not the database",
+                                                      ),
+                                                  ],
+                                                ),
+                                              )),
+                                        ),
+                                        if (allArticles
+                                            .contains(fieldText.text))
+                                          RaisedButton(
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 100),
+                                              child: Text(
+                                                "Add",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20.0,
+                                                ),
+                                              ),
                                             ),
+                                            onPressed: () {
+                                              APICall.addArticleRequest(
+                                                  token, fieldText.text);
+                                              Navigator.pop(context);
+                                            },
                                           ),
-                                        ));
+                                      ],
+                                    ),
+                                  ),
+                                ));
                       },
                     ),
                   ),
@@ -195,122 +212,134 @@ class OurLibrary extends StatelessWidget {
                                 text: "",
                               ),
                               TextSpan(
-                                style: TextStyle(
-                                  color: Theme.of(context).secondaryHeaderColor,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.normal,
-                                  decoration: TextDecoration.underline,
-                                ),
-                                //name of article
-                                text: articles[i], 
-                                  recognizer: TapGestureRecognizer()..onTap =  () async{
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) => 
-                                        Dialog(
-                                          child: Center(
-                                            child: Wrap(
-                                              alignment: WrapAlignment.center,
-                                              children: <Widget>[
-                                                Padding(
-                                                  padding: EdgeInsets.all(15.0),
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    height: 6*24,
-                                                    child: RichText(
-                                                      text: TextSpan(
+                                  style: TextStyle(
+                                    color:
+                                        Theme.of(context).secondaryHeaderColor,
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.normal,
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                  //name of article
+                                  text: articles[i],
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              Dialog(
+                                                child: Center(
+                                                  child: Wrap(
+                                                    alignment:
+                                                        WrapAlignment.center,
+                                                    children: <Widget>[
+                                                      Padding(
+                                                        padding: EdgeInsets.all(
+                                                            15.0),
+                                                        child: Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            height: 6 * 24,
+                                                            child: RichText(
+                                                              text: TextSpan(
+                                                                children: [
+                                                                  Urls.createUrl(
+                                                                      url: articles[
+                                                                          i],
+                                                                      txt: articles[
+                                                                          i],
+                                                                      context:
+                                                                          context),
+                                                                ],
+                                                              ),
+                                                            )),
+                                                      ),
+                                                      Wrap(
+                                                        spacing: 20.0,
                                                         children: [
-                                                          Urls.createUrl(
-                                                              url: articles[i],
-                                                              txt: articles[i],
-                                                              context: context),
+                                                          RaisedButton(
+                                                            child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                      horizontal:
+                                                                          100),
+                                                              child: Text(
+                                                                "Add",
+                                                                style:
+                                                                    TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize:
+                                                                      20.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            onPressed: () {
+                                                              APICall
+                                                                  .addArticleRequest(
+                                                                      token,
+                                                                      articles[
+                                                                          i]);
+                                                            },
+                                                          ),
+
+                                                          // RaisedButton(
+                                                          //   child: Padding(
+                                                          //     padding: EdgeInsets.symmetric(horizontal: 100),
+                                                          //     child: Text(
+                                                          //       "Favorite",
+                                                          //       style: TextStyle(
+                                                          //         color: Colors.white,
+                                                          //         fontWeight: FontWeight.bold,
+                                                          //         fontSize: 20.0,
+                                                          //       ),
+                                                          //     ),
+                                                          //   ),
+                                                          //   onPressed: () {
+                                                          //     //delete[i] = true;
+                                                          //     //Navigator.pop(context, delete);
+                                                          //     //APICall.addFavoriteRequest(token, articleid);
+                                                          //   },
+                                                          // ),
+
+                                                          // RaisedButton(
+                                                          //   child: Padding(
+                                                          //     padding: EdgeInsets.symmetric(horizontal: 100),
+                                                          //     child: Text(
+                                                          //       "Download",
+                                                          //       style: TextStyle(
+                                                          //         color: Colors.white,
+                                                          //         fontWeight: FontWeight.bold,
+                                                          //         fontSize: 20.0,
+                                                          //       ),
+                                                          //     ),
+                                                          //   ),
+                                                          //   onPressed: () {
+                                                          //     //delete[i] = false;
+                                                          //     //Navigator.pop(context, delete);
+                                                          //     //APICall.addDownloadRequest(token, articleid);
+                                                          //   },
+                                                          // )
+                                                          //if(delete)
                                                         ],
                                                       ),
-                                                    )
+                                                    ],
                                                   ),
                                                 ),
-
-                                                Wrap(
-                                                  spacing: 20.0,
-                                                  children: [
-                                                    RaisedButton(
-                                                      child: Padding(
-                                                        padding: EdgeInsets.symmetric(horizontal: 100),
-                                                        child: Text(
-                                                          "Add",
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontWeight: FontWeight.bold,
-                                                            fontSize: 20.0,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      onPressed: () {
-                                                        APICall.addArticleRequest(token, articles[i]);
-                                                      },
-                                                    ),
-
-                                                    // RaisedButton(
-                                                    //   child: Padding(
-                                                    //     padding: EdgeInsets.symmetric(horizontal: 100),
-                                                    //     child: Text(
-                                                    //       "Favorite",
-                                                    //       style: TextStyle(
-                                                    //         color: Colors.white,
-                                                    //         fontWeight: FontWeight.bold,
-                                                    //         fontSize: 20.0,
-                                                    //       ),
-                                                    //     ),
-                                                    //   ),
-                                                    //   onPressed: () {
-                                                    //     //delete[i] = true;
-                                                    //     //Navigator.pop(context, delete);
-                                                    //     //APICall.addFavoriteRequest(token, articleid);
-                                                    //   },
-                                                    // ),
-
-                                                    // RaisedButton(
-                                                    //   child: Padding(
-                                                    //     padding: EdgeInsets.symmetric(horizontal: 100),
-                                                    //     child: Text(
-                                                    //       "Download",
-                                                    //       style: TextStyle(
-                                                    //         color: Colors.white,
-                                                    //         fontWeight: FontWeight.bold,
-                                                    //         fontSize: 20.0,
-                                                    //       ),
-                                                    //     ),
-                                                    //   ),
-                                                    //   onPressed: () {
-                                                    //     //delete[i] = false;
-                                                    //     //Navigator.pop(context, delete);
-                                                    //     //APICall.addDownloadRequest(token, articleid);
-                                                    //   },
-                                                    // )
-                                                    //if(delete)
-
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ));
-                                        
-                                  }
-                              ),
+                                              ));
+                                    }),
                             ],
                           ),
                         )
                       ],
                     ),
                   ),
-                  
 
                 SizedBox(
                   height: 40.0,
                 ),
-
-               
               ],
             ),
           ),

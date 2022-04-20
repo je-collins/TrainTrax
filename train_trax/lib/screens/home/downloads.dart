@@ -1,25 +1,42 @@
+//import 'dart:html';
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
+import 'package:pspdfkit_flutter/src/main.dart';
+import 'package:path/path.dart';
+
+// URL of the PDF file you'll download.
 
 class OurDownload extends StatelessWidget {
   String currentPage = "DOWNLOAD";
   String name = 'John Smith';
   String token;
   bool isAdmin = false;
-  List downloads;
 
-  OurDownload(
-      {Key? key,
-      required this.token,
-      required this.name,
-      required this.isAdmin,
-      required this.downloads})
-      : super(key: key);
+  OurDownload({Key? key, required this.token, required this.name, required this.isAdmin}) : super(key: key);
+
+  double progress = 0;
+
+  // Track if the PDF was downloaded here.
+  bool didDownloadPDF = false;
+
+  Future<List<String>> getDownloadedFiles(Dio dio, String url, String savePath) async {
+    Directory? dir = await getExternalStorageDirectory();
+    if (dir == null) {
+      return [];
+    }
+
+    await for (var file in dir.list(recursive: false, followLinks: false)) {}
+    return [];
+  }
+
   @override
   Widget build(BuildContext context) {
-    int len = downloads.length;
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -42,8 +59,7 @@ class OurDownload extends StatelessWidget {
                 ),
                 NavBar.createNavBar(context, currentPage, token, name, isAdmin),
                 Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
+                  padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
                   child: Center(
                     child: Text(
                       "DOWNLOADS",
@@ -55,31 +71,20 @@ class OurDownload extends StatelessWidget {
                     ),
                   ),
                 ),
-                for (var i = 0; i < len; i++)
-                  Row(
-                    children: [
-                      Container(
-                        child: IconButton(
-                          icon: Icon(Icons.download),
-                          color: Theme.of(context).secondaryHeaderColor,
-                          onPressed: () {},
-                        ),
+                Row(
+                  children: [
+                    Container(
+                      child: IconButton(
+                        icon: Icon(Icons.download),
+                        color: Theme.of(context).secondaryHeaderColor,
+                        onPressed: () {},
                       ),
-                      const SizedBox(
-                        width: 5.0,
-                      ),
-                      Container(
-                        child: Text(
-                          downloads[i].toString(),
-                          style: TextStyle(
-                            color: Theme.of(context).secondaryHeaderColor,
-                            fontSize: 15.0,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ),
-                    ],
-                  )
+                    ),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                  ],
+                )
               ],
             ),
           )
