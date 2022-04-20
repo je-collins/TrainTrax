@@ -1,4 +1,3 @@
-//import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:train_trax/utils/APICall.dart';
 import 'package:train_trax/utils/urls.dart';
@@ -93,7 +92,6 @@ class OurSelfDirected extends StatelessWidget {
                       onSubmitted: (value) async {
                         await launch(
                             "http://www.google.com/search?q=" + fieldText.text);
-                        //await Urls._launchUrl("http://www.google.com/search?");
                       },
                     ),
                   ),
@@ -140,7 +138,7 @@ class OurSelfDirected extends StatelessWidget {
                       ),
                     ])),
 
-                //USED BY OTHERS list
+                //MY ARTICLES
                 Container(
                   child: Text(
                     "MY ARTICLES",

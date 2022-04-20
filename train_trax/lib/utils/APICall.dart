@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart';
 
 class APICall {
-  //flutter run -d web-server
   static Future<String> loginRequest(String email, String password) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/login");
 
@@ -15,17 +14,7 @@ class APICall {
       "email": email,
       "password": password
     });
-    //"email": "ebtran8745@gmail.com",
-    //"password": "tran"
-    //cd .\train_trax\
-    //flutter run -d web-server
-
-    //dummy@email.com
-    //12345
-
-    //print(response.statusCode);
-    //print(response.body);
-
+    
     if (response.statusCode == 200) return "success";
 
     var token = jsonDecode(response.body);
@@ -41,24 +30,11 @@ class APICall {
       "email": email,
       "password": password
     });
-    //"email": "ebtran8745@gmail.com",
-    //"password": "tran"
-    //cd .\train_trax\
-    //flutter run -d web-server
-    //token last an hour
 
-    //if (response.statusCode == 200)
-    //return "success";
-    //var token = jsonDecode(response.body);
-
-    //return token["token"];
     var decoded = json.decode(response.body);
 
     return decoded["token"];
   }
-
-  //1234@12mail.com
-  //1234
 
   static Future<String> registerRequest(
       String email, String password, String phone, String name) async {
@@ -74,11 +50,8 @@ class APICall {
     });
 
     print(response.statusCode);
-    //print(response.body);
 
     if (response.statusCode == 200) return "success";
-
-    //check missing error
 
     return "failure";
   }
@@ -93,11 +66,8 @@ class APICall {
     });
 
     print(response.statusCode);
-    //print(response.body);
 
     if (response.statusCode == 200) return "success";
-
-    //check missing error
 
     return "failure";
   }
@@ -114,11 +84,8 @@ class APICall {
     });
 
     print(response.statusCode);
-    //print(response.body);
 
     if (response.statusCode == 200) return "success";
-
-    //check missing error
 
     return "failure";
   }
@@ -132,14 +99,7 @@ class APICall {
       "token": token
     });
 
-    //print(response.statusCode);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return jsonDecode(response.body);
     var decoded = json.decode(response.body);
-    var stats = decoded["stats"];
-    var users = stats["users"];
 
     return response;
   }
@@ -153,13 +113,6 @@ class APICall {
       "token": token
     });
 
-    //print(response.statusCode);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return jsonDecode(response.body);
-    var decoded = json.decode(response.body);
-
     return response;
   }
 
@@ -172,11 +125,6 @@ class APICall {
       "token": token
     });
 
-    //print(response.statusCode);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return jsonDecode(response.body);
     var decoded = json.decode(response.body);
     var users = decoded["users"];
 
@@ -220,12 +168,6 @@ class APICall {
       "token": token
     });
 
-    //print(response.statusCode);
-    //jsonDecode(response.body);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return "success";
     var file = jsonDecode(response.body);
 
     if (response.statusCode == 200) return file["results"];
@@ -242,12 +184,6 @@ class APICall {
       "token": token
     });
 
-    //print(response.statusCode);
-    //jsonDecode(response.body);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return "success";
     var file = jsonDecode(response.body);
 
     if (response.statusCode == 200) return file["started"];
@@ -264,12 +200,6 @@ class APICall {
       "token": token
     });
 
-    //print(response.statusCode);
-    //jsonDecode(response.body);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return "success";
     var file = jsonDecode(response.body);
 
     if (response.statusCode == 200) return file["completed"];
@@ -287,12 +217,6 @@ class APICall {
       "token": token
     });
 
-    //print(response.statusCode);
-    //jsonDecode(response.body);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return "success";
     var file = jsonDecode(response.body);
 
     if (response.statusCode == 200) return file["results"];
@@ -300,7 +224,6 @@ class APICall {
     return file["message"];
   }
 
-  //works
   static Future<http.Response> getStarredArticleRequest(String token) async {
     Uri url =
         Uri.parse("https://train-trax.herokuapp.com/api/get_starred_articles");
@@ -311,16 +234,9 @@ class APICall {
       "token": token
     });
 
-    var file = jsonDecode(response.body);
-
-    //if(response.statusCode == 200)
-    //return file["results"];
-
-    //return file["message"];
     return response;
   }
 
-  //works
   static Future<List> getStarredDomainsRequest(String token) async {
     Uri url =
         Uri.parse("https://train-trax.herokuapp.com/api/get_starred_domains");
@@ -331,11 +247,6 @@ class APICall {
       "token": token
     });
 
-    //print(response.statusCode);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return "success";
     var file = jsonDecode(response.body);
 
     return file["results"];
@@ -350,9 +261,6 @@ class APICall {
       "token": token,
       "team_name": teamName
     });
-
-    //print(response.statusCode);
-    //print(response.body);
 
     if (response.statusCode == 200) return "success";
 
@@ -369,9 +277,6 @@ class APICall {
       "teamid": teamid
     });
 
-    //print(response.statusCode);
-    //print(response.body);
-
     if (response.statusCode == 200) return "success";
 
     return "failure";
@@ -386,11 +291,6 @@ class APICall {
       "token": token
     });
 
-    //print(response.statusCode);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return jsonDecode(response.body);
 
     return response;
   }
@@ -406,9 +306,6 @@ class APICall {
       "team_id": teamid,
       "member_id": memberid,
     });
-
-    //print(response.statusCode);
-    //print(response.body);
 
     if (response.statusCode == 200) return "success";
 
@@ -427,9 +324,6 @@ class APICall {
       "member_id": memberid,
     });
 
-    //print(response.statusCode);
-    //print(response.body);
-
     if (response.statusCode == 200) return "success";
 
     return "failure";
@@ -447,9 +341,6 @@ class APICall {
       "answer_text": answer,
     });
 
-    //print(response.statusCode);
-    //print(response.body);
-
     if (response.statusCode == 200) return "success";
 
     return "failure";
@@ -465,9 +356,6 @@ class APICall {
       "token": token,
       "question_text": qusetion,
     });
-
-    //print(response.statusCode);
-    //print(response.body);
 
     if (response.statusCode == 200) return "success";
 
@@ -498,9 +386,6 @@ class APICall {
       "article_id": articleid,
     });
 
-    //print(response.statusCode);
-    //print(response.body);
-
     if (response.statusCode == 200) return "success";
 
     return "failure";
@@ -516,9 +401,6 @@ class APICall {
       "token": token,
       "article_id": articleid,
     });
-
-    //print(response.statusCode);
-    //print(response.body);
 
     if (response.statusCode == 200) return "success";
 
@@ -537,15 +419,11 @@ class APICall {
       "article_id": articleid,
     });
 
-    //print(response.statusCode);
-    //print(response.body);
-
     if (response.statusCode == 200) return "success";
 
     return "failure";
   }
 
-  //flutter run -d web-server
   static Future<http.Response> getTeamStatsRequest(
       String token, int team_id) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_team_stats");
@@ -588,12 +466,6 @@ class APICall {
       "article": article
     });
 
-    //print(response.statusCode);
-    //jsonDecode(response.body);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return "success";
     var file = jsonDecode(response.body);
 
     if (response.statusCode == 200) return "success";
@@ -613,12 +485,6 @@ class APICall {
       "article": article
     });
 
-    //print(response.statusCode);
-    //jsonDecode(response.body);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return "success";
     var file = jsonDecode(response.body);
 
     if (response.statusCode == 200) return "success";
@@ -638,12 +504,6 @@ class APICall {
       "domain": domain
     });
 
-    //print(response.statusCode);
-    //jsonDecode(response.body);
-    //print(response.body);
-
-    //if(response.statusCode == 200)
-    //return "success";
     var file = jsonDecode(response.body);
 
     if (response.statusCode == 200) return "success";

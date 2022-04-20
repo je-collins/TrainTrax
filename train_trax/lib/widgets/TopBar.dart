@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/profile.dart';
 
-class TopBar extends StatelessWidget{
+class TopBar {
   String? name = null;
 
   void setPage(String? pname){
@@ -17,36 +17,6 @@ class TopBar extends StatelessWidget{
       Spacer(),
       ProfileBar.createProfileBar(context, currentPage, tokn, name, isAdmin,),
       ],
-    );
-  }
-
-  Widget build(BuildContext context) {
-    return Container(
-      child: Wrap(
-        alignment: WrapAlignment.end,
-        children: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.download),
-            onPressed: () {
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.help),
-            onPressed: () {
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.favorite),
-            onPressed: () {
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-            },
-          ),
-        ],
-      ),
     );
   }
 }

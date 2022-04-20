@@ -138,14 +138,12 @@ class _MyDropDown extends State<DropDown> {
                                                 Navigator.pop(context, delete);
                                               },
                                             )
-                                          //if(delete)
 
                                           ],
                                         ),
                                       ],
                                     ),
                                   ),
-                                  //if(delete)
                                 )
                               );
                             },

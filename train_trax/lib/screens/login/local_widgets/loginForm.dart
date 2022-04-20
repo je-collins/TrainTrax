@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -22,11 +24,12 @@ class OurLoginForm extends StatelessWidget {
     try {
       String _returnString;
       String token;
+      
       Response _returnStringName;
-
       _returnString = await APICall.loginRequest(email, password);
       token = await APICall.loginTokenRequest(email, password);
-      //var tkn = json.decode(token.body);
+     
+      if (_returnString == "success") {
       _returnStringName = await APICall.getUserInfo(token);
       var nameTk = json.decode(_returnStringName.body);
       var name = nameTk["name"];
@@ -41,8 +44,6 @@ class OurLoginForm extends StatelessWidget {
       List completedArticles =
           (await APICall.getCompleteArticleRequest(token)) as List;
 
-      //tkn["token"] != ""
-      if (_returnString == "success") {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(

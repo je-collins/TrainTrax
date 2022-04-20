@@ -196,7 +196,6 @@ class NavBar {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
             builder: (context) => OurHome(
                 token: tokn,
                 name: name,
@@ -241,7 +240,6 @@ class NavBar {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
             builder: (context) => OurLibrary(
               token: tokn,
               articles: token["results"],
@@ -281,7 +279,6 @@ class NavBar {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
             builder: (context) => OurSelfDirected(
               token: tokn,
               articles: _returnString,
@@ -360,7 +357,6 @@ class NavBar {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
             builder: (context) => OurTeamStatistics(
                 token: tokn, name: name, teamStats: userstats),
           ),
@@ -396,7 +392,6 @@ class NavBar {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            //articles: token["results"]
             builder: (context) => OurAddResources(
               token: tokn,
               name: name,

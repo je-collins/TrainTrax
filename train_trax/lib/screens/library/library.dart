@@ -176,8 +176,7 @@ class OurLibrary extends StatelessWidget {
                     ),
                   ),
                 ),
-                //createListView(context,token),
-                //*
+                
                 for (var i = 0; i < len; i++)
                   Container(
                     child: Column(
@@ -249,46 +248,6 @@ class OurLibrary extends StatelessWidget {
                                                         APICall.addArticleRequest(token, articles[i]);
                                                       },
                                                     ),
-
-                                                    // RaisedButton(
-                                                    //   child: Padding(
-                                                    //     padding: EdgeInsets.symmetric(horizontal: 100),
-                                                    //     child: Text(
-                                                    //       "Favorite",
-                                                    //       style: TextStyle(
-                                                    //         color: Colors.white,
-                                                    //         fontWeight: FontWeight.bold,
-                                                    //         fontSize: 20.0,
-                                                    //       ),
-                                                    //     ),
-                                                    //   ),
-                                                    //   onPressed: () {
-                                                    //     //delete[i] = true;
-                                                    //     //Navigator.pop(context, delete);
-                                                    //     //APICall.addFavoriteRequest(token, articleid);
-                                                    //   },
-                                                    // ),
-
-                                                    // RaisedButton(
-                                                    //   child: Padding(
-                                                    //     padding: EdgeInsets.symmetric(horizontal: 100),
-                                                    //     child: Text(
-                                                    //       "Download",
-                                                    //       style: TextStyle(
-                                                    //         color: Colors.white,
-                                                    //         fontWeight: FontWeight.bold,
-                                                    //         fontSize: 20.0,
-                                                    //       ),
-                                                    //     ),
-                                                    //   ),
-                                                    //   onPressed: () {
-                                                    //     //delete[i] = false;
-                                                    //     //Navigator.pop(context, delete);
-                                                    //     //APICall.addDownloadRequest(token, articleid);
-                                                    //   },
-                                                    // )
-                                                    //if(delete)
-
                                                   ],
                                                 ),
                                               ],
@@ -304,24 +263,15 @@ class OurLibrary extends StatelessWidget {
                       ],
                     ),
                   ),
-                  
-
                 SizedBox(
                   height: 40.0,
                 ),
 
-               
               ],
             ),
           ),
         ],
       ),
     );
-  }
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
   }
 }
