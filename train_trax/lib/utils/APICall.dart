@@ -19,7 +19,7 @@ class APICall {
       "email": email,
       "password": password
     });
-    
+
     if (response.statusCode == 200) return "success";
 
     var token = jsonDecode(response.body);
@@ -291,7 +291,6 @@ class APICall {
       "token": token
     });
 
-
     return response;
   }
 
@@ -416,7 +415,7 @@ class APICall {
   }
 
   //flutter run -d web-server
-  static Future<http.Response> getTeamStatsRequest(String token, int team_id) async {
+  static Future<http.Response> getTeamStatsRequest(String token, String team_id) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_team_stats");
 
     var response = await http.post(url, headers: <String, String>{
@@ -431,7 +430,7 @@ class APICall {
     return response;
   }
 
-  static Future<http.Response> getTeamInfoRequest(String token, int team_id) async {
+  static Future<http.Response> getTeamInfoRequest(String token, String team_id) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_team_info");
 
     var response = await http.post(url, headers: <String, String>{

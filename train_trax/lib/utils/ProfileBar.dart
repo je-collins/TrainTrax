@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:android_path_provider/android_path_provider.dart';
 import 'package:path_provider/path_provider.dart';
+
 import 'package:http/http.dart';
 import 'package:train_trax/screens/home/downloads.dart';
 import 'package:train_trax/screens/home/faq.dart';
@@ -154,6 +155,7 @@ class ProfileBar extends StatelessWidget {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
+            //articles: token["results"]
             builder: (context) => OurFavorite(
               token: tokn,
               articles: token["results"],
@@ -229,6 +231,7 @@ class ProfileBar extends StatelessWidget {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
+            //articles: token["results"]
             builder: (context) => OurSettings(
               token: tokn,
               email: token["email"],
@@ -259,6 +262,7 @@ class ProfileBar extends StatelessWidget {
   }) async {
     try {
       List downloadedFiles = (await APICall.getDownloadedFiles());
+
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
@@ -291,7 +295,7 @@ class ProfileBar extends StatelessWidget {
             builder: (context) => OurFAQ(
               token: tokn,
               name: name,
-              listOfQ: listOfQ["questions"], 
+              listOfQ: listOfQ["questions"],
               isAdmin: isAdmin,
             ),
           ),
