@@ -521,7 +521,7 @@ class APICall {
   }
 
   static Future<http.Response> getTeamInfoRequest(
-      String token, int team_id) async {
+      String token, String team_id) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/get_team_info");
 
     var response = await http.post(url, headers: <String, String>{

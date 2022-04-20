@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:train_trax/screens/home/downloads.dart';
@@ -104,13 +105,13 @@ class ProfileBar extends StatelessWidget {
           ),
 
         //ADMINISTRATION
-        if (isAdmin && currentPage == "ADMINISTRATION")
+        if (kIsWeb && isAdmin && currentPage == "ADMINISTRATION")
           IconButton(
             color: Colors.yellow,
             icon: const Icon(Icons.admin_panel_settings),
             onPressed: () {},
           ),
-        if (isAdmin && currentPage != "ADMINISTRATION")
+        if (kIsWeb && isAdmin && currentPage != "ADMINISTRATION")
           IconButton(
             icon: const Icon(Icons.admin_panel_settings),
             onPressed: () {

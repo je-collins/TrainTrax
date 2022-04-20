@@ -315,9 +315,9 @@ class NavBar {
       _returnString =
           (await APICall.getUserInfo(tokn)) as Response;
       token = jsonDecode(_returnString.body);
+      Response _returnTeam = (await APICall.getTeamInfoRequest(tokn, token["teams_admin"][0]["team_id"].toString())) as Response;
 
-      if (_returnString.statusCode != 200) {
-        //Response _returnTeam = (await APICall.getTeamInfoRequest(tokn, token["teams_admin"]["team_id"])) as Response;
+      if (_returnString.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
