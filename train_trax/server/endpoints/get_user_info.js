@@ -40,7 +40,7 @@ export default async (request, response) => {
 			team_name: team.team_name,
 			administrator: {
 				user_id: admin.user_id,
-				namee: admin.name
+				name: admin.name
 			},
 			users: team_users
 		});
@@ -62,7 +62,7 @@ export default async (request, response) => {
 			team_name: team.team_name,
 			administrator: {
 				user_id: admin.user_id,
-				namee: admin.name
+				name: admin.name
 			},
 			users: team_users
 		});
