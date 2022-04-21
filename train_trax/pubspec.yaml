@@ -40,6 +40,7 @@ dependencies:
   path_provider: ^2.0.9
   android_path_provider: ^0.3.0
   pspdfkit_flutter: ^3.2.2
+  open_file: ^3.2.1
   
 dev_dependencies:
   flutter_test:

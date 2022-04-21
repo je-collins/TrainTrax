@@ -9,6 +9,7 @@ import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
 import 'package:pspdfkit_flutter/src/main.dart';
 import 'package:path/path.dart';
+import 'package:open_file/open_file.dart';
 
 // URL of the PDF file you'll download.
 
@@ -18,8 +19,9 @@ class OurDownload extends StatelessWidget {
   String token;
   bool isAdmin = false;
   List downloadedFiles;
+  String location;
 
-  OurDownload({Key? key, required this.token, required this.name, required this.isAdmin, required this.downloadedFiles}) : super(key: key);
+  OurDownload({Key? key, required this.token, required this.name, required this.isAdmin, required this.downloadedFiles, required this.location}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -71,13 +73,14 @@ class OurDownload extends StatelessWidget {
                       const SizedBox(
                         width: 5.0,
                       ),
-                      Text(
-                        downloadedFiles[i],
-                        style: TextStyle(
-                          color: Theme.of(context).secondaryHeaderColor,
-                          fontSize: 15.0,
-                          fontWeight: FontWeight.normal,
+                      TextButton(
+                        style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(Theme.of(context).secondaryHeaderColor),
                         ),
+                        onPressed: () {
+                          OpenFile.open(location.toString() + '/' + downloadedFiles[i]);
+                        },
+                        child: Text(downloadedFiles[i]),
                       ),
                     ],
                   )
