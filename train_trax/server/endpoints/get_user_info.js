@@ -33,10 +33,15 @@ export default async (request, response) => {
 			});
 		}
 
+		const admin = await User.fromId(team.administrator);
+
 		json.get('teams_admin').push({
 			team_id: team.team_id,
 			team_name: team.team_name,
-			administrator: team.administrator,
+			administrator: {
+				user_id: admin.user_id,
+				namee: admin.name
+			},
 			users: team_users
 		});
 	}
@@ -50,10 +55,15 @@ export default async (request, response) => {
 			});
 		}
 
+		const admin = await User.fromId(team.administrator);
+
 		json.get('teams_user').push({
 			team_id: team.team_id,
 			team_name: team.team_name,
-			administrator: team.administrator,
+			administrator: {
+				user_id: admin.user_id,
+				namee: admin.name
+			},
 			users: team_users
 		});
 	}
