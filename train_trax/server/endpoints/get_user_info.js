@@ -27,7 +27,7 @@ export default async (request, response) => {
 	for (const team of await Team.getTeamsFromAdministrator(user.user_id)) {
 		const team_users = [];
 		for (const team_user of await Team.getUsersFromTeam(team.team_id)) {
-			team_user.push({
+			team_users.push({
 				user_id: team_user.user_id,
 				name: team_user.name
 			});
@@ -44,7 +44,7 @@ export default async (request, response) => {
 	for (const team of await Team.getTeamsFromUser(user.user_id)) {
 		const team_users = [];
 		for (const team_user of await Team.getUsersFromTeam(team.team_id)) {
-			team_user.push({
+			team_users.push({
 				user_id: team_user.user_id,
 				name: team_user.name
 			});
