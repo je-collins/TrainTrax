@@ -312,7 +312,7 @@ class NavBar {
 
       _returnString = (await APICall.getUserInfo(tokn)) as Response;
       token = jsonDecode(_returnString.body);
-      Response _returnTeam = (await APICall.getTeamInfoRequest(tokn, token["teams_admin"][0]["team_id"].toString())) as Response;
+      //Response _returnTeam = (await APICall.getTeamInfoRequest(tokn, token["teams_admin"][0]["team_id"].toString())) as Response;
 
       if (_returnString.statusCode == 200) {
         Navigator.pushAndRemoveUntil(
@@ -321,7 +321,7 @@ class NavBar {
             builder: (context) => OurAdminTeamMang(
               token: tokn,
               name: name,
-              listOfTeams: null,
+              listOfTeams: token["teams_admin"],
             ),
           ),
           (route) => false,

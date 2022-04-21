@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:train_trax/utils/APICall.dart';
 import 'package:train_trax/utils/urls.dart';
 import 'package:train_trax/utils/NavBar.dart';
@@ -38,9 +41,13 @@ class OurAdminTeamMang extends StatelessWidget {
                           false];
 
   OurAdminTeamMang({Key? key, required this.token, required this.name, required this.listOfTeams}) : super(key: key);
-
   @override
+  
   Widget build(BuildContext context) {
+    List<String> listOfTeamsName = <String>[];
+    for(int i=0; i<listOfTeams.length; i++){
+      listOfTeamsName.add(listOfTeams[i]["team_name"]);
+    }
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -74,7 +81,7 @@ class OurAdminTeamMang extends StatelessWidget {
                 ),
 
                 Center(
-                  child: DropDown(listOfM: listOfM,),
+                  child: DropDown(token: token, name: name, listOfTeams: listOfTeams, listOfTeamsName: listOfTeamsName,),
                 ),
 
                 SizedBox(
@@ -160,9 +167,10 @@ class OurAdminTeamMang extends StatelessWidget {
                             ),
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async{
                           //create team
-                          //APICall.createTeamRequest(String token, String teamName);
+                          await APICall.createTeamRequest( token, newTeam.text);
+                          _toManageTeams(context: context, tokn: token, name: name);
                         },
                       ),
                       ),
@@ -180,5 +188,41 @@ class OurAdminTeamMang extends StatelessWidget {
         ],
       ),
     );
+  }
+  static void _toManageTeams({
+    required String tokn,
+    required String name,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await APICall.getUserInfo(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+
+      if (_returnString.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OurAdminTeamMang(
+              token: tokn,
+              name: name,
+              listOfTeams: token["teams_admin"],
+            ),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token.toString()),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }

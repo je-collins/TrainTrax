@@ -267,14 +267,14 @@ class APICall {
     return "failure";
   }
 
-  static Future<String> deleteTeamRequest(String token, int teamid) async {
+  static Future<String> deleteTeamRequest(String token, String teamid) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/delete_team");
 
     var response = await http.post(url, headers: <String, String>{
       "JSON": "application/json",
     }, body: {
       "token": token,
-      "teamid": teamid
+      "team_id": teamid
     });
 
     if (response.statusCode == 200) return "success";
@@ -294,7 +294,7 @@ class APICall {
     return response;
   }
 
-  static Future<String> addMemberRequest(String token, int teamid, String memberid) async {
+  static Future<String> addMemberRequest(String token, String teamid, String memberid) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/add_member");
 
     var response = await http.post(url, headers: <String, String>{
@@ -310,7 +310,7 @@ class APICall {
     return "failure";
   }
 
-  static Future<String> deleteMemberRequest(String token, int teamid, String memberid) async {
+  static Future<String> deleteMemberRequest(String token, String teamid, String memberid) async {
     Uri url = Uri.parse("https://train-trax.herokuapp.com/api/delete_member");
 
     var response = await http.post(url, headers: <String, String>{

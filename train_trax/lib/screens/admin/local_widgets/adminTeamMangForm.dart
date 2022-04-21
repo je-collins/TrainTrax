@@ -1,35 +1,134 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import 'package:train_trax/screens/admin/adminTeamMang.dart';
 import 'package:train_trax/utils/APICall.dart';
 
 import '../../../utils/profile.dart';
 
 
 class DropDown extends StatefulWidget {
-  List<String> listOfM;
-  DropDown({Key? key, required this.listOfM}) : super(key: key);
+  //List<String> listOfM;
+  List<String> listOfTeamsName;
+  var listOfTeams;
+  String token;
+  String name;
+  DropDown({Key? key, required this.token, required this.name, required this.listOfTeams, required this.listOfTeamsName}) : super(key: key);
   
 
   @override
-  State<DropDown> createState() => _MyDropDown(listOfM: listOfM);
+  State<DropDown> createState() => _MyDropDown( token: token, name: name, listOfTeams: listOfTeams, listOfTeamsName: listOfTeamsName);
 }
 
 class _MyDropDown extends State<DropDown> {
   final addMember = TextEditingController();
-  List<String> listOfTeams = ['Team 1', 'Team 2', 'Team 3', 'Team 4'];
-  late String dropdownValue= listOfTeams.elementAt(0);
+  List<String> listOfTeamsName;
+  late String dropdownValue = listOfTeamsName.elementAt(0);
 
-  List<String> listOfM = [];
-  var numTeamates = 0;
+  late var numTeamates=listOfTeams[0]["users"].length;
+  late var numTeams = listOfTeams.length;
+  late var listOfTeams;
+  late String teamId;
+  int teamNum = 0;
+  String token;
+  String name;
 
-  _MyDropDown({required this.listOfM});
-  List<bool>  delete = [];
+  _MyDropDown({ required this.token, required this.name, required this.listOfTeams, required this.listOfTeamsName});
+  late List<bool>  delete = List.filled(numTeamates, false);
+
+  void refreshTeams({
+    required String token,
+  }) async {
+    try {
+      Response _returnString;
+      var decoded;
+
+      _returnString = (await APICall.getUserInfo(token)) as Response;
+      decoded = jsonDecode(_returnString.body);
+     
+      if (_returnString.statusCode == 200) {
+        setState(() {
+          listOfTeams: decoded["teams_admin"];
+        });
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(decoded["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void addUser({
+    required String token,
+    required String teamId,
+    required String userName,
+  }) async {
+    try {
+      var _returnResponse;
+      var decoded;
+
+      _returnResponse = (await APICall.getUsers(token));
+      //decoded = jsonDecode(_returnResponse.body);
+      var listOfUsers = _returnResponse;
+     
+      if (_returnResponse != null) {
+        for(int i=0; i<listOfUsers.length; i++){
+          if(listOfUsers[i]["name"] == userName){
+            String _returnString;
+            _returnString = (await APICall.addMemberRequest(token, teamId, listOfUsers[i]["user_id"].toString()));
+            if(_returnString== "success"){
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("You have add a member"),
+                  duration: Duration(seconds: 3),
+                ),
+              );
+            }
+            else{
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Member has not been added"),
+                  duration: Duration(seconds: 3),
+                ),
+              );
+            }
+          }
+        }
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(decoded["message"]),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    numTeamates=listOfM.length;
-    delete = List.filled(numTeamates, false);
+    late List<dynamic> listOfM = listOfTeams[0]["users"];
+    for(int i=0; i<listOfTeams.length;i++){
+      if(dropdownValue == listOfTeams[i]["team_name"]){
+        teamId = listOfTeams[i]["team_id"].toString();
+        listOfM = listOfTeams[i]["users"];
+        numTeamates = listOfM.length;
+        teamNum = i;
+        break;
+      }
+    }
+
     return Column(
       children: [
         DropdownButton<String>(
@@ -44,9 +143,10 @@ class _MyDropDown extends State<DropDown> {
           onChanged: (String? newValue) {
             setState(() {
               dropdownValue = newValue!;
+
             });
           },
-          items: listOfTeams
+          items: listOfTeamsName
               .map<DropdownMenuItem<String>>((String value) {
             return DropdownMenuItem<String>(
               value: value,
@@ -54,6 +154,7 @@ class _MyDropDown extends State<DropDown> {
             );
           }).toList(),
         ),
+        //teammate
         Wrap(
           alignment: WrapAlignment.center,
           children: [
@@ -113,11 +214,20 @@ class _MyDropDown extends State<DropDown> {
                                                   ),
                                                 ),
                                               ),
-                                              onPressed: () {
-                                                delete[i] = true;
-                                                Navigator.pop(context, delete);
+                                              onPressed: () async{
+                                                //delete[i] = true;
                                                 //delete members
-                                                //APICall.deleteMemberRequest( token,  teamid,  memberid);
+                                                APICall.deleteMemberRequest( token,  listOfTeams[teamNum]["team_id"].toString(),  listOfM[i]["user_id"].toString());
+                                                Response _returnString;
+                                                var decoded;
+
+                                                _returnString = (await APICall.getUserInfo(token)) as Response;
+                                                decoded = jsonDecode(_returnString.body);
+                                                if (_returnString.statusCode == 200) 
+                                                  setState(() {
+                                                    listOfTeams: decoded["teams_admin"];
+                                                  });
+                                                //Navigator.pop(context);
                                               },
                                             ),
 
@@ -154,7 +264,7 @@ class _MyDropDown extends State<DropDown> {
 
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
-                      child:Profile.createProfile(context, listOfM[i], true),
+                      child:Profile.createProfile(context, listOfM[i]["name"], true),
                     ),
                   ],
                 ),
@@ -208,7 +318,8 @@ class _MyDropDown extends State<DropDown> {
                         ),
                         onPressed: () {
                           //add team member
-                          //APICall.addMemberRequest(token, teamid, memberid);
+                          addUser(token: token, teamId: teamId, userName: addMember.text);
+
                         },
                       ),
                       ),
@@ -231,13 +342,52 @@ class _MyDropDown extends State<DropDown> {
                             ),
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async{
                           //delete team
-                          //APICall.deleteTeamRequest(token, String teamid);
+                          await APICall.deleteTeamRequest(token, teamId);
+                          _toManageTeams(context: context, tokn: token, name: name);
+
                         },
                       ),
                 ),
       ],
     );
+  }
+
+  static void _toManageTeams({
+    required String tokn,
+    required String name,
+    required BuildContext context,
+  }) async {
+    try {
+      Response _returnString;
+      var token;
+
+      _returnString = (await APICall.getUserInfo(tokn)) as Response;
+      token = jsonDecode(_returnString.body);
+
+      if (_returnString.statusCode == 200) {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => OurAdminTeamMang(
+              token: tokn,
+              name: name,
+              listOfTeams: token["teams_admin"],
+            ),
+          ),
+          (route) => false,
+        );
+      } else {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text(token.toString()),
+            duration: Duration(seconds: 3),
+          ),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 }
