@@ -1,11 +1,43 @@
 import 'package:train_trax/widgets/shadowContainer.dart';
 import 'package:train_trax/screens/login/resetPassword.dart';
 import 'package:flutter/material.dart';
+import 'package:train_trax/utils/APICall.dart';
 
 enum LoginType {
   email,
   google,
 }
+
+void _forgotPassword({
+  required String email,
+  required BuildContext context,
+}) async {
+  try {
+    String _returnString;
+    _returnString = await APICall.forgotPasswordRequest(email);
+
+    if (_returnString == "success") {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OurResetPassword(),
+        ),
+        (route) => false,
+      );
+    } else {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(_returnString),
+          duration: Duration(seconds: 3),
+        ),
+      );
+    }
+  } catch (e) {
+    print(e);
+  }
+}
+
+TextEditingController _emailController = TextEditingController();
 
 class OurForgotForm extends StatelessWidget {
   @override
@@ -25,6 +57,7 @@ class OurForgotForm extends StatelessWidget {
             ),
           ),
           TextFormField(
+            controller: _emailController,
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.alternate_email), hintText: "Email"),
           ),
@@ -44,11 +77,7 @@ class OurForgotForm extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context)=>OurResetPassword(),
-                ),
-              );
+              _forgotPassword(email: _emailController.text, context: context);
             },
           ),
         ],
