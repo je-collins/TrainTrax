@@ -1,4 +1,4 @@
-import { Article, Constants, Json, User } from '../objects/Objects.js';
+import { Article, Constants, Json, User, xApiStatement } from '../objects/Objects.js';
 
 export default (isDomain) => async (request, response) => {
 	// Destructure request body into relevant variables
@@ -24,5 +24,7 @@ export default (isDomain) => async (request, response) => {
 
 	// Query database for starred articles/domains and return
 	await Article.addStarred(user.user_id, article, isDomain);
+	if (isDomain) await new xApiStatement(user, 'starred_domain').setObject(xApiStatement.OBJECT_STARRED_DOMAIN, 'Added a domain to the starred domains list', article).push();
+	else await new xApiStatement(user, 'starred_article').setObject(xApiStatement.OBJECT_STARRED_ARTICLE, 'Added an article to the starred articles list', article).push();
 	return json.send();
 };

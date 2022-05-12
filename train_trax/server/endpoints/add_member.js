@@ -1,4 +1,4 @@
-import { Json, Team, User } from '../objects/Objects.js';
+import { Json, Team, User, xApiStatement } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -34,5 +34,6 @@ export default async (request, response) => {
 
 	// Update team information
 	await Team.addMemberToTeam(team_id, member_id);
+	await new xApiStatement(user, 'added_member_to_team').setObject(xApiStatement.OBJECT_ADDED_MEMBER, 'Added a member to a team', `${member.name} to ${team.name}`).push();
 	return json.send();
 };

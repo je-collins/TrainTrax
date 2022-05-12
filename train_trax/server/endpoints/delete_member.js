@@ -1,4 +1,4 @@
-import { Json, Team, User } from '../objects/Objects.js';
+import { Json, Team, User, xApiStatement } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -34,5 +34,6 @@ export default async (request, response) => {
     
 	// Update team information
 	await Team.removeMemberFromTeam(team_id, member_id);
+	await new xApiStatement(user, 'deleted_member_from_team').setObject(xApiStatement.OBJECT_DELETED_MEMBER, 'Deleted a member from a team', `Removed ${member.name} from ${team.team_name}`).push();
 	return json.send();
 };

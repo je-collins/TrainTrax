@@ -1,4 +1,4 @@
-import { Json, User } from '../objects/Objects.js';
+import { Json, User, xApiStatement } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -20,5 +20,6 @@ export default async (request, response) => {
 	// Update the user's password
 	await User.setPassword(user.user_id, password);
 	await User.setValidationToken(user.user_id, null, null);
+	await new xApiStatement(user, 'reset_password').setObject(xApiStatement.OBJECT_PASSWORD_RESET, 'Reset their password').push();
 	return json.send();
 };

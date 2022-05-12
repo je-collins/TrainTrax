@@ -1,4 +1,5 @@
-import { Article, Constants, Json, User } from '../objects/Objects.js';
+import { Article, Constants, Json, User, xApiStatement } from '../objects/Objects.js';
+import xApiStatement from '../objects/xApiStatement.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -23,5 +24,6 @@ export default async (request, response) => {
 
 	// Add article to DB
 	await Article.add(user.user_id, article, new Date().toISOString());
+	await new xApiStatement(user, 'added_article').setObject(xApiStatement.OBJECT_ADDED_ARTICLE, 'Added an article to their read list', article).push();
 	return json.send();
 };
