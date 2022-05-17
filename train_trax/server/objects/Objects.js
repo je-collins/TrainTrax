@@ -6,6 +6,7 @@ import Mailer from './Mailer.js';
 import Question from './Question.js';
 import Team from './Team.js';
 import User from './User.js';
+import xApiStatement from './xApiStatement.js';
 
 export {
 	Article,
@@ -15,5 +16,6 @@ export {
 	Mailer,
 	Question,
 	Team,
-	User
+	User,
+	xApiStatement
 };

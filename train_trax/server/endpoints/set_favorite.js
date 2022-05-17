@@ -1,4 +1,4 @@
-import { Article, Json, User } from '../objects/Objects.js';
+import { Article, Json, User, xApiStatement } from '../objects/Objects.js';
 
 export default (addFavorite) => async (request, response) => {
 	// Destructure request body into relevant variables
@@ -23,5 +23,7 @@ export default (addFavorite) => async (request, response) => {
 
 	// Query database for favorited articles and return
 	await Article.setFavorite(article_id, addFavorite);
+	if (addFavorite) await new xApiStatement(user, 'added_favorite').setObject(xApiStatement.OBJECT_ADDED_FAVORITE, 'Added an article to their favorites list', article.article).push();
+	else await new xApiStatement(user, 'removed_favorite').setObject(xApiStatement.OBJECT_REMOVED_FAVORITE, 'Removed an article from their favorites list', article.article).push();
 	return json.send();
 };

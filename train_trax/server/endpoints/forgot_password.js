@@ -1,4 +1,4 @@
-import { Constants, Json, Mailer, User } from '../objects/Objects.js';
+import { Constants, Json, Mailer, User, xApiStatement } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -22,5 +22,6 @@ export default async (request, response) => {
 
 	// Send email
 	await Mailer.sendEmail(user.email, 'Train Trax Password Reset', `Hello, ${user.name}! Please enter the following code into the webpage to reset your password. This code expires in 1 hour.\nCode: ${token}\n\nIf you did not request a password reset or do not wish to change your password, please ignore this email.`);
+	await new xApiStatement(user, 'requested_password_reset').setObject(xApiStatement.OBJECT_REQUESTED_PASSWORD_RESET, 'Requested a password reset').push();
 	return json.send();
 };

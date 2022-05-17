@@ -1,4 +1,4 @@
-import { Json, Team, User } from '../objects/Objects.js';
+import { Json, Team, User, xApiStatement } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -25,5 +25,6 @@ export default async (request, response) => {
 
 	// Create team
 	await Team.removeTeam(team_id);
+	await new xApiStatement(admin, 'deleted_team').setObject(xApiStatement.OBJECT_DELETED_TEAM, 'Deleted a team', team.team_name).push();
 	return json.send();
 };

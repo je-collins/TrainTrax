@@ -1,4 +1,4 @@
-import { Constants, Json, Team, User } from '../objects/Objects.js';
+import { Constants, Json, Team, User, xApiStatement } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -24,5 +24,6 @@ export default async (request, response) => {
 
 	// Create team
 	await Team.addTeam(admin.user_id, team_name);
+	await new xApiStatement(admin, 'created_team').setObject(xApiStatement.OBJECT_CREATED_TEAM, 'Created a team', team_name).push();
 	return json.send();
 };

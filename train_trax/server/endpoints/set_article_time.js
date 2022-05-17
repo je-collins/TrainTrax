@@ -1,4 +1,4 @@
-import { Article, Json, User } from '../objects/Objects.js';
+import { Article, Json, User, xApiStatement } from '../objects/Objects.js';
 
 export default (isStart) => async (request, response) => {
 	// Destructure request body into relevant variables
@@ -24,5 +24,7 @@ export default (isStart) => async (request, response) => {
 
     // Update Article information
     await (isStart ? Article.setStart : Article.setEnd)(article_id, new Date(time ?? new Date()).toISOString());
+	if (isStart) await new xApiStatement(user, 'set_article_start_time').setObject(xApiStatement.OBJECT_SET_ARTICLE_START_TIME, 'Set the start time of an article', article.article).push();
+	else await new xApiStatement(user, 'set_article_end_time').setObject(xApiStatement.OBJECT_SET_ARTICLE_END_TIME, 'Set the end time of an article', article.article).push();
 	return json.send();
 };

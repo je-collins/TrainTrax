@@ -1,4 +1,4 @@
-import { Constants, Json, Question, User } from '../objects/Objects.js';
+import { Constants, Json, Question, User, xApiStatement } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -22,6 +22,7 @@ export default async (request, response) => {
     if (user === undefined) return json.badToken().send();
     
 	// Update question information
-	await Question.addQuestion(user.user_id, question_text)
+	await Question.addQuestion(user.user_id, question_text);
+	await new xApiStatement(user, 'asked_question').setObject(xApiStatement.OBJECT_ASKED_QUESTION, 'Asked a question', question_text).push();
 	return json.send();
 };

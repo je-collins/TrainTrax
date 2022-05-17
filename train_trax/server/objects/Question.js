@@ -16,6 +16,10 @@ export default class Question {
 		return DB.query('SELECT * FROM questions;');
 	}
 
+	static async fromId(question_id) {
+		return DB.query('SELECT * FROM questions where question_id = $1;', [question_id]);
+	}
+
 	static async getQuestionsFromId(user_id) {
 		return DB.query('SELECT * FROM questions where user_id = $1;', [user_id]);
 	}
@@ -23,5 +27,4 @@ export default class Question {
 	static async getAnswers() {
 		return DB.query('SELECT * FROM answers;');
 	}
-	
 }

@@ -1,4 +1,4 @@
-import { Constants, Json, Mailer, User } from '../objects/Objects.js';
+import { Constants, Json, Mailer, User, xApiStatement } from '../objects/Objects.js';
 
 export default async (request, response) => {
 	// Destructure request body into relevant variables
@@ -27,5 +27,8 @@ export default async (request, response) => {
 	// If user does not exist, add them and send an email
 	await User.create(email, password, name, phone_number);
 	await Mailer.sendEmail(email, 'Welcome to Train Trax!', `Welcome ${name} to Train Trax!`);
+
+	const user = await User.fromEmail(email);
+	await new xApiStatement(user, 'registered').setObject(xApiStatement.OBJECT_REGISTERED, 'Registered').push();
 	return json.send();
 };
