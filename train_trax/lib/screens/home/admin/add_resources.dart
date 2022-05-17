@@ -1,56 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:train_trax/utils/APICall.dart';
-import 'package:train_trax/utils/urls.dart';
 import 'package:train_trax/utils/ProfileBar.dart';
 import 'package:train_trax/utils/NavBar.dart';
 import 'package:train_trax/widgets/TopBar.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:url_launcher/link.dart';
+import 'package:train_trax/utils/APICall.dart';
 
-class OurSelfDirected extends StatelessWidget {
-  Icon customIcon = const Icon(Icons.search);
-  Widget customSearchBar = const Text('My Personal Journal');
-  final fieldText = TextEditingController();
-  String currentPage = "SELF-DIRECTED";
+class OurAddResources extends StatelessWidget {
+  String currentPage = "ADD RESOURCES";
   String name = 'John Smith';
   String token;
-  bool isAdmin = false;
-  List articles;
+  bool isAdmin = true;
+  final fieldText = TextEditingController();
 
-  OurSelfDirected(
-      {Key? key,
-      required this.token,
-      required this.name,
-      required this.isAdmin,
-      required this.articles})
+  OurAddResources({Key? key, required this.token, required this.name})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    int len = articles.length;
-
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(
             child: ListView(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               children: <Widget>[
                 TopBar.createTopBar(context, name, currentPage, token, isAdmin),
-                //Logo
                 Padding(
-                  padding: EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Image.asset(
                     "assets/NETC_Logo.jpg",
                     height: 100,
                     width: 100,
                   ),
                 ),
-                SizedBox(
+
+                const SizedBox(
+                  height: 20.0,
+                ),
+
+                NavBar.createNavBar(context, currentPage, token, name, isAdmin),
+                const SizedBox(
                   height: 20.0,
                 ),
                 //Page bar
-                NavBar.createNavBar(context, currentPage, token, name, isAdmin),
+                NavBar.createAdminNavBar(context, currentPage, token, name),
+
+                const SizedBox(
+                  height: 20.0,
+                ),
 
                 //Search
                 Padding(
@@ -58,7 +56,7 @@ class OurSelfDirected extends StatelessWidget {
                       EdgeInsets.symmetric(vertical: 20.0, horizontal: 8.0),
                   child: Center(
                     child: Text(
-                      "SEARCH ONLINE",
+                      "ADD RESOURCES",
                       style: TextStyle(
                         color: Theme.of(context).secondaryHeaderColor,
                         fontSize: 25.0,
@@ -89,10 +87,6 @@ class OurSelfDirected extends StatelessWidget {
                           ),
                           hintText: 'Search...',
                           border: InputBorder.none),
-                      onSubmitted: (value) async {
-                        await launch(
-                            "http://www.google.com/search?q=" + fieldText.text);
-                      },
                     ),
                   ),
                 ),
@@ -131,50 +125,16 @@ class OurSelfDirected extends StatelessWidget {
                               Theme.of(context).secondaryHeaderColor),
                         ),
                         onPressed: () {
-                          APICall.addArticleRequest(token, fieldText.text);
-                          fieldText.clear();
+                          APICall.addStarredArticleRequest(
+                              token, fieldText.text);
+                          fieldText.clear;
                         },
                         child: const Text('Add'),
                       ),
                     ])),
-
-                //MY ARTICLES
-                Container(
-                  child: Text(
-                    "MY ARTICLES",
-                    style: TextStyle(
-                      color: Theme.of(context).secondaryHeaderColor,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                SizedBox(
+                  height: 40.0,
                 ),
-                for (var i = 0; i < len; i++)
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                style: TextStyle(
-                                  color: Theme.of(context).secondaryHeaderColor,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.normal,
-                                ),
-                                text: "\u2022 ",
-                              ),
-                              Urls.createUrl(
-                                  url: articles[i]["article"],
-                                  txt: articles[i]["article"],
-                                  context: context),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
               ],
             ),
           ),
